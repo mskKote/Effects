@@ -1,0 +1,14 @@
+.editorContainer {
+  display              : grid;
+  grid-template-columns: 3fr 6fr 3fr;
+  grid-template-rows   : 10vh 90vh;
+  grid-template-areas  :
+    "header header header"
+    "effects content layers";
+}
+
+.feedBack {
+  position: absolute;
+  bottom  : 0;
+  display : none;
+}

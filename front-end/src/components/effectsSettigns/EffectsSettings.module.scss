@@ -1,0 +1,9 @@
+.effectsSettingsContainer {
+  grid-area       : effects;
+  background-color: pink;
+  overflow-y      : scroll;
+}
+
+.parallaxTerm {
+  text-decoration: underline wavy;
+}

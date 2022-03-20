@@ -1,0 +1,14 @@
+.editorHeader {
+  grid-area       : header;
+  background-color: violet;
+
+  .resultPopup {
+    display: none;
+  }
+
+  .profileContainer {
+    position: relative;
+    height  : 5vmax;
+    width   : 5vmax;
+  }
+}

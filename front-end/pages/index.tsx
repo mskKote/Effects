@@ -4,15 +4,17 @@ import HeadSEO from '../src/utils/HeadSEO'
 import Layers from '../src/components/layers/layers'
 import LayersSettings from '../src/components/layersSettings/layersSettings'
 import IContentPage from '../src/interfaces/IContentPage'
-// import Image from 'next/image'
-import styles from '../styles/Home.module.scss'
+import EditorHeader from '../src/components/header/editorHeader'
+import styles from '../styles/Editor.module.scss'
 
+//TODO: при необходимости включить Redux
+//TODO: запилить попап со ссылкой на форму
 
 const mockData: IContentPage = {}
 
 
 const Editor: NextPage = () => {
-  return (<>
+  return (<div className={styles.editorContainer}>
     <HeadSEO
       title="Effects"
       description="Manga&comics with effects"
@@ -20,6 +22,9 @@ const Editor: NextPage = () => {
       author="🔮 Effects team"
       iconImg="/icon.svg"
       socialNetworkImg="/icon.svg" />
+
+    {/* Поле для публикации и аккаунта */}
+    <EditorHeader />
 
     {/* Настроки эффектов */}
     <EffectsSettings />
@@ -31,8 +36,8 @@ const Editor: NextPage = () => {
     <LayersSettings />
 
     {/* Призыв пройти опрос */}
-    <footer>
-      Нам критически важен ваш фидбэк,
+    <footer className={styles.feedBack}>
+      Нам критически важен ваш фидбэк,&nbsp;
       <a
         href="google.com"
         target="_blank"
@@ -41,7 +46,7 @@ const Editor: NextPage = () => {
         пройдите форму с опросом
       </a>
     </footer>
-  </>)
+  </div>)
 }
 
 export default Editor
