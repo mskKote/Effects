@@ -3,7 +3,7 @@ import EffectsSettings from '../src/components/effectsSettigns/EffectsSettings'
 import HeadSEO from '../src/utils/HeadSEO'
 import Layers from '../src/components/layers/layers'
 import LayersSettings from '../src/components/layersSettings/layersSettings'
-import IContentPage from '../src/interfaces/iContentPage'
+import IContentPage from '../src/interfaces/IContentPage'
 // import Image from 'next/image'
 import styles from '../styles/Home.module.scss'
 
