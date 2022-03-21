@@ -1,4 +1,4 @@
-import React, { DetailedHTMLProps, InputHTMLAttributes } from 'React'
+import React, { DetailedHTMLProps, InputHTMLAttributes } from 'react'
 import ILayer from '../../interfaces/ILayer'
 import styles from './EffectsSettings.module.scss'
 

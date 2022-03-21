@@ -39,7 +39,7 @@ const Editor: NextPage = () => {
   }, [])
   const [editMode, setEditMode] = useState(false);
   const [currentLayer, setCurrentLayer] = useState<number>(0)
-
+  const [contentPage, setContentPage] = useState(mockData);
 
   return (
     <div className={styles.editorContainer}>
@@ -63,7 +63,7 @@ const Editor: NextPage = () => {
 
       {/* Настройки слоёв */}
       {editMode &&
-        <LayersSettings contentPage={mockData} currentLayer={currentLayer} setCurrentLayer={setCurrentLayer} />}
+        <LayersSettings contentPage={contentPage} setContentPage={setContentPage} currentLayer={currentLayer} setCurrentLayer={setCurrentLayer} />}
 
       {/* Призыв пройти опрос */}
       <footer className={styles.feedBack}>
