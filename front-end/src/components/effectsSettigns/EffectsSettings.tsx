@@ -12,12 +12,12 @@ type rangeEffectType = {
 
 const rangeEffects: rangeEffectType[] = [{
   name: "Размытие (blur)", id: "blur",
-  options: { min: 0, max: 20, step: 0.5, inputMode: "decimal", defaultValue: 0 },
-  dataList: [0, 10, 20],
+  options: { min: 0, max: 15, step: 0.5, inputMode: "decimal", defaultValue: 0 },
+  dataList: [0, 5, 10, 15],
 }, {
   name: "Яркость (brightness)", id: "brightness",
-  options: { min: 0, max: 300, step: 1, inputMode: "numeric", defaultValue: 100 },
-  dataList: [0, 150, 300],
+  options: { min: 0, max: 300, step: 30, inputMode: "numeric", defaultValue: 100 },
+  dataList: [0, 100, 200, 300],
 }, {
   name: "Насыщенность (saturate)", id: "saturate",
   options: { min: 0, max: 300, step: 1, inputMode: "numeric", defaultValue: 100 },
@@ -63,7 +63,6 @@ const rangeEffect = ({ name, id, options, dataList }: rangeEffectType, key: numb
         })}
       </datalist>
     </div>
-
   </div>
 
 
@@ -102,7 +101,6 @@ const EffectsSettings = ({ effects }: ILayer) => {
         {createRangeEffects(rangeEffects).map(rangeEffect)}
       </fieldset>
     </form>
-
   </aside>)
 }
 

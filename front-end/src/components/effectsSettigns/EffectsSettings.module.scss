@@ -1,13 +1,9 @@
-.dataValues{
-  width: 33%;
-  display: inline-block;
+.optionsContainer {
+  display        : flex;
+  justify-content: space-between;
+  flex-direction : row;
 }
-.inputLabel{
-  width: 100%;
-}
-.optionsContainer{
-  display: block;
-}
+
 .effectsSettingsContainer {
   grid-area       : effects;
   overflow-y      : auto;
@@ -16,7 +12,7 @@
   opacity         : 0.8;
   background-image: radial-gradient(#444cf7 0.65px, #e5e5f7 0.65px);
   background-size : 13px 13px;
-  
+
   .step {
     padding-inline: 1rem;
     padding-block : 0.25rem 0.75rem;
@@ -41,7 +37,7 @@
       display: block;
     }
   }
-  
+
   .layerImage {
     border : 1px solid #ccc;
     display: inline-block;
