@@ -32,6 +32,7 @@ const Editor: NextPage = () => {
 
   const [editMode, setEditMode] = useState(false);
   const [currentLayer, setCurrentLayer] = useState(0)
+  const [contentPage, setContentPage] = useState(mockData);
 
   useEffect(() => {
     setEditMode(window.location.search ? false : true)
@@ -58,7 +59,10 @@ const Editor: NextPage = () => {
       <Layers layers={mockData.layers} />
 
       {/* Настройки слоёв */}
-      {editMode && <LayersSettings contentPage={mockData} currentLayer={currentLayer} setCurrentLayer={setCurrentLayer} />}
+      {editMode &&
+        <LayersSettings
+          contentPage={contentPage} setContentPage={setContentPage}
+          currentLayer={currentLayer} setCurrentLayer={setCurrentLayer} />}
 
       {/* Призыв пройти опрос */}
       <footer className={styles.feedBack}>
@@ -70,7 +74,7 @@ const Editor: NextPage = () => {
           пройдите форму с опросом
         </a>
       </footer>
-    </div>)
+    </div >)
 }
 
 export default Editor
