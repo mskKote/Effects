@@ -1,4 +1,5 @@
 import React, { DetailedHTMLProps, InputHTMLAttributes } from 'react'
+import ILayer from '../../interfaces/ILayer'
 import styles from './EffectsSettings.module.scss'
 
 
@@ -8,7 +9,7 @@ type rangeEffectType = {
   options: DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>
 }
 
-const effects: rangeEffectType[] = [{
+const rangeEffects: rangeEffectType[] = [{
   name: "Размытие (blur)", id: "blur",
   options: { min: 0, max: 20, step: 0.5, inputMode: "decimal", defaultValue: 0 }
 }, {
@@ -47,10 +48,13 @@ const rangeEffect = ({ name, id, options }: rangeEffectType, key: number) =>
     <input type="range" {...options} id={id} />
   </div>
 
-type Props = {
-}
 
-const EffectsSettings = ({ }: Props) => {
+const EffectsSettings = ({ effects }: ILayer) => {
+
+  function createRangeEffects(rangeEffects: rangeEffectType[]) {
+    return rangeEffects
+  }
+
   return (<aside className={styles.effectsSettingsContainer}>
     <h1>Настройки слоёв</h1>
     <form>
@@ -77,7 +81,7 @@ const EffectsSettings = ({ }: Props) => {
 
       <fieldset className={styles.step}>
         <h2>Шаг 3. Попробуйте другие эффекты</h2>
-        {effects.map(rangeEffect)}
+        {createRangeEffects(rangeEffects).map(rangeEffect)}
       </fieldset>
     </form>
 
