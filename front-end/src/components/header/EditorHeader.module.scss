@@ -1,14 +1,21 @@
 .editorHeader {
   grid-area       : header;
-  background-color: violet;
+  background-color: #ffffff;
+  border-bottom   : 1px solid #e7e8ec;
+  display         : flex;
+  flex-direction  : row;
+  justify-content : flex-end;
+  gap             : 3vw;
+  padding-inline  : 5vmax;
+  padding-block   : 1rem;
 
   .resultPopup {
     display: none;
   }
 
   .profileContainer {
-    position: relative;
-    height  : 5vmax;
-    width   : 5vmax;
+    position    : relative;
+    height      : 100%;
+    aspect-ratio: 1/1;
   }
 }

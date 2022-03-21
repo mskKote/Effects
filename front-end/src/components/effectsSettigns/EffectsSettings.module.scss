@@ -1,9 +1,52 @@
 .effectsSettingsContainer {
   grid-area       : effects;
-  background-color: pink;
-  overflow-y      : scroll;
-}
+  overflow-y      : auto;
+  padding         : 1rem;
+  background-color: #e5e5f7;
+  opacity         : 0.8;
+  background-image: radial-gradient(#444cf7 0.65px, #e5e5f7 0.65px);
+  background-size : 13px 13px;
 
-.parallaxTerm {
-  text-decoration: underline wavy;
+  .step {
+    padding-inline: 1rem;
+    padding-block : 0.25rem 0.75rem;
+    margin        : 1rem 1rem;
+    box-shadow    : 0 8px 32px 0 rgb(100 100 100 / 25%);
+    border-radius : 16px;
+    background    : #ffffff;
+    border        : 0px #e2e8f0 solid;
+    box-shadow    :
+      0 20px 25px -5px rgba(0, 0, 0, 0.1),
+      0 10px 10px -5px rgba(0, 0, 0, 0.04);
+
+    &:hover {
+      outline: 1px solid #0070f3;
+    }
+
+    .parallaxTerm {
+      text-decoration: underline wavy;
+    }
+
+    small {
+      display: block;
+    }
+  }
+
+  .layerImage {
+    border : 1px solid #ccc;
+    display: inline-block;
+    padding: 6px 12px;
+    cursor : pointer;
+  }
+
+  .rangeEffect {
+    display        : flex;
+    justify-content: space-between;
+    padding        : 0.5rem 1rem;
+    border         : 2px dashed transparent;
+
+    &:hover {
+      border-color: #ee0202;
+    }
+  }
 }

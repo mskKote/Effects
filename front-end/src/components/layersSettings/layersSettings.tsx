@@ -1,15 +1,18 @@
 import React from 'react'
+import IContentPage from '../../interfaces/IContentPage'
 import styles from './LayersSettings.module.scss'
 
 
-type Props = {
-}
-
-const LayersSettings = ({ }: Props) => {
+const LayersSettings = ({ layers }: IContentPage) => {
   return (<aside className={styles.layersSettingsContainer}>
     <h1>Настройки слоёв</h1>
-    <div>слои с Drag-n-drop</div>
-    <button>Добавить слой</button>
+    <div>
+      {layers.map((x, key) =>
+        <div key={key}
+          className={styles.layerCard}
+          children={x.content[0].url} />)}
+    </div>
+    <button className={styles.addLayerBtn}>Добавить слой</button>
   </aside>)
 }
 

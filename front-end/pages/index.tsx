@@ -1,4 +1,5 @@
 import type { NextPage } from 'next'
+import { EEffects } from '../src/interfaces/IEffect'
 import EffectsSettings from '../src/components/effectsSettigns/EffectsSettings'
 import HeadSEO from '../src/utils/HeadSEO'
 import Layers from '../src/components/layers/layers'
@@ -10,7 +11,20 @@ import styles from '../styles/Editor.module.scss'
 //TODO: при необходимости включить Redux
 //TODO: запилить попап со ссылкой на форму
 
-const mockData: IContentPage = {}
+const mockData: IContentPage = {
+  layers: [{
+    content: [{ languages: "ru_RU", url: "/mock/p1.png" }],
+    effects: [
+      { type: EEffects.parallax, value: 0.5 },
+      { type: EEffects.blur, value: 2.5 }
+    ]
+  }, {
+    content: [{ languages: "ru_RU", url: "/mock/Scott-p1.png" }],
+    effects: [
+      { type: EEffects.parallax, value: 0.6 },
+    ]
+  }]
+}
 
 
 const Editor: NextPage = () => {
@@ -30,11 +44,11 @@ const Editor: NextPage = () => {
     <EffectsSettings />
 
     {/* Сами слои */}
-    <Layers layers={mockData} />
+    <Layers layers={mockData.layers} />
 
     {/* Настройки слоёв */}
-    <LayersSettings />
-
+    <LayersSettings layers={mockData.layers} />
+    
     {/* Призыв пройти опрос */}
     <footer className={styles.feedBack}>
       Нам критически важен ваш фидбэк,&nbsp;
