@@ -16,16 +16,16 @@ const rangeEffects: rangeEffectType[] = [{
   dataList: [0, 5, 10, 15],
 }, {
   name: "Яркость (brightness)", id: "brightness",
-  options: { min: 0, max: 300, step: 30, inputMode: "numeric", defaultValue: 100 },
-  dataList: [0, 100, 200, 300],
+  options: { min: 0, max: 200, step: 30, inputMode: "numeric", defaultValue: 100 },
+  dataList: [0, 100, 200],
 }, {
   name: "Насыщенность (saturate)", id: "saturate",
-  options: { min: 0, max: 300, step: 1, inputMode: "numeric", defaultValue: 100 },
-  dataList: [0, 150, 300],
+  options: { min: 0, max: 200, step: 1, inputMode: "numeric", defaultValue: 100 },
+  dataList: [0, 100, 200],
 }, {
   name: "Контраст (contrast)", id: "contrast",
-  options: { min: 0, max: 300, step: 1, inputMode: "numeric", defaultValue: 100 },
-  dataList: [0, 150, 300],
+  options: { min: 0, max: 200, step: 1, inputMode: "numeric", defaultValue: 100 },
+  dataList: [0, 100, 200],
 }, {
   name: "Серость (grayscale)", id: "grayscale",
   options: { min: 0, max: 100, step: 1, inputMode: "numeric", defaultValue: 0 },
@@ -54,14 +54,16 @@ const rangeEffects: rangeEffectType[] = [{
 
 const rangeEffect = ({ name, id, options, dataList }: rangeEffectType, key: number) =>
   <div className={styles.rangeEffect} key={key}>
-    <label className={styles.inputLabel} htmlFor={id} />
-    {name}
+    <label className={styles.inputLabel} htmlFor={id}>
+      {name}
+    </label>
     <div className={styles.inputContainer}>
-      <input list={`effect${key}`} type="range" {...options} id={id} />
-      <datalist id={`effect${key}`} className={styles.optionsContainer}>
-        {dataList.map((item, i) => {
-          return (<option style={i===0 ? {textAlign: "left"} : i===1 ? {textAlign: "left"} : {textAlign: "right"}}className={`${styles.option}${i}`} key={i} value={item} className={styles.dataValues}>{item}</option>)
-        })}
+      <input list={`effect-${key}`} type="range" {...options} id={id} />
+      <datalist id={`effect-${key}`} className={styles.optionsContainer}>
+        {dataList.map((item, i) =>
+          <option key={i} value={item} className={`${styles.option}-${i} ${styles.dataValues}`}>
+            {item}
+          </option>)}
       </datalist>
     </div>
   </div>

@@ -16,7 +16,7 @@
   .step {
     padding-inline: 1rem;
     padding-block : 0.25rem 0.75rem;
-    margin        : 1rem 1rem;
+    margin-block  : 1rem;
     box-shadow    : 0 8px 32px 0 rgb(100 100 100 / 25%);
     border-radius : 16px;
     background    : #ffffff;
@@ -50,6 +50,7 @@
     justify-content: space-between;
     padding        : 0.5rem 1rem;
     border         : 2px dashed transparent;
+    gap            : 1rem;
 
     &:hover {
       border-color: #ee0202;
