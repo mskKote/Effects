@@ -12,14 +12,16 @@ type Props = {
 
 const LayersSettings = ({ contentPage, setContentPage, currentLayer, setCurrentLayer }: Props) => {
   const [effects, updateEffects] = useState(contentPage.layers);
+
   function handleOnDragEnd(result: DropResult) {
+    if (!result.destination) return
     const items = effects;
     const [reorderedItem] = items.splice(result.source.index, 1);
-    if (!result.destination) return
     items.splice(result.destination.index, 0, reorderedItem);
     updateEffects(items)
     setContentPage({ layers: items })
   }
+
   return (<aside className={styles.layersSettingsContainer}>
     <h1>Настройки слоёв</h1>
     {/* Колонки */}
@@ -36,7 +38,7 @@ const LayersSettings = ({ contentPage, setContentPage, currentLayer, setCurrentL
                 {/* 1 карточка */}
                 {(provided) =>
                   <div
-                    // onClick={() => setCurrentLayer(i)}
+                    onClick={() => setCurrentLayer(i)}
                     className={`${styles.layerCard} ${i === currentLayer ? styles.layerActive : ""}`}
                     ref={provided.innerRef}
                     {...provided.draggableProps}

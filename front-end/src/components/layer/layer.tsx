@@ -13,33 +13,29 @@ function getFilter(effects: IEffect[]): string {
   let filters: string[] = []
   for (const { type, value } of effects) {
     switch (type) {
-      case EEffects.blur: filters.push(`blur(${value}px)`); break;
-      case EEffects.brightness: filters.push(`brightness(${value}%)`); break;
-      case EEffects.contrast: filters.push(`contrast(${value}%)`); break;
-      case EEffects.grayscale: filters.push(`grayscale(${value}%)`); break;
-      case EEffects.hueRotate: filters.push(`hueRotate(${value}deg)`); break;
-      case EEffects.invert: filters.push(`invert(${value}%)`); break;
-      case EEffects.saturate: filters.push(`saturate(${value}%)`); break;
-      case EEffects.sepia: filters.push(`sepia(${value}%)`); break;
+      case EEffects.blur: filters.push(`${type}(${value}px)`); break;
+      case EEffects.brightness: filters.push(`${type}(${value}%)`); break;
+      case EEffects.contrast: filters.push(`${type}(${value}%)`); break;
+      case EEffects.grayscale: filters.push(`${type}(${value}%)`); break;
+      case EEffects.hueRotate: filters.push(`hue-rotate(${value}deg)`); break;
+      case EEffects.invert: filters.push(`${type}(${value}%)`); break;
+      case EEffects.saturate: filters.push(`${type}(${value}%)`); break;
+      case EEffects.sepia: filters.push(`${type}(${value}%)`); break;
       default: break;
     }
   }
+  console.log("Layer >>:", filters.join(" "));
   return filters.join(" ")
 }
 
 const Layer = ({ layer, currentLanguage = "ru_RU" }: Props) => {
   const contentWithLanguage = layer.content.find(x => x.languages.includes(currentLanguage))
-  console.log(contentWithLanguage?.url);
+  const parallax = layer.effects.find(x => x.type === EEffects.parallax)?.value
+  const effects = { filter: getFilter(layer.effects) }
 
-  return (<div
-    data-depth={layer.effects.find(x => x.type === EEffects.parallax)?.value}
-    className={styles.layerContainer}
-    style={{ filter: getFilter(layer.effects) }}>
+  return (<div data-depth={parallax} className={styles.layerContainer} style={effects}>
     {contentWithLanguage?.url &&
-      <Image
-        src={contentWithLanguage?.url}
-        layout="fill"
-      />}
+      <Image src={contentWithLanguage.url} layout="fill" />}
   </div>)
 }
 

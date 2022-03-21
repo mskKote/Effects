@@ -29,14 +29,15 @@ const mockData: IContentPage = {
 
 
 const Editor: NextPage = () => {
-
-  const [editMode, setEditMode] = useState(false);
+  const [editMode, setEditMode] = useState<boolean>();
   const [currentLayer, setCurrentLayer] = useState(0)
   const [contentPage, setContentPage] = useState(mockData);
 
-  useEffect(() => {
-    setEditMode(window.location.search ? false : true)
-  }, [])
+  useEffect(() =>
+    setEditMode(window.location.search ? false : true), [])
+
+  if (editMode === undefined) return <></>
+  console.log("Editor >>:", contentPage.layers[0].effects[1].value);
 
   return (
     <div className={`${styles.editorContainer} ${editMode ? styles.editorTime : styles.showTime}`}>
@@ -53,10 +54,14 @@ const Editor: NextPage = () => {
       {editMode && <EditorHeader />}
 
       {/* Настроки эффектов */}
-      {editMode && <EffectsSettings {...mockData.layers[currentLayer]} />}
+      {editMode &&
+        <EffectsSettings
+          contentPage={contentPage}
+          setContentPage={setContentPage}
+          currentLayer={currentLayer} />}
 
       {/* Сами слои */}
-      <Layers layers={mockData.layers} />
+      <Layers layers={contentPage.layers} />
 
       {/* Настройки слоёв */}
       {editMode &&
@@ -74,7 +79,7 @@ const Editor: NextPage = () => {
           пройдите форму с опросом
         </a>
       </footer>
-    </div >)
+    </div>)
 }
 
 export default Editor
