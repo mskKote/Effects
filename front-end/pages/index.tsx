@@ -48,7 +48,7 @@ const Editor: NextPage = () => {
 
     {/* Настройки слоёв */}
     <LayersSettings layers={mockData.layers} />
-    
+
     {/* Призыв пройти опрос */}
     <footer className={styles.feedBack}>
       Нам критически важен ваш фидбэк,&nbsp;
