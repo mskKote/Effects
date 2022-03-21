@@ -1,5 +1,5 @@
 import type { NextPage } from 'next'
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { EEffects } from '../src/interfaces/IEffect'
 import EffectsSettings from '../src/components/effectsSettigns/EffectsSettings'
 import HeadSEO from '../src/utils/HeadSEO'
@@ -30,19 +30,15 @@ const mockData: IContentPage = {
 
 const Editor: NextPage = () => {
 
-  React.useEffect(() => {
-    if (window.location.search) {
-      setEditMode(true)
-    } else {
-      setEditMode(false)
-    }
-  }, [])
   const [editMode, setEditMode] = useState(false);
-  const [currentLayer, setCurrentLayer] = useState<number>(0)
+  const [currentLayer, setCurrentLayer] = useState(0)
 
+  useEffect(() => {
+    setEditMode(window.location.search ? false : true)
+  }, [])
 
   return (
-    <div className={styles.editorContainer}>
+    <div className={`${styles.editorContainer} ${editMode ? styles.editorTime : styles.showTime}`}>
 
       <HeadSEO
         title="Effects"
@@ -53,17 +49,16 @@ const Editor: NextPage = () => {
         socialNetworkImg="/icon.svg" />
 
       {/* Поле для публикации и аккаунта */}
-      <EditorHeader />
+      {editMode && <EditorHeader />}
 
       {/* Настроки эффектов */}
-      <EffectsSettings {...mockData.layers[currentLayer]} />
+      {editMode && <EffectsSettings {...mockData.layers[currentLayer]} />}
 
       {/* Сами слои */}
       <Layers layers={mockData.layers} />
 
       {/* Настройки слоёв */}
-      {editMode &&
-        <LayersSettings contentPage={mockData} currentLayer={currentLayer} setCurrentLayer={setCurrentLayer} />}
+      {editMode && <LayersSettings contentPage={mockData} currentLayer={currentLayer} setCurrentLayer={setCurrentLayer} />}
 
       {/* Призыв пройти опрос */}
       <footer className={styles.feedBack}>
