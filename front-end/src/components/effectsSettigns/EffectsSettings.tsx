@@ -51,15 +51,16 @@ const rangeEffects: rangeEffectType[] = [{
  * @param key key атрибут
  * @returns jsx
  */
+
 const rangeEffect = ({ name, id, options, dataList }: rangeEffectType, key: number) =>
   <div className={styles.rangeEffect} key={key}>
     <label className={styles.inputLabel} htmlFor={id} />
     {name}
     <div className={styles.inputContainer}>
-      <input list="effect" type="range" {...options} id={id} />
-      <datalist id="effect" className={styles.optionsContainer}>
+      <input list={`effect${key}`} type="range" {...options} id={id} />
+      <datalist id={`effect${key}`} className={styles.optionsContainer}>
         {dataList.map((item, i) => {
-          return (<option key={i} value={item} className={styles.dataValues}>{item}</option>)
+          return (<option style={i===0 ? {textAlign: "left"} : i===1 ? {textAlign: "left"} : {textAlign: "right"}}className={`${styles.option}${i}`} key={i} value={item} className={styles.dataValues}>{item}</option>)
         })}
       </datalist>
     </div>
