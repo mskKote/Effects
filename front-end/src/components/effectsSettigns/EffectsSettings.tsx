@@ -1,4 +1,4 @@
-import React, { DetailedHTMLProps, InputHTMLAttributes } from 'react'
+import React, { DetailedHTMLProps, InputHTMLAttributes } from 'React'
 import ILayer from '../../interfaces/ILayer'
 import styles from './EffectsSettings.module.scss'
 
@@ -7,25 +7,25 @@ type rangeEffectType = {
   name: string,
   id: string,
   options: DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>
-  dataList: Array,
+  dataList: Array<number>,
 }
 
 const rangeEffects: rangeEffectType[] = [{
   name: "Размытие (blur)", id: "blur",
   options: { min: 0, max: 20, step: 0.5, inputMode: "decimal", defaultValue: 0 },
-  dataList: [0, 50, 100],
+  dataList: [0, 10, 20],
 }, {
   name: "Яркость (brightness)", id: "brightness",
   options: { min: 0, max: 300, step: 1, inputMode: "numeric", defaultValue: 100 },
-  dataList: [0, 50, 100],
+  dataList: [0, 150, 300],
 }, {
   name: "Насыщенность (saturate)", id: "saturate",
   options: { min: 0, max: 300, step: 1, inputMode: "numeric", defaultValue: 100 },
-  dataList: [0, 50, 100],
+  dataList: [0, 150, 300],
 }, {
   name: "Контраст (contrast)", id: "contrast",
   options: { min: 0, max: 300, step: 1, inputMode: "numeric", defaultValue: 100 },
-  dataList: [0, 50, 100],
+  dataList: [0, 150, 300],
 }, {
   name: "Серость (grayscale)", id: "grayscale",
   options: { min: 0, max: 100, step: 1, inputMode: "numeric", defaultValue: 0 },
@@ -37,7 +37,7 @@ const rangeEffects: rangeEffectType[] = [{
 }, {
   name: "Повернуть палитру (hue-rotate)", id: "hue-rotate",
   options: { min: 0, max: 360, step: 1, inputMode: "numeric", defaultValue: 0 },
-  dataList: [0, 50, 100],
+  dataList: [0, 180, 360],
 }, {
   name: "Сепия (sepia)", id: "sepia",
   options: { min: 0, max: 100, step: 1, inputMode: "numeric", defaultValue: 0 },
@@ -53,16 +53,17 @@ const rangeEffects: rangeEffectType[] = [{
  */
 const rangeEffect = ({ name, id, options, dataList }: rangeEffectType, key: number) =>
   <div className={styles.rangeEffect} key={key}>
-    <label className={styles.inputLabel} htmlFor={id} children={name} />
+    <label className={styles.inputLabel} htmlFor={id} />
+    {name}
     <div className={styles.inputContainer}>
       <input list="effect" type="range" {...options} id={id} />
       <datalist id="effect" className={styles.optionsContainer}>
-       {dataList.map((item, i) => {
-          return (<option key={i} className={styles.dataValues}>{dataList[i]}</option>)
-       })}
-       </datalist>
+        {dataList.map((item, i) => {
+          return (<option key={i} value={item} className={styles.dataValues}>{item}</option>)
+        })}
+      </datalist>
     </div>
-   
+
   </div>
 
 

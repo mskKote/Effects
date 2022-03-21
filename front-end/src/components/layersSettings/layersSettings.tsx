@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction } from 'react'
+import React, { Dispatch, SetStateAction } from 'React'
 import IContentPage from '../../interfaces/IContentPage'
 import styles from './LayersSettings.module.scss'
 
@@ -16,8 +16,9 @@ const LayersSettings = ({ contentPage, currentLayer, setCurrentLayer }: Props) =
       {contentPage.layers.map((x, i) =>
         <div key={i}
           onClick={() => setCurrentLayer(i)}
-          className={`${styles.layerCard} ${i === currentLayer ? styles.layerActive : ""}`}
-          children={x.content[0].url} />)}
+          className={`${styles.layerCard} ${i === currentLayer ? styles.layerActive : ""}`}>
+          {x.content[0].url}
+        </div>)}
     </div>
     <button className={styles.addLayerBtn}>Добавить слой</button>
   </aside>)
