@@ -30,7 +30,11 @@ function getFilter(effects: IEffect[]): string {
 const Layer = ({ layer, currentLanguage = "ru_RU" }: Props) => {
   const contentWithLanguage = layer.content.find(x => x.languages.includes(currentLanguage))
   console.log(contentWithLanguage?.url);
-  return (<div className={styles.layerContainer} style={{ filter: getFilter(layer.effects) }}>
+
+  return (<div
+    data-depth={layer.effects.find(x => x.type === EEffects.parallax)?.value}
+    className={styles.layerContainer}
+    style={{ filter: getFilter(layer.effects) }}>
     {contentWithLanguage?.url &&
       <Image
         src={contentWithLanguage?.url}

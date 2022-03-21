@@ -1,4 +1,5 @@
 import type { NextPage } from 'next'
+import { useState } from 'react'
 import { EEffects } from '../src/interfaces/IEffect'
 import EffectsSettings from '../src/components/effectsSettigns/EffectsSettings'
 import HeadSEO from '../src/utils/HeadSEO'
@@ -28,6 +29,8 @@ const mockData: IContentPage = {
 
 
 const Editor: NextPage = () => {
+  const [currentLayer, setCurrentLayer] = useState<number>(0)
+
   return (<div className={styles.editorContainer}>
     <HeadSEO
       title="Effects"
@@ -41,14 +44,14 @@ const Editor: NextPage = () => {
     <EditorHeader />
 
     {/* Настроки эффектов */}
-    <EffectsSettings />
+    <EffectsSettings {...mockData.layers[currentLayer]} />
 
     {/* Сами слои */}
     <Layers layers={mockData.layers} />
 
     {/* Настройки слоёв */}
-    <LayersSettings layers={mockData.layers} />
-    
+    <LayersSettings contentPage={mockData} currentLayer={currentLayer} setCurrentLayer={setCurrentLayer} />
+
     {/* Призыв пройти опрос */}
     <footer className={styles.feedBack}>
       Нам критически важен ваш фидбэк,&nbsp;
