@@ -56,7 +56,7 @@ const allDefaultEffects: rangeEffectTypes = {
   },
   "hueRotate": {
     title: "Повернуть палитру",
-    options: { min: 0, max: 360, step: 1, inputMode: "numeric", value: 0, name: "hueRotate" },
+    options: { min: 0, max: 360, step: 5, inputMode: "numeric", value: 0, name: "hueRotate" },
     dataList: [0, 180, 360],
   },
   "sepia": {
@@ -82,7 +82,6 @@ const EffectsSettings = ({ contentPage, setContentPage, currentLayer }: Props) =
     const _contentPage: IContentPage = JSON.parse(JSON.stringify(contentPage))
     const _effects = _contentPage.layers[currentLayer].effects
     let _effectWasFound = false
-    // console.log(name, value);
 
     // Просматриваем все эффекты
     for (let i = 0; i < _effects.length; i++) {
@@ -93,9 +92,8 @@ const EffectsSettings = ({ contentPage, setContentPage, currentLayer }: Props) =
     // Если эффекта ещё нет
     if (!_effectWasFound)
       _effects.push({ type: effectType, value: value })
-    console.log(_contentPage.layers[0].effects[1].value);
+    console.log(_contentPage.layers[0].effects[0].value);
 
-    // setEffectsSettings(x => ({ ...x, [name]: { ...x[name], options: { ...x[name].options, value: value } } }))
     setContentPage(_contentPage);
     console.groupEnd();
   }
@@ -124,7 +122,7 @@ const EffectsSettings = ({ contentPage, setContentPage, currentLayer }: Props) =
 
   useEffect(() => {
     console.group('useEffect');
-    console.log("currentLayer", currentLayer, currentPageEffects)
+    console.log("currentLayer", currentLayer, currentPageEffects[0])
     setEffectsSettings(createRangeEffects(currentPageEffects))
     console.groupEnd();
   }, [currentLayer, contentPage])
@@ -188,7 +186,7 @@ const EffectsSettings = ({ contentPage, setContentPage, currentLayer }: Props) =
         </h2>
         <div className={styles.parallaxContainer}>
           <input type="range"
-            min={-5} max={5} step={0.1}
+            min={-5} max={5} step={0.25}
             inputMode='decimal' name='parallax' id="parallax"
             value={currentPageEffects.find(({ type }) => type === EEffects.parallax)?.value ?? 0}
             onInput={editContentPage} />
@@ -204,8 +202,6 @@ const EffectsSettings = ({ contentPage, setContentPage, currentLayer }: Props) =
 
       <fieldset className={styles.step}>
         <h2>Шаг 3. Попробуйте другие эффекты</h2>
-        {effectsSettings['blur']?.options?.value}
-
         {rangeEffect(effectsSettings)}
       </fieldset>
     </form>

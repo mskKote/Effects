@@ -24,13 +24,13 @@ function getFilter(effects: IEffect[]): string {
       default: break;
     }
   }
-  console.log("Layer >>:", filters.join(" "));
+  // console.log("Layer >>:", filters.join(" "));
   return filters.join(" ")
 }
 
 const Layer = ({ layer, currentLanguage = "ru_RU" }: Props) => {
   const contentWithLanguage = layer.content.find(x => x.languages.includes(currentLanguage))
-  const parallax = layer.effects.find(x => x.type === EEffects.parallax)?.value
+  const parallax = layer.effects.find(({ type }) => type === EEffects.parallax)?.value
   const effects = { filter: getFilter(layer.effects) }
 
   return (<div data-depth={parallax} className={styles.layerContainer} style={effects}>

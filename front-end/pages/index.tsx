@@ -37,7 +37,7 @@ const Editor: NextPage = () => {
     setEditMode(window.location.search ? false : true), [])
 
   if (editMode === undefined) return <></>
-  console.log("Editor >>:", contentPage.layers[0].effects[1].value);
+  console.log("Editor >>:", contentPage.layers[0].effects[0].value);
 
   return (
     <div className={`${styles.editorContainer} ${editMode ? styles.editorTime : styles.showTime}`}>
