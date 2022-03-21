@@ -1,9 +1,9 @@
 import type { NextPage } from 'next'
-import { useState } from 'react'
+import React, { useState } from 'react'
 import { EEffects } from '../src/interfaces/IEffect'
 import EffectsSettings from '../src/components/effectsSettigns/EffectsSettings'
 import HeadSEO from '../src/utils/HeadSEO'
-import {BrowserRouter, Route, useParams} from 'react-router-dom'
+import { BrowserRouter, Route, useParams } from 'react-router-dom'
 import Layers from '../src/components/layers/layers'
 import LayersSettings from '../src/components/layersSettings/layersSettings'
 import IContentPage from '../src/interfaces/IContentPage'
@@ -30,49 +30,56 @@ const mockData: IContentPage = {
 
 
 const Editor: NextPage = () => {
+
+  React.useEffect(() => {
+    if(window.location.search){
+      setEditMode(true)
+    }else{
+      setEditMode(false)
+    }
+  }, [])
   const [editMode, setEditMode] = useState(false);
   const [currentLayer, setCurrentLayer] = useState<number>(0)
- 
- 
-  
+
+
   return (
-  <div className={styles.editorContainer}>
-  
-  
-    <HeadSEO
-      title="Effects"
-      description="Manga&comics with effects"
-      keywords={["Comics", "manga", "effects", "parallax", "2.5d"]}
-      author="🔮 Effects team"
-      iconImg="/icon.svg"
-      socialNetworkImg="/icon.svg" />
+    <div className={styles.editorContainer}>
 
-    {/* Поле для публикации и аккаунта */}
-    <EditorHeader />
 
-    {/* Настроки эффектов */}
-    <EffectsSettings {...mockData.layers[currentLayer]} />
+      <HeadSEO
+        title="Effects"
+        description="Manga&comics with effects"
+        keywords={["Comics", "manga", "effects", "parallax", "2.5d"]}
+        author="🔮 Effects team"
+        iconImg="/icon.svg"
+        socialNetworkImg="/icon.svg" />
 
-    {/* Сами слои */}
-    <Layers layers={mockData.layers} />
+      {/* Поле для публикации и аккаунта */}
+      <EditorHeader />
 
-    {/* Настройки слоёв */}
-  
-    <LayersSettings contentPage={mockData} currentLayer={currentLayer} setCurrentLayer={setCurrentLayer} />
-    
-    {/* Призыв пройти опрос */}
-    <footer className={styles.feedBack}>
-      Нам критически важен ваш фидбэк,&nbsp;
-      <a
-        href="google.com"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        пройдите форму с опросом
-      </a>
-    </footer>
+      {/* Настроки эффектов */}
+      <EffectsSettings {...mockData.layers[currentLayer]} />
 
-  </div>
+      {/* Сами слои */}
+      <Layers layers={mockData.layers} />
+
+      {/* Настройки слоёв */}
+      { editMode&&
+        <LayersSettings contentPage={mockData} currentLayer={currentLayer} setCurrentLayer={setCurrentLayer} />
+      }
+      {/* Призыв пройти опрос */}
+      <footer className={styles.feedBack}>
+        Нам критически важен ваш фидбэк,&nbsp;
+        <a
+          href="google.com"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          пройдите форму с опросом
+        </a>
+      </footer>
+
+    </div>
   )
 }
 
