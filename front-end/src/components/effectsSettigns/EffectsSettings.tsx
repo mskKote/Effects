@@ -6,32 +6,41 @@ type rangeEffectType = {
   name: string,
   id: string,
   options: DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>
+  dataList: Array,
 }
 
 const effects: rangeEffectType[] = [{
   name: "Размытие (blur)", id: "blur",
-  options: { min: 0, max: 20, step: 0.5, inputMode: "decimal", defaultValue: 0 }
+  options: { min: 0, max: 20, step: 0.5, inputMode: "decimal", defaultValue: 0 },
+  dataList: [0, 50, 100],
 }, {
   name: "Яркость (brightness)", id: "brightness",
-  options: { min: 0, max: 300, step: 1, inputMode: "numeric", defaultValue: 100 }
+  options: { min: 0, max: 300, step: 1, inputMode: "numeric", defaultValue: 100 },
+  dataList: [0, 50, 100],
 }, {
   name: "Насыщенность (saturate)", id: "saturate",
-  options: { min: 0, max: 300, step: 1, inputMode: "numeric", defaultValue: 100 }
+  options: { min: 0, max: 300, step: 1, inputMode: "numeric", defaultValue: 100 },
+  dataList: [0, 50, 100],
 }, {
   name: "Контраст (contrast)", id: "contrast",
-  options: { min: 0, max: 300, step: 1, inputMode: "numeric", defaultValue: 100 }
+  options: { min: 0, max: 300, step: 1, inputMode: "numeric", defaultValue: 100 },
+  dataList: [0, 50, 100],
 }, {
   name: "Серость (grayscale)", id: "grayscale",
-  options: { min: 0, max: 100, step: 1, inputMode: "numeric", defaultValue: 0 }
+  options: { min: 0, max: 100, step: 1, inputMode: "numeric", defaultValue: 0 },
+  dataList: [0, 50, 100],
 }, {
   name: "Инвертировать (invert)", id: "invert",
-  options: { min: 0, max: 100, step: 1, inputMode: "numeric", defaultValue: 0 }
+  options: { min: 0, max: 100, step: 1, inputMode: "numeric", defaultValue: 0 },
+  dataList: [0, 50, 100],
 }, {
   name: "Повернуть палитру (hue-rotate)", id: "hue-rotate",
-  options: { min: 0, max: 360, step: 1, inputMode: "numeric", defaultValue: 0 }
+  options: { min: 0, max: 360, step: 1, inputMode: "numeric", defaultValue: 0 },
+  dataList: [0, 50, 100],
 }, {
   name: "Сепия (sepia)", id: "sepia",
-  options: { min: 0, max: 100, step: 1, inputMode: "numeric", defaultValue: 0 }
+  options: { min: 0, max: 100, step: 1, inputMode: "numeric", defaultValue: 0 },
+  dataList: [0, 50, 100],
 },
 ]
 
@@ -41,10 +50,18 @@ const effects: rangeEffectType[] = [{
  * @param key key атрибут
  * @returns jsx
  */
-const rangeEffect = ({ name, id, options }: rangeEffectType, key: number) =>
+const rangeEffect = ({ name, id, options, dataList }: rangeEffectType, key: number) =>
   <div className={styles.rangeEffect} key={key}>
-    <label htmlFor={id} children={name} />
-    <input type="range" {...options} id={id} />
+    <label className={styles.inputLabel} htmlFor={id} children={name} />
+    <div className={styles.inputContainer}>
+      <input list="effect" type="range" {...options} id={id} />
+      <datalist id="effect" className={styles.optionsContainer}>
+       {dataList.map((item, i) => {
+          return (<option key={i} className={styles.dataValues}>{dataList[i]}</option>)
+       })}
+       </datalist>
+    </div>
+   
   </div>
 
 type Props = {
