@@ -1,0 +1,173 @@
+$container-size: 40vw;
+$squares-count : 5;
+
+$square-size    : $container-size/$squares-count;
+$lines-size     : $square-size/$squares-count;
+$squares-padding: 0;
+
+$animation-time    : 3s;
+$animation-curve   : cubic-bezier(1, .5, .25, .5);
+// $animation-curve: ease-in-out;
+
+.loaderContainer {
+  background-color: #131313;
+  width           : 100vw;
+  height          : 100vh;
+  position        : relative;
+
+  .container {
+    position : absolute;
+    left     : 50%;
+    top      : 50%;
+    transform: translate(-50%, -50%);
+    height   : $container-size;
+    width    : $container-size;
+
+    >.row {
+      position: relative;
+      float   : left;
+      width   : 100%;
+      clear   : both;
+
+      >.loader {
+        position: relative;
+        display : inline-block;
+        height  : $square-size;
+        width   : $square-size;
+        float   : left;
+
+        >.lines {
+          bottom  : $squares-padding;
+          right   : $squares-padding;
+          left    : $squares-padding;
+          top     : $squares-padding;
+          position: absolute;
+
+          >span {
+            animation       : shift-background $animation-time infinite $animation-curve;
+            background-color: white;
+            position        : absolute;
+            width           : $lines-size;
+            height          : 3px;
+
+            &::before {
+              background-color: inherit;
+              height          : $lines-size;
+              position        : absolute;
+              content         : "";
+              width           : 3px;
+            }
+
+            &:nth-child(1),
+            &:nth-child(4),
+            &:nth-child(1)::before,
+            &:nth-child(4)::before {
+              left: 0;
+            }
+
+            &:nth-child(2),
+            &:nth-child(3),
+            &:nth-child(2)::before,
+            &:nth-child(3)::before {
+              right: 0;
+            }
+
+            &:nth-child(1),
+            &:nth-child(2),
+            &:nth-child(1)::before,
+            &:nth-child(2)::before {
+              top: 0;
+            }
+
+            &:nth-child(3),
+            &:nth-child(4),
+            &:nth-child(3)::before,
+            &:nth-child(4)::before {
+              bottom: 0;
+            }
+          }
+        }
+      }
+
+      &:nth-child(even)>.loader:nth-child(even)>.lines {
+        animation: rotate-right $animation-time infinite $animation-curve;
+      }
+
+      &:nth-child(even)>.loader:nth-child(odd)>.lines {
+        animation: rotate-left $animation-time infinite $animation-curve;
+      }
+
+      &:nth-child(odd)>.loader:nth-child(even)>.lines {
+        animation: rotate-left $animation-time infinite $animation-curve;
+      }
+
+      &:nth-child(odd)>.loader:nth-child(odd)>.lines {
+        animation: rotate-right $animation-time infinite $animation-curve;
+      }
+    }
+  }
+}
+
+@keyframes rotate-right {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  25% {
+    transform: rotate(45deg);
+  }
+
+  50% {
+    transform: rotate(90deg);
+  }
+
+  75% {
+    transform: rotate(135deg);
+  }
+
+  100% {
+    transform: rotate(180deg);
+  }
+}
+
+@keyframes rotate-left {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  25% {
+    transform: rotate(-45deg);
+  }
+
+  50% {
+    transform: rotate(-90deg);
+  }
+
+  75% {
+    transform: rotate(-135deg);
+  }
+
+  100% {
+    transform: rotate(-180deg);
+  }
+}
+
+@keyframes shift-background {
+
+  0%,
+  100% {
+    background-color: hsla(random(360), 50%, 50%, 100*random(100)*.1);
+  }
+
+  25% {
+    background-color: hsla(random(360), 50%, 50%, 100*random(100)*.1);
+  }
+
+  50% {
+    background-color: hsla(random(360), 50%, 50%, 100*random(100)*.1);
+  }
+
+  75% {
+    background-color: hsla(random(360), 50%, 50%, 100*random(100)*.1);
+  }
+}

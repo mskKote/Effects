@@ -8,6 +8,7 @@ import LayersSettings from '../src/components/layersSettings/layersSettings'
 import IContentPage from '../src/interfaces/IContentPage'
 import EditorHeader from '../src/components/header/editorHeader'
 import styles from '../styles/Editor.module.scss'
+import Loader from '../src/components/loader/loader'
 
 //TODO: при необходимости включить Redux
 //TODO: запилить попап со ссылкой на форму
@@ -30,13 +31,16 @@ const mockData: IContentPage = {
 
 const Editor: NextPage = () => {
   const [editMode, setEditMode] = useState<boolean>();
+  const [loading, setLoading] = useState<boolean>(true);
   const [currentLayer, setCurrentLayer] = useState(0)
   const [contentPage, setContentPage] = useState(mockData);
 
-  useEffect(() =>
-    setEditMode(window.location.search ? false : true), [])
+  useEffect(() => {
+    setEditMode(window.location.search ? false : true)
+    setTimeout(() => setLoading(false), 1500)
+  }, [])
 
-  if (editMode === undefined) return <></>
+  if (editMode === undefined || loading) return <Loader />
   console.log("Editor >>:", contentPage.layers[0].effects[0].value);
 
   return (
