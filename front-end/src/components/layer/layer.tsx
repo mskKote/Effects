@@ -24,6 +24,7 @@ function getFilter(effects: IEffects): string {
       case EEffects.invert: filters.push(`${key}(${value}%)`); break;
       case EEffects.saturate: filters.push(`${key}(${value}%)`); break;
       case EEffects.sepia: filters.push(`${key}(${value}%)`); break;
+      case EEffects.opacity: filters.push(`${key}(${value}%)`); break;
       default: break;
     }
   }

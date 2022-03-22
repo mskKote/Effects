@@ -63,6 +63,11 @@ const allDefaultEffects: rangeEffectTypes = {
     title: "Сепия",
     options: { min: 0, max: 100, step: 10, inputMode: "numeric", value: 0, name: "sepia" },
     dataList: [0, 50, 100],
+  },
+  [EEffects.opacity]: {
+    title: "Прозрачность",
+    options: { min: 0, max: 100, step: 10, inputMode: "numeric", value: 100, name: "opacity" },
+    dataList: [0, 50, 100],
   }
 }
 

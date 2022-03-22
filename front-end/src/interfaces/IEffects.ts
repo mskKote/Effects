@@ -11,7 +11,8 @@ export enum EEffects {
   grayscale = "grayscale",
   invert = "invert",
   hueRotate = "hueRotate",
-  sepia = "sepia"
+  sepia = "sepia",
+  opacity = "opacity"
 }
 
 export function getEEffectsByString(value: string): EEffects {
@@ -25,6 +26,7 @@ export function getEEffectsByString(value: string): EEffects {
     case "invert": return EEffects[value];
     case "hueRotate": return EEffects[value];
     case "sepia": return EEffects[value];
+    case "opacity": return EEffects[value];
     default: return EEffects.default;
   }
 }
