@@ -37,11 +37,11 @@ const Editor: NextPage = () => {
 
   useEffect(() => {
     setEditMode(window.location.search ? false : true)
-    setTimeout(() => setLoading(false), 1500)
+    setTimeout(() => setLoading(false), 1400)
   }, [])
 
   if (editMode === undefined || loading) return <Loader />
-  console.log("Editor >>:", contentPage.layers[0].effects[0].value);
+  console.log("Editor >>:", contentPage.layers);
 
   return (
     <div className={`${styles.editorContainer} ${editMode ? styles.editorTime : styles.showTime}`}>

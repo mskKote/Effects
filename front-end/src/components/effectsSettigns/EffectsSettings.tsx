@@ -80,7 +80,7 @@ const EffectsSettings = ({ contentPage, setContentPage, currentLayer }: Props) =
     const value = +event.target.value;
     const effectType = getEEffectsByString(name)
     const _contentPage: IContentPage = JSON.parse(JSON.stringify(contentPage))
-    const _effects = _contentPage.layers[currentLayer].effects
+    const _effects = _contentPage.layers[currentLayer]?.effects
     let _effectWasFound = false
 
     // Просматриваем все эффекты
@@ -92,7 +92,7 @@ const EffectsSettings = ({ contentPage, setContentPage, currentLayer }: Props) =
     // Если эффекта ещё нет
     if (!_effectWasFound)
       _effects.push({ type: effectType, value: value })
-    console.log(_contentPage.layers[0].effects[0].value);
+    // console.log(_contentPage.layers[0].effects[0].value);
 
     setContentPage(_contentPage);
     console.groupEnd();
@@ -117,7 +117,7 @@ const EffectsSettings = ({ contentPage, setContentPage, currentLayer }: Props) =
     return _effects
   }
 
-  const currentPageEffects = contentPage.layers[currentLayer].effects
+  const currentPageEffects = contentPage.layers[currentLayer]?.effects
   const [effectsSettings, setEffectsSettings] = useState<rangeEffectTypes>()
 
   useEffect(() => {
@@ -188,7 +188,7 @@ const EffectsSettings = ({ contentPage, setContentPage, currentLayer }: Props) =
           <input type="range"
             min={-5} max={5} step={0.25}
             inputMode='decimal' name='parallax' id="parallax"
-            value={currentPageEffects.find(({ type }) => type === EEffects.parallax)?.value ?? 0}
+            value={currentPageEffects?.find(({ type }) => type === EEffects.parallax)?.value ?? 0}
             onInput={editContentPage} />
           <datalist id="parallax" className={styles.optionsContainer}>
             <option value={-5}>-5</option>

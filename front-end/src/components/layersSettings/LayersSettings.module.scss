@@ -21,7 +21,28 @@
     box-shadow   :
       0 20px 25px -5px rgba(0, 0, 0, 0.1),
       0 10px 10px -5px rgba(0, 0, 0, 0.04);
-    cursor: pointer;
+    cursor         : pointer;
+    display        : flex;
+    justify-content: space-between;
+    align-items    : center;
+
+    button {
+      cursor          : pointer;
+      border          : none;
+      background-color: transparent;
+      width           : 6ch;
+      height          : 6ch;
+      border-radius   : 50%;
+      transition      : background-color 0.15s ease-in-out;
+
+      &:hover {
+        background-color: #e5e5f7;
+      }
+
+      &:focus {
+        background-color: #b9b9c8;
+      }
+    }
   }
 
   .layerActive {
