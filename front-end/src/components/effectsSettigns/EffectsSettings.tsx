@@ -1,6 +1,6 @@
 import React, { DetailedHTMLProps, Dispatch, InputHTMLAttributes, SetStateAction, useEffect, useState } from 'react'
 import IContentPage from '../../interfaces/IContentPage'
-import IEffect, { EEffects, getEEffectsByString } from '../../interfaces/IEffect'
+import IEffects, { EEffects, effect, getEEffectsByString } from '../../interfaces/IEffects'
 import styles from './EffectsSettings.module.scss'
 
 
@@ -24,42 +24,42 @@ type Props = {
  * Все эффекты
  */
 const allDefaultEffects: rangeEffectTypes = {
-  "blur": {
+  [EEffects.blur]: {
     title: "Размытие",
     options: { min: 0, max: 15, step: 0.5, inputMode: "decimal", value: 0, name: "blur" },
     dataList: [0, 5, 10, 15],
   },
-  "brightness": {
+  [EEffects.brightness]: {
     title: "Яркость",
     options: { min: 0, max: 200, step: 10, inputMode: "numeric", value: 100, name: "brightness" },
     dataList: [0, 100, 200],
   },
-  "saturate": {
+  [EEffects.saturate]: {
     title: "Насыщенность",
     options: { min: 0, max: 200, step: 1, inputMode: "numeric", value: 100, name: "saturate" },
     dataList: [0, 100, 200],
   },
-  "contrast": {
+  [EEffects.contrast]: {
     title: "Контраст",
     options: { min: 0, max: 200, step: 10, inputMode: "numeric", value: 100, name: "contrast" },
     dataList: [0, 100, 200],
   },
-  "grayscale": {
+  [EEffects.grayscale]: {
     title: "Серость",
     options: { min: 0, max: 100, step: 10, inputMode: "numeric", value: 0, name: "grayscale" },
     dataList: [0, 50, 100],
   },
-  "invert": {
+  [EEffects.invert]: {
     title: "Инвертировать",
     options: { min: 0, max: 100, step: 10, inputMode: "numeric", value: 0, name: "invert" },
     dataList: [0, 50, 100],
   },
-  "hueRotate": {
+  [EEffects.hueRotate]: {
     title: "Повернуть палитру",
     options: { min: 0, max: 360, step: 5, inputMode: "numeric", value: 0, name: "hueRotate" },
     dataList: [0, 180, 360],
   },
-  "sepia": {
+  [EEffects.sepia]: {
     title: "Сепия",
     options: { min: 0, max: 100, step: 10, inputMode: "numeric", value: 0, name: "sepia" },
     dataList: [0, 50, 100],
@@ -67,32 +67,22 @@ const allDefaultEffects: rangeEffectTypes = {
 }
 
 const EffectsSettings = ({ contentPage, setContentPage, currentLayer }: Props) => {
-  //*===================== Вероятно, говнокод. Тут Redux помочь может
   /**
    * Функция отвечает за изменение useState, отвечающего за страницу.
    * Используется, чтобы применить эффекты
    * @param event Введённое значение. Изменяет 1 эффект
    */
   function editContentPage(event: React.ChangeEvent<HTMLInputElement>) {
-    //TODO: setEffectsSettings
     console.group("editContentPage")
     const name = event.target.name;
     const value = +event.target.value;
     const effectType = getEEffectsByString(name)
     const _contentPage: IContentPage = JSON.parse(JSON.stringify(contentPage))
-    const _effects = _contentPage.layers[currentLayer]?.effects
-    let _effectWasFound = false
+    const _effect = _contentPage.layers[currentLayer].effects
 
-    // Просматриваем все эффекты
-    for (let i = 0; i < _effects.length; i++) {
-      if (_effects[i].type !== effectType) continue
-      _effects[i].value = value
-      _effectWasFound = true
-    }
-    // Если эффекта ещё нет
-    if (!_effectWasFound)
-      _effects.push({ type: effectType, value: value })
-    // console.log(_contentPage.layers[0].effects[0].value);
+    // Установка значения
+    if (_effect[effectType]) (_effect[effectType] as effect).value = value
+    else _effect[effectType] = { value }
 
     setContentPage(_contentPage);
     console.groupEnd();
@@ -102,19 +92,18 @@ const EffectsSettings = ({ contentPage, setContentPage, currentLayer }: Props) =
    * @param currentPageEffects настройки не по умолчанию 
    * @returns настройки для отрисовки
    */
-  function createRangeEffects(currentPageEffects: IEffect[]): rangeEffectTypes {
-    // console.groupCollapsed('createRangeEffects')
-    const _effects: rangeEffectTypes = JSON.parse(JSON.stringify(allDefaultEffects))
-    // console.log(_effects, currentPageEffects);
-
-    for (const { type, value } of currentPageEffects) {
-      if (!_effects[type]) continue
-      _effects[type].options.value = value
+  function createRangeEffects(currentPageEffects: IEffects): rangeEffectTypes {
+    console.groupCollapsed('createRangeEffects')
+    const _defaultEffects: rangeEffectTypes = JSON.parse(JSON.stringify(allDefaultEffects))
+    for (const key in currentPageEffects) {
+      if (!Object.prototype.hasOwnProperty.call(currentPageEffects, key)) continue
+      let element = currentPageEffects[key as EEffects] as effect;
+      if (_defaultEffects[key])
+        _defaultEffects[key].options.value = element.value
     }
 
-    // console.log(_effects['blur']?.options?.value);
-    // console.groupEnd();
-    return _effects
+    console.groupEnd();
+    return _defaultEffects
   }
 
   const currentPageEffects = contentPage.layers[currentLayer]?.effects
@@ -122,12 +111,11 @@ const EffectsSettings = ({ contentPage, setContentPage, currentLayer }: Props) =
 
   useEffect(() => {
     console.group('useEffect');
-    console.log("currentLayer", currentLayer, currentPageEffects[0])
+    console.log("currentLayer", currentLayer)
     setEffectsSettings(createRangeEffects(currentPageEffects))
     console.groupEnd();
   }, [currentLayer, contentPage])
 
-  //*=================================================================
 
   function generateRange({ title, options, dataList }: range, key: number) {
     return <div className={styles.effectContainer} key={key}>
@@ -135,7 +123,7 @@ const EffectsSettings = ({ contentPage, setContentPage, currentLayer }: Props) =
         {title} ({options.name})
       </label>
       <div className={styles.inputContainer}>
-        <input list={`effect-${key}`} type="range" {...options} id={options.name} name={options.name} onInput={editContentPage} />
+        <input list={`effect-${key}`} type="range" {...options} id={options.name} name={options.name} onChange={editContentPage} />
         <datalist id={`effect-${key}`} className={styles.optionsContainer}>
           {dataList.map((item, i) =>
             <option key={i} value={item}>{item}</option>)}
@@ -151,18 +139,13 @@ const EffectsSettings = ({ contentPage, setContentPage, currentLayer }: Props) =
    * @returns jsx
    */
   const rangeEffect = (param: rangeEffectTypes) => {
-    const _effects = []
-
-    // Получаем поля объекта
-    for (const iterator of Object.keys(param)) {
-      _effects.push(param[iterator])
-    }
-
-    return <>{_effects.map(generateRange)}</>
+    return Object.keys(param)
+      .map(x => param[x])
+      .map(generateRange)
   }
 
 
-  if (effectsSettings === undefined) return <aside></aside>
+  if (effectsSettings === undefined) return <aside />
 
   return (<aside className={styles.effectsSettingsContainer}>
     <h1>Настройки&nbsp;эффектов</h1>
@@ -188,14 +171,11 @@ const EffectsSettings = ({ contentPage, setContentPage, currentLayer }: Props) =
           <input type="range"
             min={-5} max={5} step={0.25}
             inputMode='decimal' name='parallax' id="parallax"
-            value={currentPageEffects?.find(({ type }) => type === EEffects.parallax)?.value ?? 0}
+            value={currentPageEffects[EEffects.parallax]?.value ?? 0}
             onInput={editContentPage} />
           <datalist id="parallax" className={styles.optionsContainer}>
-            <option value={-5}>-5</option>
-            <option value={-2.5}>-2.5</option>
-            <option value={0}>0</option>
-            <option value={2.5}>2.5</option>
-            <option value={5}>5</option>
+            {[-5, -2.5, 0, 2.5, 5].map((x, i) =>
+              <option value={x} key={i}>{x}</option>)}
           </datalist>
         </div>
       </fieldset>

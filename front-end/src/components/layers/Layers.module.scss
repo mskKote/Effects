@@ -3,4 +3,12 @@
   background-color: black;
   color           : wheat;
   position        : relative;
+
+  .placeholder {
+    text-align: center;
+    top       : 50% !important;
+    left      : 50% !important;
+    transform : translate(-50%, -100%) !important;
+    position  : absolute !important;
+  }
 }

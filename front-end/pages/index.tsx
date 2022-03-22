@@ -1,11 +1,11 @@
 import type { NextPage } from 'next'
 import React, { useState, useEffect } from 'react'
-import { EEffects } from '../src/interfaces/IEffect'
+import { EEffects } from '../src/interfaces/IEffects'
 import EffectsSettings from '../src/components/effectsSettigns/EffectsSettings'
 import HeadSEO from '../src/utils/HeadSEO'
 import Layers from '../src/components/layers/layers'
 import LayersSettings from '../src/components/layersSettings/layersSettings'
-import IContentPage from '../src/interfaces/IContentPage'
+import IContentPage, { ELanguages } from '../src/interfaces/IContentPage'
 import EditorHeader from '../src/components/header/editorHeader'
 import styles from '../styles/Editor.module.scss'
 import Loader from '../src/components/loader/loader'
@@ -15,29 +15,34 @@ import Loader from '../src/components/loader/loader'
 
 const mockData: IContentPage = {
   layers: [{
-    content: [{ languages: "ru_RU", url: "/mock/p1.png" }],
-    effects: [
-      { type: EEffects.parallax, value: 0.5 },
-      { type: EEffects.blur, value: 2.5 }
-    ]
+    content: {
+      [ELanguages.ru_RU]: { url: "/mock/p1.png" }
+    },
+    effects: {
+      [EEffects.parallax]: { value: 0.5 },
+      [EEffects.blur]: { value: 2.5 }
+    }
   }, {
-    content: [{ languages: "ru_RU", url: "/mock/Scott-p1.png" }],
-    effects: [
-      { type: EEffects.parallax, value: 0.6 },
-    ]
+    content: {
+      [ELanguages.ru_RU]: { url: "/mock/Scott-p1.png" }
+    },
+    effects: {
+      [EEffects.parallax]: { value: 0.6 }
+    }
   }]
 }
 
 
 const Editor: NextPage = () => {
   const [editMode, setEditMode] = useState<boolean>();
-  const [loading, setLoading] = useState<boolean>(true);
+  const [loading, setLoading] = useState<boolean>(false);
   const [currentLayer, setCurrentLayer] = useState(0)
   const [contentPage, setContentPage] = useState(mockData);
+  const [currentLanguage, setCurrentLanguage] = useState(ELanguages.ru_RU);
 
   useEffect(() => {
     setEditMode(window.location.search ? false : true)
-    setTimeout(() => setLoading(false), 1400)
+    // setTimeout(() => setLoading(false), 1400)
   }, [])
 
   if (editMode === undefined || loading) return <Loader />
@@ -65,7 +70,7 @@ const Editor: NextPage = () => {
           currentLayer={currentLayer} />}
 
       {/* Сами слои */}
-      <Layers layers={contentPage.layers} />
+      <Layers contentPage={contentPage} currentLanguage={currentLanguage} />
 
       {/* Настройки слоёв */}
       {editMode &&

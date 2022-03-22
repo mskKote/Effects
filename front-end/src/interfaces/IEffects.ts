@@ -31,9 +31,14 @@ export function getEEffectsByString(value: string): EEffects {
 /**
  * Представление эффекта
  */
-export default interface IEffect {
-  type: EEffects
-  value: number
-  coords?: { X: number, Y: number }
-  params?: any
+export type effect = {
+  value: number;
+  coords?: { X: number; Y: number; };
+  params?: any;
 }
+
+type IEffects = {
+  [type in EEffects]?: effect;
+};
+
+export default IEffects

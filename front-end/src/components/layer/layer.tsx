@@ -1,26 +1,29 @@
 import Image from 'next/image'
 import React from 'react'
-import IEffect, { EEffects } from '../../interfaces/IEffect'
+import { ELanguages } from '../../interfaces/IContentPage'
+import IEffects, { EEffects } from '../../interfaces/IEffects'
 import ILayer from '../../interfaces/ILayer'
 import styles from './Layer.module.scss'
 
 interface Props {
   layer: ILayer
-  currentLanguage: string
+  currentLanguage: ELanguages
 }
 
-function getFilter(effects: IEffect[]): string {
+function getFilter(effects: IEffects): string {
   let filters: string[] = []
-  for (const { type, value } of effects) {
-    switch (type) {
-      case EEffects.blur: filters.push(`${type}(${value}px)`); break;
-      case EEffects.brightness: filters.push(`${type}(${value}%)`); break;
-      case EEffects.contrast: filters.push(`${type}(${value}%)`); break;
-      case EEffects.grayscale: filters.push(`${type}(${value}%)`); break;
+  for (const key in effects) {
+    if (!Object.prototype.hasOwnProperty.call(effects, key)) continue
+    const value = effects[key as EEffects]?.value
+    switch (key) {
+      case EEffects.blur: filters.push(`${key}(${value}px)`); break;
+      case EEffects.brightness: filters.push(`${key}(${value}%)`); break;
+      case EEffects.contrast: filters.push(`${key}(${value}%)`); break;
+      case EEffects.grayscale: filters.push(`${key}(${value}%)`); break;
       case EEffects.hueRotate: filters.push(`hue-rotate(${value}deg)`); break;
-      case EEffects.invert: filters.push(`${type}(${value}%)`); break;
-      case EEffects.saturate: filters.push(`${type}(${value}%)`); break;
-      case EEffects.sepia: filters.push(`${type}(${value}%)`); break;
+      case EEffects.invert: filters.push(`${key}(${value}%)`); break;
+      case EEffects.saturate: filters.push(`${key}(${value}%)`); break;
+      case EEffects.sepia: filters.push(`${key}(${value}%)`); break;
       default: break;
     }
   }
@@ -28,9 +31,9 @@ function getFilter(effects: IEffect[]): string {
   return filters.join(" ")
 }
 
-const Layer = ({ layer, currentLanguage = "ru_RU" }: Props) => {
-  const contentWithLanguage = layer.content.find(x => x.languages.includes(currentLanguage))
-  const parallax = layer.effects.find(({ type }) => type === EEffects.parallax)?.value
+const Layer = ({ layer, currentLanguage = ELanguages.ru_RU }: Props) => {
+  const contentWithLanguage = layer.content[currentLanguage]
+  const parallax = layer.effects[EEffects.parallax]?.value
   const effects = { filter: getFilter(layer.effects) }
 
   return (<div data-depth={parallax} className={styles.layerContainer} style={effects}>

@@ -1,9 +1,10 @@
-import IEffect from "./IEffect"
+import { ELanguages } from "./IContentPage"
+import IEffects from "./IEffects"
 
 /**
  * Описание слоя на странице
  */
 export default interface ILayer {
-  content: Array<{ languages: string, url: string }>
-  effects: Array<IEffect>
+  content: { [languages in ELanguages]?: { url: string } }
+  effects: IEffects
 }

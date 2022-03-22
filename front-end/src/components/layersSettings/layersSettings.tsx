@@ -11,20 +11,19 @@ type Props = {
 }
 
 const LayersSettings = ({ contentPage, setContentPage, currentLayer, setCurrentLayer }: Props) => {
-  const [effects, updateEffects] = useState(contentPage.layers);
+  const [layers, updateLayers] = useState(contentPage.layers);
 
   function handleOnDragEnd(result: DropResult) {
     if (!result.destination) return
-    const items = effects;
-    const [reorderedItem] = items.splice(result.source.index, 1);
-    items.splice(result.destination.index, 0, reorderedItem);
-    updateEffects(items)
-    setContentPage({ layers: items })
+    const _layers = layers;
+    const [reorderedItem] = _layers.splice(result.source.index, 1);
+    _layers.splice(result.destination.index, 0, reorderedItem);
+    updateLayers(_layers)
+    setContentPage(x => ({ ...x, layers: _layers }))
   }
 
   function deleteLayer(pos: number) {
-    const layers = contentPage.layers.filter((_, i) => i !== pos)
-    setContentPage(x => ({ ...x, layers }))
+    setContentPage(x => ({ ...x, layers: x.layers.filter((_, i) => i !== pos) }))
   }
   function changeLayer(pos: number) {
     setCurrentLayer(pos)
@@ -39,7 +38,7 @@ const LayersSettings = ({ contentPage, setContentPage, currentLayer, setCurrentL
         {(provided) => (
           <div ref={provided.innerRef} {...provided.droppableProps}>
             {/* Карточки */}
-            {effects.map((x, i) =>
+            {layers.map(({ content }, i) =>
               <Draggable key={i}
                 index={i}
                 draggableId={`${i}`}>
@@ -51,10 +50,8 @@ const LayersSettings = ({ contentPage, setContentPage, currentLayer, setCurrentL
                     ref={provided.innerRef}
                     {...provided.draggableProps}
                     {...provided.dragHandleProps}>
-                    <p>{x.content[0].url}</p>
-                    <button onClick={() => deleteLayer(i)}>
-                      🗑️
-                    </button>
+                    <p>{content.ru_RU?.url ?? "Слой"}</p>
+                    <button onClick={() => deleteLayer(i)}>🗑️</button>
                   </div>}
               </Draggable>)}
             {provided.placeholder}
