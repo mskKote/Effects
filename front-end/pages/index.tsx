@@ -46,7 +46,7 @@ const Editor: NextPage = () => {
   }, [])
 
   if (editMode === undefined || loading) return <Loader />
-  console.log("Editor >>:", contentPage.layers);
+  // console.log("Editor >>:", contentPage.layers);
 
   return (
     <div className={`${styles.editorContainer} ${editMode ? styles.editorTime : styles.showTime}`}>

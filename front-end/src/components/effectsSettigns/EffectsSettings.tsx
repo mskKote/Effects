@@ -81,7 +81,7 @@ const EffectsSettings = ({ contentPage, setContentPage, currentLayer }: Props) =
    * @param event Введённое значение. Изменяет 1 эффект
    */
   function editContentPage(event: React.ChangeEvent<HTMLInputElement>) {
-    console.group("editContentPage")
+    // console.group("editContentPage")
     const name = event.target.name;
     const value = +event.target.value;
     const effectType = getEEffectsByString(name)
@@ -93,7 +93,7 @@ const EffectsSettings = ({ contentPage, setContentPage, currentLayer }: Props) =
     else _effect[effectType] = { value }
 
     setContentPage(_contentPage);
-    console.groupEnd();
+    // console.groupEnd();
   }
 
   //* Отвечает за эффекты

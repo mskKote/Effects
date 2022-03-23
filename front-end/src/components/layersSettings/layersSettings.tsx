@@ -1,6 +1,7 @@
-import React, { Dispatch, SetStateAction, useState } from 'react'
+import React, { Dispatch, SetStateAction } from 'react'
 import { DragDropContext, Draggable, Droppable, DropResult } from 'react-beautiful-dnd'
 import IContentPage from '../../interfaces/IContentPage'
+import ILayer from '../../interfaces/ILayer'
 import styles from './LayersSettings.module.scss'
 
 type Props = {
@@ -11,10 +12,10 @@ type Props = {
 }
 
 const LayersSettings = ({ contentPage, setContentPage, currentLayer, setCurrentLayer }: Props) => {
-  // const [layers, updateLayers] = useState(contentPage.layers);
   const { layers } = contentPage
 
   function handleOnDragEnd({ source, destination }: DropResult) {
+    console.log("handleOnDragEnd");
     if (!destination) return
     const _layers = layers;
     //*==================== source ←→ destination
@@ -29,14 +30,27 @@ const LayersSettings = ({ contentPage, setContentPage, currentLayer, setCurrentL
   }
 
   function deleteLayer(pos: number) {
-    if (pos === currentLayer) setCurrentLayer(pos - 1)
+    if (pos <= currentLayer) {
+      setCurrentLayer(currentLayer - 1)
+      console.log("deleteLayer", pos <= currentLayer, currentLayer - 1);
+    }
     setContentPage(x => ({ ...x, layers: x.layers.filter((_, i) => i !== pos) }))
   }
   function changeLayer(pos: number) {
+    console.log("changeLayer")
     setCurrentLayer(pos)
   }
+  function addLayer() {
+    const newLayer: ILayer = {
+      content: { ru_RU: { url: "/mock/Scott-p1.png" } },
+      effects: { parallax: { value: 0 } }
+    }
+    setContentPage(x => ({ ...x, layers: [...x.layers, newLayer] }))
+    console.log("addLayer")
+    setCurrentLayer(contentPage.layers.length)
+  }
 
-  console.log(layers.length);
+  console.log("length", layers.length, "currentLayer", currentLayer);
 
   return (<aside className={styles.layersSettingsContainer}>
     <h1>Настройки слоёв</h1>
@@ -60,14 +74,21 @@ const LayersSettings = ({ contentPage, setContentPage, currentLayer, setCurrentL
                     {...provided.draggableProps}
                     {...provided.dragHandleProps}>
                     <p>{content.ru_RU?.url ?? "Слой"}</p>
-                    <button onClick={() => deleteLayer(i)}>🗑️</button>
+                    <button onClick={(event) => {
+                      event.stopPropagation();
+                      deleteLayer(i)
+                    }}>🗑️</button>
                   </div>}
               </Draggable>)}
             {provided.placeholder}
           </div>)}
       </Droppable>
     </DragDropContext>
-    <button className={styles.addLayerBtn}>Добавить слой</button>
+    <button
+      className={styles.addLayerBtn}
+      onClick={addLayer}>
+      Добавить слой
+    </button>
   </aside>)
 }
 
