@@ -72,6 +72,9 @@ const allDefaultEffects: rangeEffectTypes = {
 }
 
 const EffectsSettings = ({ contentPage, setContentPage, currentLayer }: Props) => {
+  //* Отвечает за контент на странице
+  const currentPageEffects = contentPage.layers[currentLayer]?.effects
+  const [effectsSettings, setEffectsSettings] = useState<rangeEffectTypes>()
   /**
    * Функция отвечает за изменение useState, отвечающего за страницу.
    * Используется, чтобы применить эффекты
@@ -92,36 +95,30 @@ const EffectsSettings = ({ contentPage, setContentPage, currentLayer }: Props) =
     setContentPage(_contentPage);
     console.groupEnd();
   }
+
+  //* Отвечает за эффекты
   /**
    * Преобразует сохранённые значения в настройки
    * @param currentPageEffects настройки не по умолчанию 
    * @returns настройки для отрисовки
    */
   function createRangeEffects(currentPageEffects: IEffects): rangeEffectTypes {
-    console.groupCollapsed('createRangeEffects')
+    // console.groupCollapsed('createRangeEffects')
     const _defaultEffects: rangeEffectTypes = JSON.parse(JSON.stringify(allDefaultEffects))
+
+    //* Вставляет эффекты модель
     for (const key in currentPageEffects) {
       if (!Object.prototype.hasOwnProperty.call(currentPageEffects, key)) continue
-      let element = currentPageEffects[key as EEffects] as effect;
       if (_defaultEffects[key])
-        _defaultEffects[key].options.value = element.value
+        _defaultEffects[key].options.value = currentPageEffects[key as EEffects]?.value
     }
 
-    console.groupEnd();
+    // console.groupEnd();
     return _defaultEffects
   }
-
-  const currentPageEffects = contentPage.layers[currentLayer]?.effects
-  const [effectsSettings, setEffectsSettings] = useState<rangeEffectTypes>()
-
-  useEffect(() => {
-    console.group('useEffect');
-    console.log("currentLayer", currentLayer)
-    setEffectsSettings(createRangeEffects(currentPageEffects))
-    console.groupEnd();
-  }, [currentLayer, contentPage])
-
-
+  /**
+   * Визуализирует 1 эффект
+   */
   function generateRange({ title, options, dataList }: range, key: number) {
     return <div className={styles.effectContainer} key={key}>
       <label className={styles.inputLabel} htmlFor={options.name}>
@@ -136,21 +133,38 @@ const EffectsSettings = ({ contentPage, setContentPage, currentLayer }: Props) =
       </div>
     </div>
   }
-
   /**
    * Создаёт эффект
    * @param param0 настройки эффекта
    * @param key key атрибут
    * @returns jsx
    */
-  const rangeEffect = (param: rangeEffectTypes) => {
-    return Object.keys(param)
+  const rangeEffect = (param: rangeEffectTypes) =>
+    Object.keys(param)
       .map(x => param[x])
       .map(generateRange)
-  }
 
+  //* useEffect отвечает за изменение слоёв 
+  useEffect(() => {
+    // console.group('useEffect');
+    // console.log("currentLayer", currentLayer)
+    setEffectsSettings(createRangeEffects(currentPageEffects))
+    // console.groupEnd();
+  }, [currentLayer, contentPage])
 
-  if (effectsSettings === undefined) return <aside />
+  // Пока слои не созданы в useEffect
+  if (effectsSettings === undefined)
+    return <aside />
+
+  // Слои отсутствуют
+  if (currentLayer <= -1 || currentPageEffects === undefined)
+    return (<aside className={styles.effectsSettingsContainer}>
+      <h1>Настройки&nbsp;эффектов</h1>
+      <div className={styles.step}>
+        <h2>Создаёте слой</h2>
+        <p>Эффект прикрепляются к определённому слою</p>
+      </div>
+    </aside>)
 
   return (<aside className={styles.effectsSettingsContainer}>
     <h1>Настройки&nbsp;эффектов</h1>

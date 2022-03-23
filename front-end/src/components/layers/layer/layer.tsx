@@ -1,8 +1,8 @@
 import Image from 'next/image'
 import React from 'react'
-import { ELanguages } from '../../interfaces/IContentPage'
-import IEffects, { EEffects } from '../../interfaces/IEffects'
-import ILayer from '../../interfaces/ILayer'
+import { ELanguages } from '../../../interfaces/IContentPage'
+import IEffects, { EEffects } from '../../../interfaces/IEffects'
+import ILayer from '../../../interfaces/ILayer'
 import styles from './Layer.module.scss'
 
 interface Props {

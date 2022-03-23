@@ -11,23 +11,32 @@ type Props = {
 }
 
 const LayersSettings = ({ contentPage, setContentPage, currentLayer, setCurrentLayer }: Props) => {
-  const [layers, updateLayers] = useState(contentPage.layers);
+  // const [layers, updateLayers] = useState(contentPage.layers);
+  const { layers } = contentPage
 
-  function handleOnDragEnd(result: DropResult) {
-    if (!result.destination) return
+  function handleOnDragEnd({ source, destination }: DropResult) {
+    if (!destination) return
     const _layers = layers;
-    const [reorderedItem] = _layers.splice(result.source.index, 1);
-    _layers.splice(result.destination.index, 0, reorderedItem);
-    updateLayers(_layers)
+    //*==================== source ←→ destination
+    const [reorderedItem] = _layers.splice(source.index, 1);
+    _layers.splice(destination.index, 0, reorderedItem);
+    // updateLayers(_layers)
+    //*==================== Изменение текущего слоя при необходимости
+    if (source.index === currentLayer) setCurrentLayer(destination.index)
+    else if (destination.index === currentLayer) setCurrentLayer(source.index)
+    //*==================== Меняет расположение слоёв на странице
     setContentPage(x => ({ ...x, layers: _layers }))
   }
 
   function deleteLayer(pos: number) {
+    if (pos === currentLayer) setCurrentLayer(pos - 1)
     setContentPage(x => ({ ...x, layers: x.layers.filter((_, i) => i !== pos) }))
   }
   function changeLayer(pos: number) {
     setCurrentLayer(pos)
   }
+
+  console.log(layers.length);
 
   return (<aside className={styles.layersSettingsContainer}>
     <h1>Настройки слоёв</h1>

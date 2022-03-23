@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react'
 import IContentPage, { ELanguages } from '../../interfaces/IContentPage'
 import { EEffects } from '../../interfaces/IEffects'
-import Layer from '../layer/layer'
+import Layer from './layer/layer'
 import Parallax from 'parallax-js'
 import styles from './Layers.module.scss'
 
