@@ -15,7 +15,6 @@ const LayersSettings = ({ contentPage, setContentPage, currentLayer, setCurrentL
   const { layers } = contentPage
 
   function handleOnDragEnd({ source, destination }: DropResult) {
-    console.log("handleOnDragEnd");
     if (!destination) return
     const _layers = layers;
     //*==================== source ←→ destination
@@ -30,27 +29,21 @@ const LayersSettings = ({ contentPage, setContentPage, currentLayer, setCurrentL
   }
 
   function deleteLayer(pos: number) {
-    if (pos <= currentLayer) {
-      setCurrentLayer(currentLayer - 1)
-      console.log("deleteLayer", pos <= currentLayer, currentLayer - 1);
-    }
+    if (pos <= currentLayer) setCurrentLayer(currentLayer - 1)
     setContentPage(x => ({ ...x, layers: x.layers.filter((_, i) => i !== pos) }))
   }
   function changeLayer(pos: number) {
-    console.log("changeLayer")
     setCurrentLayer(pos)
   }
   function addLayer() {
     const newLayer: ILayer = {
-      content: { ru_RU: { url: "/mock/Scott-p1.png" } },
+      content: { ru_RU: { name: "", url: "/mock/Scott-p1.png" } },
       effects: { parallax: { value: 0 } }
     }
     setContentPage(x => ({ ...x, layers: [...x.layers, newLayer] }))
-    console.log("addLayer")
     setCurrentLayer(contentPage.layers.length)
   }
 
-  console.log("length", layers.length, "currentLayer", currentLayer);
 
   return (<aside className={styles.layersSettingsContainer}>
     <h1>Настройки слоёв</h1>

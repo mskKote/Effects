@@ -5,6 +5,6 @@ import IEffects from "./IEffects"
  * Описание слоя на странице
  */
 export default interface ILayer {
-  content: { [languages in ELanguages]?: { url: string } }
+  content: { [languages in ELanguages]?: { name: string, url: string } }
   effects: IEffects
 }

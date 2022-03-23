@@ -16,7 +16,7 @@ import Loader from '../src/components/loader/loader'
 const mockData: IContentPage = {
   layers: [{
     content: {
-      [ELanguages.ru_RU]: { url: "/mock/p1.png" }
+      [ELanguages.ru_RU]: { name: "Задний фонк", url: "/mock/p1.png" }
     },
     effects: {
       [EEffects.parallax]: { value: 0.5 },
@@ -24,7 +24,7 @@ const mockData: IContentPage = {
     }
   }, {
     content: {
-      [ELanguages.ru_RU]: { url: "/mock/Scott-p1.png" }
+      [ELanguages.ru_RU]: { name: "Персонаж", url: "/mock/Scott-p1.png" }
     },
     effects: {
       [EEffects.parallax]: { value: 0.6 }
