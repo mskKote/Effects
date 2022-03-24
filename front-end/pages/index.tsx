@@ -42,6 +42,8 @@ const Editor: NextPage = () => {
   useEffect(() => {
     setEditMode(window.location.search ? false : true)
     // setTimeout(() => setLoading(false), 1400)
+    alert(`DeviceMotionEvent ${!!window.DeviceMotionEvent}`)
+    alert(`DeviceOrientationEvent ${!!window.DeviceOrientationEvent}`)
   }, [])
 
   if (editMode === undefined || loading) return <Loader />
