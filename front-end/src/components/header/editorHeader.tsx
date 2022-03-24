@@ -10,18 +10,21 @@ type Props = {
 // TODO: реализовать popup
 
 const EditorHeader = ({ }: Props) => {
-  const popup = React.useRef(null)
-  const copy = React.useRef(null)
+  const popup = React.useRef<HTMLDivElement>(null)
+  const copy = React.useRef<HTMLInputElement>(null)
   const link = "https://cdn.gallerix.asia/x/src/news/2020/Jun/photopea.jpg";
   function showPopup() {
-    popup.current.style.display = "block";
+    if (popup.current)
+      popup.current.style.display = "block";
   }
   function closePopup() {
-    popup.current.style.display = "none";
+    if (popup.current)
+      popup.current.style.display = "none";
   }
   function copyToClipboard() {
-    copy.current.select();
+    copy.current?.select();
     document.execCommand("copy");
+    //TODO: navigator.clipboard.writeText(text)
   }
   return <header className={styles.editorHeader}>
     <button className={styles.addVariable}
@@ -32,7 +35,7 @@ const EditorHeader = ({ }: Props) => {
         <polyline points="8 1 12 5 8 9"></polyline>
       </svg>
     </button>
-    
+
     <div ref={popup} className={styles.popup}>
       <div className={styles.popupForm}>
         <h1>Ссылка на пикчу</h1>
