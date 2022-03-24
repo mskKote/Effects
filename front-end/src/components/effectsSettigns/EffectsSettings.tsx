@@ -1,5 +1,5 @@
-import React, { DetailedHTMLProps, Dispatch, InputHTMLAttributes, SetStateAction, useEffect, useState } from 'react'
-import IContentPage from '../../interfaces/IContentPage'
+import React, { ChangeEvent, DetailedHTMLProps, Dispatch, InputHTMLAttributes, SetStateAction, useEffect, useState } from 'react'
+import IContentPage, { ELanguages } from '../../interfaces/IContentPage'
 import IEffects, { EEffects, effect, getEEffectsByString } from '../../interfaces/IEffects'
 import styles from './EffectsSettings.module.scss'
 
@@ -80,7 +80,7 @@ const EffectsSettings = ({ contentPage, setContentPage, currentLayer }: Props) =
    * Используется, чтобы применить эффекты
    * @param event Введённое значение. Изменяет 1 эффект
    */
-  function editContentPage(event: React.ChangeEvent<HTMLInputElement>) {
+  function editContentPage(event: ChangeEvent<HTMLInputElement>) {
     // console.group("editContentPage")
     const name = event.target.name;
     const value = +event.target.value;
@@ -94,6 +94,27 @@ const EffectsSettings = ({ contentPage, setContentPage, currentLayer }: Props) =
 
     setContentPage(_contentPage);
     // console.groupEnd();
+  }
+  function addImage(event: ChangeEvent<HTMLInputElement>) {
+    if (!event.target.files || event.target.files.length === 0) return
+    const image = event.target.files[0]
+    const imageUrl = URL.createObjectURL(image)
+    // Изменяем текущий слой
+    setContentPage(page => ({
+      ...page, layers: page.layers.map((layer, i) =>
+        // Нахождение нужного слоя  
+        i !== currentLayer ? layer :
+          // Установка значения 
+          ({
+            ...layer, content: {
+              ...layer.content,
+              ru_RU: {
+                name: layer.content.ru_RU?.name as string,
+                url: imageUrl
+              }
+            }
+          }))
+    }))
   }
 
   //* Отвечает за эффекты
@@ -144,7 +165,7 @@ const EffectsSettings = ({ contentPage, setContentPage, currentLayer }: Props) =
       .map(x => param[x])
       .map(generateRange)
 
-  //* useEffect отвечает за изменение слоёв 
+  //* useEffect срабатывает при изменение слоёв / страницы
   useEffect(() => {
     // console.group('useEffect');
     // console.log("currentLayer", currentLayer)
@@ -176,7 +197,12 @@ const EffectsSettings = ({ contentPage, setContentPage, currentLayer }: Props) =
         <label htmlFor='layer-image' className={styles.layerImage}>
           Добавьте картинку на слой
         </label>
-        <input id='layer-image' type="file" style={{ display: "none" }} />
+        <input
+          type="file"
+          id='layer-image'
+          onChange={addImage}
+          style={{ display: "none" }}
+          accept={"image/*"} />
         <small>MVP1: пока картинки стоит добавлять одинакового размера</small>
       </fieldset>
 
