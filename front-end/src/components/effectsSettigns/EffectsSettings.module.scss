@@ -5,13 +5,13 @@
 }
 
 .effectsSettingsContainer {
-  grid-area       : effects;
-  overflow-y      : auto;
-  padding         : 1rem;
-  background-color: #e5e5f7;
-  opacity         : 0.8;
-  background-image: radial-gradient(#444cf7 0.65px, #e5e5f7 0.65px);
-  background-size : 13px 13px;
+  grid-area          : effects;
+  overflow-y         : auto;
+  padding            : 1rem;
+  background-color   : #e5e5f7;
+  // opacity         : 0.8;
+  background-image   : radial-gradient(#444cf7 0.65px, #e5e5f7 0.65px);
+  background-size    : 13px 13px;
 
   .step {
     padding-inline: 1rem;
@@ -57,9 +57,7 @@
     }
   }
 
-  .parallaxContainer {
-    input {
-      width: 100%;
-    }
+  .parallaxContainer input {
+    width: 100%;
   }
 }

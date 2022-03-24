@@ -10,7 +10,6 @@ import EditorHeader from '../src/components/header/editorHeader'
 import styles from '../styles/Editor.module.scss'
 import Loader from '../src/components/loader/loader'
 
-//TODO: при необходимости включить Redux
 //TODO: запилить попап со ссылкой на форму
 
 const mockData: IContentPage = {
@@ -46,11 +45,9 @@ const Editor: NextPage = () => {
   }, [])
 
   if (editMode === undefined || loading) return <Loader />
-  // console.log("Editor >>:", contentPage.layers);
 
   return (
     <div className={`${styles.editorContainer} ${editMode ? styles.editorTime : styles.showTime}`}>
-
       <HeadSEO
         title="Effects"
         description="Manga&comics with effects"

@@ -1,6 +1,6 @@
-import React, { Dispatch, SetStateAction } from 'react'
+import React, { ChangeEvent, Dispatch, SetStateAction } from 'react'
 import { DragDropContext, Draggable, Droppable, DropResult } from 'react-beautiful-dnd'
-import IContentPage from '../../interfaces/IContentPage'
+import IContentPage, { ELanguages } from '../../interfaces/IContentPage'
 import ILayer from '../../interfaces/ILayer'
 import styles from './LayersSettings.module.scss'
 
@@ -14,6 +14,7 @@ type Props = {
 const LayersSettings = ({ contentPage, setContentPage, currentLayer, setCurrentLayer }: Props) => {
   const { layers } = contentPage
 
+  //*================================= Dnd
   function handleOnDragEnd({ source, destination }: DropResult) {
     if (!destination) return
     const _layers = layers;
@@ -27,13 +28,32 @@ const LayersSettings = ({ contentPage, setContentPage, currentLayer, setCurrentL
     //*==================== Меняет расположение слоёв на странице
     setContentPage(x => ({ ...x, layers: _layers }))
   }
-
+  //*================================= Взаимодействие со слоями
   function deleteLayer(pos: number) {
     if (pos <= currentLayer) setCurrentLayer(currentLayer - 1)
     setContentPage(x => ({ ...x, layers: x.layers.filter((_, i) => i !== pos) }))
   }
   function changeLayer(pos: number) {
     setCurrentLayer(pos)
+  }
+  function changeLayerName(event: ChangeEvent<HTMLInputElement>, pos: number) {
+    const value = event.target.value
+    const getContentLanguage = ({ content }: ILayer, language: ELanguages) => ({
+      name: value,
+      url: content[language]?.url as string
+    })
+    setContentPage(page => ({
+      ...page, layers: page.layers.map((layer, i) =>
+        // Нахождение нужного слоя  
+        i !== pos ? layer :
+          // Установка значения 
+          ({
+            ...layer, content: {
+              ...layer.content,
+              ru_RU: getContentLanguage(layer, ELanguages.ru_RU)
+            }
+          }))
+    }))
   }
   function addLayer() {
     const newLayer: ILayer = {
@@ -66,11 +86,21 @@ const LayersSettings = ({ contentPage, setContentPage, currentLayer, setCurrentL
                     ref={provided.innerRef}
                     {...provided.draggableProps}
                     {...provided.dragHandleProps}>
-                    <p>{content.ru_RU?.url ?? "Слой"}</p>
-                    <button onClick={(event) => {
-                      event.stopPropagation();
-                      deleteLayer(i)
-                    }}>🗑️</button>
+                    <input
+                      value={content.ru_RU?.name}
+                      onChange={(event) => changeLayerName(event, i)}
+                      placeholder={"Введите название слоя..."}
+                      className={styles.layerName}
+                      autoFocus
+                    />
+                    <button
+                      className={styles.deleteLayer}
+                      onClick={(event) => {
+                        event.stopPropagation();
+                        deleteLayer(i);
+                      }}>
+                      🗑️
+                    </button>
                   </div>}
               </Draggable>)}
             {provided.placeholder}
