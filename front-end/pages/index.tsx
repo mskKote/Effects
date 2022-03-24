@@ -41,6 +41,7 @@ const Editor: NextPage = () => {
 
   function requestMotionPermission() {
     try {
+      console.log(typeof (DeviceMotionEvent as any).requestPermission);
       if (typeof (DeviceMotionEvent as any).requestPermission === 'function') {
         (DeviceMotionEvent as any).requestPermission()
           .then((response: String) => {
@@ -52,6 +53,7 @@ const Editor: NextPage = () => {
           .catch(console.error)
       } else {
         console.log(JSON.stringify(DeviceMotionEvent));
+        setLoading(false)
       }
     } catch (e) {
       console.error((e as Error).message)
