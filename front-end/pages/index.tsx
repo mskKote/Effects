@@ -41,17 +41,20 @@ const Editor: NextPage = () => {
 
   function requestMotionPermission() {
     try {
-      (DeviceMotionEvent as any).requestPermission()
-        .then((response: String) => {
-          // if (response === 'granted') {
-          // }
-          setLoading(false)
-          alert(`response ${response}`)
-        })
-        .catch(console.error)
+      if (typeof (DeviceMotionEvent as any).requestPermission === 'function') {
+        (DeviceMotionEvent as any).requestPermission()
+          .then((response: String) => {
+            // if (response === 'granted') {
+            // }
+            setLoading(false)
+            alert(`response ${response}`)
+          })
+          .catch(console.error)
+      } else {
+        console.log(JSON.stringify(DeviceMotionEvent));
+      }
     } catch (e) {
-      const err = e as Error
-      console.error(err.message)
+      console.error((e as Error).message)
     }
   }
 
