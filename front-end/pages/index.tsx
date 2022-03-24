@@ -34,16 +34,33 @@ const mockData: IContentPage = {
 
 const Editor: NextPage = () => {
   const [editMode, setEditMode] = useState<boolean>();
-  const [loading, setLoading] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(true);
   const [currentLayer, setCurrentLayer] = useState(0)
   const [contentPage, setContentPage] = useState(mockData);
   const [currentLanguage, setCurrentLanguage] = useState(ELanguages.ru_RU);
 
+  function requestMotionPermission() {
+    try {
+      (DeviceMotionEvent as any).requestPermission()
+        .then((response: String) => {
+          // if (response === 'granted') {
+          // }
+          setLoading(false)
+          alert(`response ${response}`)
+        })
+        .catch(console.error)
+    } catch (e) {
+      const err = e as Error
+      console.error(err.message)
+    }
+  }
+
   useEffect(() => {
     setEditMode(window.location.search ? false : true)
+    requestMotionPermission()
     // setTimeout(() => setLoading(false), 1400)
-    alert(`DeviceMotionEvent ${!!window.DeviceMotionEvent}`)
-    alert(`DeviceOrientationEvent ${!!window.DeviceOrientationEvent}`)
+    // alert(`DeviceMotionEvent ${!!window.DeviceMotionEvent}`)
+    // alert(`DeviceOrientationEvent ${!!window.DeviceOrientationEvent}`)
   }, [])
 
   if (editMode === undefined || loading) return <Loader />
