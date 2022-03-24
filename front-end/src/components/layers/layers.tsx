@@ -16,7 +16,7 @@ const Layers = ({ contentPage, currentLanguage }: Props) => {
 
   useEffect(() => {
     new Parallax(parallaxRef?.current)
-  }, [parallaxRef, layers[0]?.effects[EEffects.parallax]])
+  }, [parallaxRef, layers[0]?.effects[EEffects.parallax]?.value])
 
   return (<main className={styles.layersContainer} ref={parallaxRef}>
     {layers.length === 0 ?
