@@ -25,12 +25,14 @@ const Research = () => {
 					<a
 						className={styles.create}
 						target="_blank"
+						rel="noreferrer"
 						href="/">
 						Создать своё
 					</a>
 					<a
 						className={styles.google}
 						target="_blank"
+						rel="noreferrer"
 						href="https://docs.google.com/forms/d/e/1FAIpQLSd-fLRt1EPcjmakDyMS3_gJltiKaWTIKF7LT6sPO0SPhAiisw/viewform">
 						Пройти опрос!
 					</a>
