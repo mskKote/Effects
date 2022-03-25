@@ -1,5 +1,5 @@
 import React, { ChangeEvent, DetailedHTMLProps, Dispatch, InputHTMLAttributes, SetStateAction, useEffect, useState } from 'react'
-import IContentPage, { ELanguages } from '../../interfaces/IContentPage'
+import IContentPage from '../../interfaces/IContentPage'
 import IEffects, { EEffects, effect, getEEffectsByString } from '../../interfaces/IEffects'
 import styles from './EffectsSettings.module.scss'
 
