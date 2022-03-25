@@ -1,14 +1,14 @@
 .loaderContainer {
-  $container-size: 40vw;
-  $squares-count : 5;
+  --container-size: 40vw;
+  --squares-count : 5;
 
-  @media (max-width: 550px) {
-    $container-size: 80vw;
+  @media screen and (max-width: 550px) {
+    --container-size: 80vw;
   }
 
-  $square-size    : $container-size/$squares-count;
-  $lines-size     : $square-size/$squares-count;
-  $squares-padding: 0;
+  --square-size    : calc(var(--container-size)/var(--squares-count));
+  --lines-size     : calc(var(--square-size)/var(--squares-count));
+  --squares-padding: 0;
 
   $animation-time    : 3s;
   $animation-curve   : cubic-bezier(1, .5, .25, .5);
@@ -24,8 +24,8 @@
     left     : 50%;
     top      : 50%;
     transform: translate(-50%, -50%);
-    height   : $container-size;
-    width    : $container-size;
+    height   : var(--container-size);
+    width    : var(--container-size);
 
     >.row {
       position: relative;
@@ -36,27 +36,27 @@
       >.loader {
         position: relative;
         display : inline-block;
-        height  : $square-size;
-        width   : $square-size;
+        height  : var(--square-size);
+        width   : var(--square-size);
         float   : left;
 
         >.lines {
-          bottom  : $squares-padding;
-          right   : $squares-padding;
-          left    : $squares-padding;
-          top     : $squares-padding;
+          bottom  : var(--squares-padding);
+          right   : var(--squares-padding);
+          left    : var(--squares-padding);
+          top     : var(--squares-padding);
           position: absolute;
 
           >span {
             animation       : shift-background $animation-time infinite $animation-curve;
             background-color: white;
             position        : absolute;
-            width           : $lines-size;
+            width           : var(--lines-size);
             height          : 3px;
 
             &::before {
               background-color: inherit;
-              height          : $lines-size;
+              height          : var(--lines-size);
               position        : absolute;
               content         : "";
               width           : 3px;
