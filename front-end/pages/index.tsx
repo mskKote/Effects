@@ -1,5 +1,5 @@
 import type { NextPage } from 'next'
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { EEffects } from '../src/interfaces/IEffects'
 import EffectsSettings from '../src/components/effectsSettigns/EffectsSettings'
 import HeadSEO from '../src/utils/HeadSEO'
@@ -7,9 +7,9 @@ import Layers from '../src/components/layers/layers'
 import LayersSettings from '../src/components/layersSettings/layersSettings'
 import IContentPage, { ELanguages } from '../src/interfaces/IContentPage'
 import EditorHeader from '../src/components/header/editorHeader'
-import styles from '../styles/Editor.module.scss'
 import Loader from '../src/components/loader/loader'
-import { EventEmitter } from 'stream'
+import styles from '../styles/Editor.module.scss'
+import Research from '../src/components/research/research'
 
 //TODO: запилить попап со ссылкой на форму
 
@@ -40,13 +40,13 @@ const Editor: NextPage = () => {
   const [contentPage, setContentPage] = useState(mockData);
   const [currentLanguage, setCurrentLanguage] = useState(ELanguages.ru_RU);
 
+  //* Загрузка контента
   useEffect(() => {
-    setEditMode(window.location.search ? false : true)
+    setEditMode(!window.location.search)
     setTimeout(() => setLoading(false), 1400)
-    // alert(`DeviceMotionEvent ${!!window.DeviceMotionEvent}`)
-    // alert(`DeviceOrientationEvent ${!!window.DeviceOrientationEvent}`)
   }, [])
 
+  //* Пока чудо не произошло, показываем загрузку
   if (editMode === undefined || loading) return <Loader />
 
   return (
@@ -79,15 +79,7 @@ const Editor: NextPage = () => {
           currentLayer={currentLayer} setCurrentLayer={setCurrentLayer} />}
 
       {/* Призыв пройти опрос */}
-      <footer className={styles.feedBack}>
-        Нам критически важен ваш фидбэк,&nbsp;
-        <a
-          href="google.com"
-          target="_blank"
-          rel="noopener noreferrer">
-          пройдите форму с опросом
-        </a>
-      </footer>
+      {!editMode && <Research />}
     </div>)
 }
 

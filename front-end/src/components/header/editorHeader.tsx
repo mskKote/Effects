@@ -11,6 +11,7 @@ type Props = {
 const EditorHeader = ({ }: Props) => {
   const popup = React.useRef<HTMLDivElement>(null)
   const copy = React.useRef<HTMLInputElement>(null)
+
   const link = "https://cdn.gallerix.asia/x/src/news/2020/Jun/photopea.jpg";
   function showPopup() {
     if (popup.current)
@@ -25,6 +26,8 @@ const EditorHeader = ({ }: Props) => {
     document.execCommand("copy");
     //TODO: navigator.clipboard.writeText(text)
   }
+
+ 
   return <header className={styles.editorHeader}>
     <button className={styles.publish}
       onClick={showPopup}>
@@ -34,6 +37,9 @@ const EditorHeader = ({ }: Props) => {
         <polyline points="8 1 12 5 8 9"></polyline>
       </svg>
     </button>
+
+    
+
 
     <div ref={popup} className={styles.popup}>
       <div className={styles.popupForm}>

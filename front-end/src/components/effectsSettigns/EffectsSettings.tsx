@@ -145,6 +145,10 @@ const EffectsSettings = ({ contentPage, setContentPage, currentLayer }: Props) =
       <label className={styles.inputLabel} htmlFor={options.name}>
         {title} ({options.name})
       </label>
+
+      
+     
+
       <div className={styles.inputContainer}>
         <input list={`effect-${key}`} type="range" {...options} id={options.name} name={options.name} onChange={editContentPage} />
         <datalist id={`effect-${key}`} className={styles.optionsContainer}>
