@@ -7,7 +7,6 @@ type Props = {
 
 // TODO: реализовать запрос на публикацию
 // TODO: внести опубликованную ссылку в копию
-// TODO: реализовать popup
 
 const EditorHeader = ({ }: Props) => {
   const popup = React.useRef<HTMLDivElement>(null)
@@ -27,7 +26,7 @@ const EditorHeader = ({ }: Props) => {
     //TODO: navigator.clipboard.writeText(text)
   }
   return <header className={styles.editorHeader}>
-    <button className={styles.addVariable}
+    <button className={styles.publish}
       onClick={showPopup}>
       <span>Опубликовать</span>
       <svg width="15px" height="10px" viewBox="0 0 13 10">

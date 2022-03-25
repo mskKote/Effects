@@ -15,3 +15,27 @@ a {
 * {
   box-sizing: border-box;
 }
+
+aside {
+  /* ===== Scrollbar CSS ===== */
+  /* Firefox */
+  &* {
+    scrollbar-width: thin;
+    scrollbar-color: #131313 #e5e5f7;
+  }
+
+  /* Chrome, Edge, and Safari */
+  &*::-webkit-scrollbar {
+    width: 16px;
+  }
+
+  &*::-webkit-scrollbar-track {
+    background: #e5e5f7;
+  }
+
+  &*::-webkit-scrollbar-thumb {
+    background-color: #131313;
+    border-radius   : 10px;
+    border          : 3px solid #e5e5f7;
+  }
+}
