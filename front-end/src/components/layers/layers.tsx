@@ -39,7 +39,7 @@ const Layers = ({ contentPage, currentLanguage }: Props) => {
   useEffect(() => {
     console.log('useEffect');
     new Parallax(parallaxRef?.current)
-  }, [permission, parallaxRef, layers[0]?.effects[EEffects.parallax]?.value])
+  }, [permission, parallaxRef, layers.map(x => x.effects.parallax?.value)])
 
   return (<main className={styles.layersContainer} ref={parallaxRef}>
     {!permission ?
