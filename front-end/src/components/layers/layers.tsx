@@ -53,7 +53,7 @@ const Layers = ({ contentPage, currentLanguage }: Props) => {
       layers.length === 0 ?
         <h1 className={styles.placeholder}>Добавьте слой</h1> :
         layers.map((layer, i) =>
-          <Layer key={i} layer={layer} currentLanguage={currentLanguage} />)
+          <Layer key={i} num={i} layer={layer} currentLanguage={currentLanguage} />)
     }
   </main >)
 }

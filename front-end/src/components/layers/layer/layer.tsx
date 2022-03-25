@@ -8,6 +8,7 @@ import styles from './Layer.module.scss'
 interface Props {
   layer: ILayer
   currentLanguage: ELanguages
+  num: number
 }
 
 function getFilter(effects: IEffects): string {
@@ -32,20 +33,36 @@ function getFilter(effects: IEffects): string {
   return filters.join(" ")
 }
 
-const Layer = ({ layer, currentLanguage = ELanguages.ru_RU }: Props) => {
+const Layer = ({ num, layer, currentLanguage = ELanguages.ru_RU }: Props) => {
   const contentWithLanguage = layer.content[currentLanguage]
   const parallax = layer.effects[EEffects.parallax]?.value
-  const effects = { filter: getFilter(layer.effects) }
+  // const effects = { filter: getFilter(layer.effects) }
+  const effects = getFilter(layer.effects)
 
-  return (<div data-depth={parallax} className={styles.layerContainer} style={effects}>
-    {contentWithLanguage?.url &&
+  return (<div data-depth={parallax} className={styles.layerContainer}>
+    {contentWithLanguage?.url && <>
       <Image
         src={contentWithLanguage.url}
         layout="fill"
-        className={styles.layerImage}
+        loading={'eager'}
+        className={`layer-${num}`}
         alt={contentWithLanguage.name}
-        objectFit="contain" />}
+        objectFit="contain"
+      />
+      <style jsx global>{`
+        img.layer-${num} {
+          filter: ${effects};
+        }
+      `}</style>
+
+    </>}
+
   </div>)
 }
+{/* <img
+    src={contentWithLanguage.url}
+    alt={contentWithLanguage.name}
+    className={styles.layerImage} */}
+{/* style={{ objectFit: "contain", ...effects }} />} */ }
 
 export default Layer
