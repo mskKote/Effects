@@ -39,7 +39,7 @@ const Layer = ({ layer, currentLanguage = ELanguages.ru_RU }: Props) => {
 
   return (<div data-depth={parallax} className={styles.layerContainer} style={effects}>
     {contentWithLanguage?.url &&
-      <Image src={contentWithLanguage.url} layout="fill" />}
+      <Image src={contentWithLanguage.url} layout="fill" className={styles.layerImage} />}
   </div>)
 }
 

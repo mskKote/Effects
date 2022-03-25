@@ -11,10 +11,11 @@
 }
 
 .showTime {
-  background-color     : black;
-  grid-template-columns: 15vw 70vw 15vw;
-  grid-template-rows   : 100vh;
-  grid-template-areas  :
+  background-color        : black;
+  // grid-template-columns: 15vw 70vw 15vw;
+  grid-template-columns   : 0 1fr 0;
+  grid-template-rows      : 100vh;
+  grid-template-areas     :
     "effects content layers";
 }
 
