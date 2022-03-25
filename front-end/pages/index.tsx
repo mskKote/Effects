@@ -9,6 +9,7 @@ import IContentPage, { ELanguages } from '../src/interfaces/IContentPage'
 import EditorHeader from '../src/components/header/editorHeader'
 import styles from '../styles/Editor.module.scss'
 import Loader from '../src/components/loader/loader'
+import { EventEmitter } from 'stream'
 
 //TODO: запилить попап со ссылкой на форму
 
@@ -39,31 +40,9 @@ const Editor: NextPage = () => {
   const [contentPage, setContentPage] = useState(mockData);
   const [currentLanguage, setCurrentLanguage] = useState(ELanguages.ru_RU);
 
-  function requestMotionPermission() {
-    try {
-      console.log(typeof (DeviceMotionEvent as any).requestPermission);
-      if (typeof (DeviceMotionEvent as any).requestPermission === 'function') {
-        (DeviceMotionEvent as any).requestPermission()
-          .then((response: String) => {
-            // if (response === 'granted') {
-            // }
-            setLoading(false)
-            alert(`response ${response}`)
-          })
-          .catch(console.error)
-      } else {
-        console.log(JSON.stringify(DeviceMotionEvent));
-        setLoading(false)
-      }
-    } catch (e) {
-      console.error((e as Error).message)
-    }
-  }
-
   useEffect(() => {
     setEditMode(window.location.search ? false : true)
-    requestMotionPermission()
-    // setTimeout(() => setLoading(false), 1400)
+    setTimeout(() => setLoading(false), 1400)
     // alert(`DeviceMotionEvent ${!!window.DeviceMotionEvent}`)
     // alert(`DeviceOrientationEvent ${!!window.DeviceOrientationEvent}`)
   }, [])
