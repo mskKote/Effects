@@ -1,19 +1,23 @@
-$container-size: 40vw;
-$squares-count : 5;
-
-$square-size    : $container-size/$squares-count;
-$lines-size     : $square-size/$squares-count;
-$squares-padding: 0;
-
-$animation-time    : 3s;
-$animation-curve   : cubic-bezier(1, .5, .25, .5);
-// $animation-curve: ease-in-out;
-
 .loaderContainer {
-  background-color: #131313;
-  width           : 100vw;
-  height          : 100vh;
-  position        : relative;
+  $container-size: 40vw;
+  $squares-count : 5;
+
+  @media (max-width: 550px) {
+    $container-size: 80vw;
+  }
+
+  $square-size    : $container-size/$squares-count;
+  $lines-size     : $square-size/$squares-count;
+  $squares-padding: 0;
+
+  $animation-time    : 3s;
+  $animation-curve   : cubic-bezier(1, .5, .25, .5);
+  // $animation-curve: ease-in-out;
+
+  background-color : #131313;
+  width            : 100vw;
+  height           : 100vh;
+  position         : relative;
 
   .container {
     position : absolute;
