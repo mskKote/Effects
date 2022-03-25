@@ -24,7 +24,7 @@ const Layers = ({ contentPage, currentLanguage }: Props) => {
             // if (response === 'granted') {
             // }
             setPermission(true)
-            alert(`response ${response}`)
+            console.log(`response ${response}`)
           })
           .catch(console.error)
       } else {
