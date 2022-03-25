@@ -38,20 +38,29 @@ const Layers = ({ contentPage, currentLanguage }: Props) => {
 
   useEffect(() => {
     console.log('useEffect');
-    if (typeof (DeviceMotionEvent as any).requestPermission !== 'function') {
-      setPermission(true)
-    }
+    // if (typeof (DeviceMotionEvent as any).requestPermission !== 'function') {
+    //   setPermission(true)
+    // }
     new Parallax(parallaxRef?.current)
   }, [permission, parallaxRef, layers[0]?.effects[EEffects.parallax]?.value])
 
   return (<main className={styles.layersContainer} ref={parallaxRef}>
     {!permission ?
-      <button onClick={requestMotionPermission}>Требуется разрешение</button> :
+      <button style={{
+        width: "100%",
+        height: "95vh",
+        fontSize: "30px",
+        fontFamily: "monospace",
+        zIndex: "1000",
+        pointerEvents: "all",
+        cursor: "pointer"
+      }} onClick={requestMotionPermission}>Требуется разрешение</button> :
       layers.length === 0 ?
         <h1 className={styles.placeholder}>Добавьте слой</h1> :
         layers.map((layer, i) =>
-          <Layer key={i} layer={layer} currentLanguage={currentLanguage} />)}
-  </main>)
+          <Layer key={i} layer={layer} currentLanguage={currentLanguage} />)
+    }
+  </main >)
 }
 
 export default Layers
