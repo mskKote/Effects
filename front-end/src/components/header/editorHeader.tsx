@@ -20,6 +20,8 @@ const EditorHeader = ({ }: Props) => {
     setCopyText("Скопировано 👌")
     setTimeout(() => setCopyText(defaultCopyText), 1250)
   }
+
+ 
   return <header className={styles.editorHeader}>
     {/* Опубликованный URL */}
     <input className={styles.publishedUrl} value={link} placeholder={"Тут будет URL..."} />
