@@ -47,40 +47,40 @@
 		}
 
 		p {
-			--font-size-p: clamp(18px, 12px + 0.31vw, 24px);
+			--font-size-p: clamp(20px, 12px + 0.31vw, 26px);
 
 			@media screen and (max-width: 1919px) {
 				--font-size-p: clamp(16px, 15.51px + 0.13vw, 18px);
 			}
 
-			font-family: "Roboto Slab",
+			font-family: Roboto Slab,
 			sans-serif;
 			font-size  : var(--font-size-p);
-			line-height: 1.4em;
+			line-height: 1.6;
 			text-align : center;
-			color      : #666666;
-			margin     : 0 8% 1.2em;
+			color      : #666;
+			margin     : 0 8% 0.75em;
 			position   : relative;
 			z-index    : 1;
 		}
 
 		// Ссылки
 		div.links {
-			font-family           : "Roboto Slab", sans-serif;
-			text-align            : center;
-			-webkit-font-smoothing: auto;
-			color                 : #666666;
-			display               : block;
-			position              : relative;
-			z-index               : 1;
-			display               : flex;
-			gap                   : 1rem;
+			font-family: "Roboto Slab", sans-serif;
+			text-align : center;
+			color      : #666666;
+			display    : block;
+			position   : relative;
+			z-index    : 1;
+			display    : flex;
+			gap        : 1rem;
+			margin-top : min(3rem, 3%);
 
 			a {
-				--font-size-a: clamp(28px, 22px + 0.31vw, 34px);
+				--font-size-a: clamp(22px, 19px + 0.31vw, 30px);
 
 				@media screen and (max-width: 1919px) {
-					--font-size-a: clamp(25px, 24.27px + 0.19vw, 28px);
+					--font-size-a: clamp(20px, 24.27px + 0.19vw, 22px);
 				}
 
 				width          : 50%;
@@ -115,29 +115,27 @@
 
 	// Кнопка
 	.toggle {
-		-webkit-text-size-adjust: 100%;
-		vertical-align          : baseline;
-		cursor                  : pointer;
-		-webkit-appearance      : button;
-		-webkit-font-smoothing  : antialiased;
-		font-size               : 1.33333em;
-		line-height             : 45.6px;
-		font-family             : "Dosis", sans-serif;
-		background-color        : #F2F2F2;
-		font-weight             : 600;
-		outline                 : none;
-		border                  : none;
-		border-radius           : 28px;
-		background-clip         : padding-box;
-		height                  : 56px;
-		width                   : 56px;
-		transition              : color 0.6s cubic-bezier(0.165, 0.84, 0.44, 1), background-color 0.6s cubic-bezier(0.165, 0.84, 0.44, 1), opacity 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
-		box-shadow              : 0 2px 8px rgba(0, 0, 0, 0.6);
-		position                : absolute;
-		left                    : 50%;
-		margin                  : -24px;
-		bottom                  : 12%;
-		z-index                 : 10;
+		vertical-align  : baseline;
+		cursor          : pointer;
+		font-size       : 1.33333em;
+		line-height     : 45.6px;
+		font-family     : "Dosis", sans-serif;
+		background-color: #F2F2F2;
+		font-weight     : 600;
+		outline         : none;
+		border          : none;
+		border-radius   : 28px;
+		background-clip : padding-box;
+		height          : 56px;
+		width           : 56px;
+		transition      : color 0.6s cubic-bezier(0.165, 0.84, 0.44, 1), background-color 0.6s cubic-bezier(0.165, 0.84, 0.44, 1), opacity 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+		transform       : translateX(-4px);
+		box-shadow      : 0 2px 8px rgba(0, 0, 0, 0.6);
+		position        : absolute;
+		left            : 50%;
+		margin          : -24px;
+		bottom          : 12%;
+		z-index         : 10;
 
 		&:hover {
 			background-color: #D92400;
