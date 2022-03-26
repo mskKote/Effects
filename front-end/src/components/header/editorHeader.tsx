@@ -1,48 +1,40 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Image from 'next/image'
 import styles from './EditorHeader.module.scss'
 
 type Props = {
 }
 
-// TODO: реализовать запрос на публикацию
-// TODO: внести опубликованную ссылку в копию
-
+const defaultCopyText = "Копировать 📋"
 const EditorHeader = ({ }: Props) => {
-  const popup = React.useRef<HTMLDivElement>(null)
-  const copy = React.useRef<HTMLInputElement>(null)
-  const link = "https://cdn.gallerix.asia/x/src/news/2020/Jun/photopea.jpg";
-  function showPopup() {
-    if (popup.current)
-      popup.current.style.display = "block";
-  }
-  function closePopup() {
-    if (popup.current)
-      popup.current.style.display = "none";
+  const [link, setLink] = useState("");
+  const [copyText, setCopyText] = useState(defaultCopyText);
+
+  function publish() {
+    //TODO: публикация
+    setCopyText(defaultCopyText)
+    setLink("https://effects.vercel.app?id=1")
   }
   function copyToClipboard() {
-    copy.current?.select();
-    document.execCommand("copy");
-    //TODO: navigator.clipboard.writeText(text)
+    navigator.clipboard.writeText(link)
+    setCopyText("Скопировано 👌")
+    setTimeout(() => setCopyText(defaultCopyText), 1250)
   }
   return <header className={styles.editorHeader}>
-    <button className={styles.publish}
-      onClick={showPopup}>
+    {/* Опубликованный URL */}
+    <input className={styles.publishedUrl} value={link} placeholder={"Тут будет URL..."} />
+    <button className={styles.copyPublishedUrl} onClick={copyToClipboard}>{copyText}</button>
+
+    {/* Кнопка публикации */}
+    <button className={styles.publish} onClick={publish}>
       <span>Опубликовать</span>
       <svg width="15px" height="10px" viewBox="0 0 13 10">
-        <path d="M1,5 L11,5"></path>
-        <polyline points="8 1 12 5 8 9"></polyline>
+        <path d="M1,5 L11,5" />
+        <polyline points="8 1 12 5 8 9" />
       </svg>
     </button>
 
-    <div ref={popup} className={styles.popup}>
-      <div className={styles.popupForm}>
-        <h1>Ссылка на пикчу</h1>
-        <input ref={copy} defaultValue={link}></input>
-        <p onClick={copyToClipboard}>📋</p><p className={styles.close} onClick={closePopup}>Close</p>
-      </div>
-    </div>
-
+    {/* Профиль */}
     <div className={styles.profileContainer}>
       <Image src={"/user-icon.png"} layout={"fill"} alt="аккаунт" />
     </div>
