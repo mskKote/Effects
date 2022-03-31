@@ -1,19 +1,23 @@
 import React, { useState } from 'react'
 import Image from 'next/image'
+import Requests from '../../utils/Requests';
+import IContentPage from '../../interfaces/IContentPage';
 import styles from './EditorHeader.module.scss'
 
 type Props = {
+  contentPage: IContentPage
 }
 
-const defaultCopyText = "Копировать 📋"
-const EditorHeader = ({ }: Props) => {
+const EditorHeader = ({ contentPage }: Props) => {
   const [link, setLink] = useState("");
+  const defaultCopyText = "Копировать 📋"
   const [copyText, setCopyText] = useState(defaultCopyText);
 
-  function publish() {
-    //TODO: публикация
+  async function publish() {
     setCopyText(defaultCopyText)
-    setLink("https://effects.vercel.app?id=1")
+    const result = await Requests.publishPage(contentPage)
+    console.log("publish", result)
+    setLink(`${Requests.URL}?id=${result}`)
   }
   function copyToClipboard() {
     navigator.clipboard.writeText(link)
@@ -21,11 +25,20 @@ const EditorHeader = ({ }: Props) => {
     setTimeout(() => setCopyText(defaultCopyText), 1250)
   }
 
- 
+
   return <header className={styles.editorHeader}>
     {/* Опубликованный URL */}
-    <input className={styles.publishedUrl} value={link} placeholder={"Тут будет URL..."} />
-    <button className={styles.copyPublishedUrl} onClick={copyToClipboard}>{copyText}</button>
+    <input
+      className={styles.publishedUrl}
+      value={link}
+      placeholder={"Тут будет URL..."}
+      readOnly />
+    <button
+      className={styles.copyPublishedUrl}
+      disabled={link.length === 0}
+      onClick={copyToClipboard}>
+      {copyText}
+    </button>
 
     {/* Кнопка публикации */}
     <button className={styles.publish} onClick={publish}>

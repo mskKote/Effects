@@ -58,7 +58,7 @@
       border-left: none;
     }
 
-    &:active {
+    &:not(:disabled):active {
       border-radius: 50px;
       width        : calc(50% - 5vmax + 1px);
       outline      : none;

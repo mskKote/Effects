@@ -1,5 +1,5 @@
-import type { NextPage } from 'next'
 import React, { useState, useEffect } from 'react'
+import type { NextPage, GetServerSideProps } from 'next'
 import { EEffects } from '../src/interfaces/IEffects'
 import EffectsSettings from '../src/components/effectsSettigns/EffectsSettings'
 import HeadSEO from '../src/utils/HeadSEO'
@@ -10,8 +10,8 @@ import EditorHeader from '../src/components/header/editorHeader'
 import Loader from '../src/components/loader/loader'
 import styles from '../styles/Editor.module.scss'
 import Research from '../src/components/research/research'
+import Requests from '../src/utils/Requests'
 
-//TODO: запилить попап со ссылкой на форму
 
 const mockData: IContentPage = {
   layers: [{
@@ -32,17 +32,24 @@ const mockData: IContentPage = {
   }]
 }
 
+type Props = {
+  page: IContentPage
+  isEdit: boolean
+  resolvedUrl: string
+}
 
-const Editor: NextPage = () => {
-  const [editMode, setEditMode] = useState<boolean>();
+const Editor: NextPage<Props, {}> = ({ page, isEdit, resolvedUrl }) => {
+  const [editMode, setEditMode] = useState<boolean>(isEdit);
   const [loading, setLoading] = useState<boolean>(true);
   const [currentLayer, setCurrentLayer] = useState(0)
-  const [contentPage, setContentPage] = useState(mockData);
+  const [contentPage, setContentPage] = useState(page);
   const [currentLanguage, setCurrentLanguage] = useState(ELanguages.ru_RU);
 
   //* Загрузка контента
   useEffect(() => {
-    setEditMode(!window.location.search)
+    const url = new URL(window.location.href);
+    const isEdit = url.searchParams.has("edit") || url.searchParams.get("id") === null
+    setEditMode(isEdit)
     setTimeout(() => setLoading(false), 1400)
   }, [])
 
@@ -60,7 +67,9 @@ const Editor: NextPage = () => {
         socialNetworkImg="/icon.svg" />
 
       {/* Поле для публикации и аккаунта */}
-      {editMode && <EditorHeader />}
+      {editMode &&
+        <EditorHeader
+          contentPage={contentPage} />}
 
       {/* Настроки эффектов */}
       {editMode &&
@@ -79,8 +88,31 @@ const Editor: NextPage = () => {
           currentLayer={currentLayer} setCurrentLayer={setCurrentLayer} />}
 
       {/* Призыв пройти опрос */}
-      {!editMode && <Research />}
+      {!editMode && <Research url={resolvedUrl} />}
     </div>)
+}
+
+export const getServerSideProps: GetServerSideProps = async ({ query, resolvedUrl }) => {
+  //* Установка значений
+  const id = query["id"] as string
+  let isEdit = Object.hasOwn(query, "edit")
+  if (id === undefined) isEdit = true
+  let page: IContentPage | string = mockData
+  // console.log('getServerSideProps :>> ', query, id, isEdit, resolvedUrl)
+
+  //* Получение контента
+  if (id) {
+    page = await Requests.getPage(id)
+    // console.log("page", page)
+    //* Если контента не существует → редирект на 404
+    if (page === "ERROR")
+      return { redirect: { destination: '/404', permanent: true } }
+    //* Если контента не существует, но мы хотим в редактор → попадаем в редактор
+    else if (page === "ERROR" && isEdit)
+      page = mockData
+  }
+
+  return { props: { page, isEdit, resolvedUrl } }
 }
 
 export default Editor

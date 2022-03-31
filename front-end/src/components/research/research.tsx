@@ -1,7 +1,12 @@
 import React, { useState } from 'react'
 import styles from "./Research.module.scss"
 
-const Research = () => {
+
+type Props = {
+	url: string
+}
+
+const Research = ({ url }: Props) => {
 
 	//* Popup для формы и кнопки перехода в редактор
 	const [popupVisible, setPopupVisible] = useState(false);
@@ -21,7 +26,7 @@ const Research = () => {
 						className={styles.create}
 						target="_blank"
 						rel="noreferrer"
-						href="/">
+						href={`${url}&edit`}>
 						Создать своё
 					</a>
 					<a
@@ -32,6 +37,7 @@ const Research = () => {
 						Пройти опрос!
 					</a>
 				</div>
+				<small>MVP1: редактор лучше открывать на большом экране</small>
 			</div>
 		</div>
 		<button onClick={togglePopup} className={styles.toggle}>
