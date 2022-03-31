@@ -1,5 +1,5 @@
 import type { NextPage } from 'next'
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect } from 'react'
 import { EEffects } from '../src/interfaces/IEffects'
 import EffectsSettings from '../src/components/effectsSettigns/EffectsSettings'
 import HeadSEO from '../src/utils/HeadSEO'

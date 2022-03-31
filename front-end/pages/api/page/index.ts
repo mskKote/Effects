@@ -1,7 +1,16 @@
+import { Create, Collection } from 'faunadb'
 import type { NextApiRequest, NextApiResponse } from 'next'
+import FaunaDBServer from '../../../src/utils/faunaDB'
 
-export default (req: NextApiRequest, res: NextApiResponse) => {
-  if (req.method === "POST")
-    //TODO: закидывает в Fauna данные из req.body, затем возвращает ID
-    res.status(200).json({ name: 'John Doe' })
+export default async (req: NextApiRequest, res: NextApiResponse) => {
+  if (req.method !== "POST") res.send("Use POST")
+
+  const result = await FaunaDBServer.client.query(
+    Create(
+      Collection("pages"),
+      { data: req.body }
+    )
+  )
+  const ref = (result as any).ref
+  res.send(ref)
 }
