@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import metrics from '../../utils/metrics'
 import styles from "./Research.module.scss"
 
 
@@ -26,6 +27,7 @@ const Research = ({ url }: Props) => {
 						className={styles.create}
 						target="_blank"
 						rel="noreferrer"
+						onClick={metrics.createOwn}
 						href={`${url}&edit`}>
 						Создать своё
 					</a>
@@ -33,6 +35,7 @@ const Research = ({ url }: Props) => {
 						className={styles.google}
 						target="_blank"
 						rel="noreferrer"
+						onClick={metrics.survey}
 						href="https://docs.google.com/forms/d/e/1FAIpQLSd-fLRt1EPcjmakDyMS3_gJltiKaWTIKF7LT6sPO0SPhAiisw/viewform">
 						Пройти опрос!
 					</a>
@@ -40,7 +43,7 @@ const Research = ({ url }: Props) => {
 				<small>MVP1: редактор лучше открывать на большом экране</small>
 			</div>
 		</div>
-		<button onClick={togglePopup} className={styles.toggle}>
+		<button onClick={() => { togglePopup(); metrics.info(); }} className={styles.toggle}>
 			<div className={styles.cross}>
 				{popupVisible ? <>
 					<div className={styles.x} />

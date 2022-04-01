@@ -3,6 +3,7 @@ import Image from 'next/image'
 import Requests from '../../utils/Requests';
 import IContentPage from '../../interfaces/IContentPage';
 import styles from './EditorHeader.module.scss'
+import metrics from '../../utils/metrics';
 
 type Props = {
   contentPage: IContentPage
@@ -14,6 +15,7 @@ const EditorHeader = ({ contentPage }: Props) => {
   const [copyText, setCopyText] = useState(defaultCopyText);
 
   async function publish() {
+    metrics.publish()
     setCopyText(defaultCopyText)
     const result = await Requests.publishPage(contentPage)
     console.log("publish", result)

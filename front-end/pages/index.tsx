@@ -95,7 +95,7 @@ const Editor: NextPage<Props, {}> = ({ page, isEdit, resolvedUrl }) => {
 export const getServerSideProps: GetServerSideProps = async ({ query, resolvedUrl }) => {
   //* Установка значений
   const id = query["id"] as string
-  let isEdit = Object.hasOwn(query, "edit")
+  let isEdit = Object.prototype.hasOwnProperty.call(query, "edit")
   if (id === undefined) isEdit = true
   let page: IContentPage | string = mockData
   console.log('getServerSideProps :>> ', query, id, isEdit, resolvedUrl)
