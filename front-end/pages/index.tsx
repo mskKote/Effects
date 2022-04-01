@@ -98,12 +98,12 @@ export const getServerSideProps: GetServerSideProps = async ({ query, resolvedUr
   let isEdit = Object.hasOwn(query, "edit")
   if (id === undefined) isEdit = true
   let page: IContentPage | string = mockData
-  // console.log('getServerSideProps :>> ', query, id, isEdit, resolvedUrl)
+  console.log('getServerSideProps :>> ', query, id, isEdit, resolvedUrl)
 
   //* Получение контента
   if (id) {
     page = await Requests.getPage(id)
-    // console.log("page", page)
+    console.log("page", page)
     //* Если контента не существует → редирект на 404
     if (page === "ERROR")
       return { redirect: { destination: '/404', permanent: true } }
