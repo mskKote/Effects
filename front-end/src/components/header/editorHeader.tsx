@@ -3,7 +3,7 @@ import Image from 'next/image'
 import Requests from '../../utils/Requests';
 import IContentPage from '../../interfaces/IContentPage';
 import styles from './EditorHeader.module.scss'
-import metrics from '../../utils/Metrics';
+import metrics from '../../utils/metrics';
 
 type Props = {
   contentPage: IContentPage
