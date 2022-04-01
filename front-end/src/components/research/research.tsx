@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import metrics from '../../utils/metrics'
+import metrics from '../../utils/Metrics'
 import styles from "./Research.module.scss"
 
 
@@ -11,7 +11,10 @@ const Research = ({ url }: Props) => {
 
 	//* Popup для формы и кнопки перехода в редактор
 	const [popupVisible, setPopupVisible] = useState(false);
-	const togglePopup = () => setPopupVisible(x => !x)
+	const togglePopup = () => {
+		if (!popupVisible) metrics.info();
+		setPopupVisible(x => !x)
+	}
 
 	return (<footer className={styles.feedBack}>
 		<div className={styles.cell} style={{ display: popupVisible ? "block" : "none" }}>
@@ -43,7 +46,7 @@ const Research = ({ url }: Props) => {
 				<small>MVP1: редактор лучше открывать на большом экране</small>
 			</div>
 		</div>
-		<button onClick={() => { togglePopup(); metrics.info(); }} className={styles.toggle}>
+		<button onClick={togglePopup} className={styles.toggle}>
 			<div className={styles.cross}>
 				{popupVisible ? <>
 					<div className={styles.x} />
