@@ -42,13 +42,13 @@ const EffectsHead = ({
     <meta name="twitter:image" content={socialNetworkImg} />
 
     {/* Yandex.Metrika counter */}
-    <YMInitializer version="2" accounts={[88113924]} options={{
+    {/* <YMInitializer version="2" accounts={[88113924]} options={{
       clickmap: true,
       trackLinks: true,
       accurateTrackBounce: true,
       webvisor: true,
       trackHash: true
-    }} />
+    }} /> */}
     {/* /Yandex.Metrika counter */}
 
   </Head>)
