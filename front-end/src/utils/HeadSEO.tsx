@@ -1,5 +1,4 @@
 import Head from 'next/head'
-import { YMInitializer } from 'react-yandex-metrika';
 
 type Props = {
   title: string,
@@ -40,17 +39,6 @@ const EffectsHead = ({
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={socialNetworkImg} />
-
-    {/* Yandex.Metrika counter */}
-    {/* <YMInitializer version="2" accounts={[88113924]} options={{
-      clickmap: true,
-      trackLinks: true,
-      accurateTrackBounce: true,
-      webvisor: true,
-      trackHash: true
-    }} /> */}
-    {/* /Yandex.Metrika counter */}
-
   </Head>)
 
 export default EffectsHead

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import type { NextPage, GetServerSideProps } from 'next'
+import { YMInitializer } from 'react-yandex-metrika';
 import { EEffects } from '../src/interfaces/IEffects'
 import EffectsSettings from '../src/components/effectsSettigns/EffectsSettings'
 import HeadSEO from '../src/utils/HeadSEO'
@@ -65,6 +66,15 @@ const Editor: NextPage<Props, {}> = ({ page, isEdit, resolvedUrl }) => {
         author="🔮 Effects team"
         iconImg="/icon.svg"
         socialNetworkImg="/icon.svg" />
+
+      {/* Yandex.Metrika counter */}
+      <YMInitializer version="2" accounts={[88113924]} options={{
+        clickmap: true,
+        trackLinks: true,
+        accurateTrackBounce: true,
+        webvisor: true,
+        trackHash: true
+      }} />
 
       {/* Поле для публикации и аккаунта */}
       {editMode &&
