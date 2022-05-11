@@ -1,12 +1,41 @@
-.layersSettingsContainer {
+.layersSettingsWrapper {
   grid-area       : layers;
-  display         : flex;
-  flex-direction  : column;
-  overflow-y      : auto;
-  padding         : 1rem;
   background-color: #e5e5f7;
   background-image: radial-gradient(#444cf7 0.65px, #e5e5f7 0.65px);
   background-size : 13px 13px;
+  display         : flex;
+  flex-direction  : column;
+  justify-content : space-between;
+
+  .layersSettingsContainer {
+    display       : flex;
+    flex-direction: column;
+    overflow-y    : auto;
+    padding       : 1rem;
+  }
+
+  .legalContainer {
+    display       : flex;
+    flex-direction: column;
+    grid-gap      : 0.5rem;
+    padding-inline: 1.5rem;
+    padding-block : 2.5rem;
+    text-align    : right;
+
+    a {
+      color: #55607f;
+
+      &:hover {
+        text-decoration: 2px underline #55607f solid;
+      }
+
+      &:active {
+        text-decoration: 2px underline #55607f double;
+        color          : #55607f;
+      }
+    }
+  }
+
 
   .addLayerBtn {
     padding         : 1rem;

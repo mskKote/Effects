@@ -65,53 +65,63 @@ const LayersSettings = ({ contentPage, setContentPage, currentLayer, setCurrentL
   }
 
 
-  return (<aside className={styles.layersSettingsContainer}>
-    <h1>Настройки слоёв</h1>
-    {/* Колонки */}
-    <DragDropContext onDragEnd={handleOnDragEnd}>
-      {/* 1 колонка */}
-      <Droppable droppableId='layers'>
-        {(provided) => (
-          <div ref={provided.innerRef} {...provided.droppableProps}>
-            {/* Карточки */}
-            {layers.map(({ content }, i) =>
-              <Draggable key={i}
-                index={i}
-                draggableId={`${i}`}>
-                {/* 1 карточка */}
-                {(provided) =>
-                  <div
-                    onClick={() => changeLayer(i)}
-                    className={`${styles.layerCard} ${i === currentLayer ? styles.layerActive : ""}`}
-                    ref={provided.innerRef}
-                    {...provided.draggableProps}
-                    {...provided.dragHandleProps}>
-                    <input
-                      value={content.ru_RU?.name}
-                      onChange={(event) => changeLayerName(event, i)}
-                      placeholder={"Введите название слоя..."}
-                      className={styles.layerName}
-                      autoFocus
-                    />
-                    <button
-                      className={styles.deleteLayer}
-                      onClick={(event) => {
-                        event.stopPropagation();
-                        deleteLayer(i);
-                      }}>
-                      🗑️
-                    </button>
-                  </div>}
-              </Draggable>)}
-            {provided.placeholder}
-          </div>)}
-      </Droppable>
-    </DragDropContext>
-    <button
-      className={styles.addLayerBtn}
-      onClick={addLayer}>
-      Добавить слой
-    </button>
+  return (<aside className={styles.layersSettingsWrapper}>
+    <div className={styles.layersSettingsContainer}>
+      <h1>Настройки слоёв</h1>
+      {/* Колонки */}
+      <DragDropContext onDragEnd={handleOnDragEnd}>
+        {/* 1 колонка */}
+        <Droppable droppableId='layers'>
+          {(provided) => (
+            <div ref={provided.innerRef} {...provided.droppableProps}>
+              {/* Карточки */}
+              {layers.map(({ content }, i) =>
+                <Draggable key={i}
+                  index={i}
+                  draggableId={`${i}`}>
+                  {/* 1 карточка */}
+                  {(provided) =>
+                    <div
+                      onClick={() => changeLayer(i)}
+                      className={`${styles.layerCard} ${i === currentLayer ? styles.layerActive : ""}`}
+                      ref={provided.innerRef}
+                      {...provided.draggableProps}
+                      {...provided.dragHandleProps}>
+                      <input
+                        value={content.ru_RU?.name}
+                        onChange={(event) => changeLayerName(event, i)}
+                        placeholder={"Введите название слоя..."}
+                        className={styles.layerName}
+                        autoFocus
+                      />
+                      <button
+                        className={styles.deleteLayer}
+                        onClick={(event) => {
+                          event.stopPropagation();
+                          deleteLayer(i);
+                        }}>
+                        🗑️
+                      </button>
+                    </div>}
+                </Draggable>)}
+              {provided.placeholder}
+            </div>)}
+        </Droppable>
+      </DragDropContext>
+      <button
+        className={styles.addLayerBtn}
+        onClick={addLayer}>
+        Добавить слой
+      </button>
+    </div>
+    <div className={styles.legalContainer}>
+      <a target={"_blank"} href="https://docs.google.com/document/d/1ARDFMZ8LzKIGQWZ3Mn3D1KsErW1b5Icxv6HzdkmVpZI/edit?usp=sharing">
+        Оферта
+      </a>
+      <a target={"_blank"} href="https://docs.google.com/document/d/1FeVVtyyHC1wWqx8_ve5b3FdyM-ADF8Flufx3D0EQ-9o/edit?usp=sharing">
+        Политика обработки персональных данных
+      </a>
+    </div>
   </aside>)
 }
 

@@ -42,6 +42,7 @@ const Layer = ({ num, layer, currentLanguage = ELanguages.ru_RU }: Props) => {
   return (<div data-depth={parallax} className={styles.layerContainer}>
     {contentWithLanguage?.url && <>
       <Image
+        draggable={false}
         src={contentWithLanguage.url}
         layout="fill"
         loading={'eager'}
@@ -52,6 +53,7 @@ const Layer = ({ num, layer, currentLanguage = ELanguages.ru_RU }: Props) => {
       <style jsx global>{`
         img.layer-${num} {
           filter: ${effects};
+          user-select: none;
         }
       `}</style>
 
