@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import metrics from '../../utils/Metrics'
+import metrics from '../../utils/metrics'
 import styles from "./Research.module.scss"
 
 
