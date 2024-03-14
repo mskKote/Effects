@@ -68,9 +68,8 @@ const Layer = ({ num, layer, currentLanguage = ELanguages.ru_RU }: Props) => {
             src={contentWithLanguage.url}
             layout="fill"
             loading={"eager"}
-            className={`layer-${num}`}
+            className={`${styles.layerImage} layer-${num}`}
             alt={contentWithLanguage.name}
-            objectFit="contain"
           />
           <style jsx global>{`
             img.layer-${num} {

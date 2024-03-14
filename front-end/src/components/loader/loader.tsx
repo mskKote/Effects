@@ -20,27 +20,21 @@ const Loader = () => {
 
       <div className={styles.container}>
         {/* Строки */}
-        {emptyArray()
-          .fill({})
-          .map((_, rowI) => (
-            <div key={`row-${rowI}`} className={styles.row}>
-              {/* Колонки */}
-              {emptyArray()
-                .fill({})
-                .map((_, lineI) => (
-                  <div key={`line-${lineI}`} className={styles.loader}>
-                    {/* 1 квадрат */}
-                    <div className={styles.lines}>
-                      {emptyArray()
-                        .fill({})
-                        .map((_, spanI) => (
-                          <span key={spanI} />
-                        ))}
-                    </div>
-                  </div>
-                ))}
-            </div>
-          ))}
+        {emptyArray().map((_, rowI) => (
+          <div key={`row-${rowI}`} className={styles.row}>
+            {/* Колонки */}
+            {emptyArray().map((_, lineI) => (
+              <div key={`line-${lineI}`} className={styles.loader}>
+                {/* 1 квадрат */}
+                <div className={styles.lines}>
+                  {emptyArray().map((_, spanI) => (
+                    <span key={spanI} />
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        ))}
       </div>
     </div>
   );

@@ -55,7 +55,7 @@ const EditorHeader = ({ contentPage }: Props) => {
 
       {/* Профиль */}
       <div className={styles.profileContainer}>
-        <Image src={"/user-icon.png"} layout={"fill"} alt="аккаунт" />
+        <Image src="/user-icon.png" layout="fill" alt="аккаунт" />
       </div>
     </header>
   );
