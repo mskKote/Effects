@@ -1,18 +1,21 @@
 ## Getting Started
 
-Используем yarn
+Используем pnpm
 
 ```
-yarn && yarn dev
+pnpm && pnpm dev
 ```
-
 
 И расширения в VS Code ради единого код-стайла:
-* Better Comments
-* formate: CSS/LESS/SCSS formatter
-* форматтер стандартный от VS Code
 
+- Better Comments
+- formate: CSS/LESS/SCSS formatter
+- форматтер стандартный от VS Code
+- stylelint
 
+```
+npx stylelint "**/*.scss"
+```
 
 ## Deploy on Vercel
 
@@ -23,6 +26,7 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 ## Добавление эффектов для filter
 
 Инструкция:
+
 1. Зайти в IEffects
 2. Создать в EEfects нужное значение
 3. В поиске найти все "IEffects" и добавить то, что необходимо

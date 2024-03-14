@@ -1,4 +1,4 @@
-.feedBack {
+.feedback {
 	.cell {
 		position      : absolute;
 		width         : max(40%, 20rem);
@@ -10,27 +10,27 @@
 		padding-inline: 1rem;
 		padding-block : 0.25rem 0.75rem;
 		margin-block  : 1rem;
-		box-shadow    : 0 8px 32px 0 rgb(100 100 100 / 25%);
+		box-shadow    : 0 8px 32px 0 rgb(100 100 100 / 0.25);
 		border-radius : 16px;
-		background    : #ffffff;
-		border        : 0px #e2e8f0 solid;
-		box-shadow    : 0 20px 25px -5px rgba(0, 0, 0, 0.1),
-			0 10px 10px -5px rgba(0, 0, 0, 0.04);
+		background    : #FFF;
+		border        : 0 #e2e8f0 solid;
+		box-shadow    : 0 20px 25px -5px rgb(0 0 0 / 0.1),
+			0 10px 10px -5px rgb(0 0 0 / 0.04);
 
 
 		.panel {
-			color   : #666666;
+			color   : #666;
 			position: relative;
 		}
 
 		header {
 			display: block;
-			padding: 1em 0 1em;
+			padding: 1em 0;
 
 			h1 {
 				--font-size-h1: clamp(40px, 20px + 1.04vw, 60px);
 
-				@media screen and (max-width: 1919px) {
+				@media (max-width: 1919px) {
 					--font-size-h1: clamp(34px, 32.54px + 0.39vw, 40px);
 				}
 
@@ -49,11 +49,11 @@
 		p {
 			--font-size-p: clamp(20px, 12px + 0.31vw, 26px);
 
-			@media screen and (max-width: 1919px) {
+			@media (max-width: 1919px) {
 				--font-size-p: clamp(16px, 15.51px + 0.13vw, 18px);
 			}
 
-			font-family: Roboto Slab,
+			font-family: "Roboto Slab",
 			sans-serif;
 			font-size  : var(--font-size-p);
 			line-height: 1.6;
@@ -68,7 +68,7 @@
 		div.links {
 			font-family: "Roboto Slab", sans-serif;
 			text-align : center;
-			color      : #666666;
+			color      : #666;
 			display    : block;
 			position   : relative;
 			z-index    : 1;
@@ -92,18 +92,18 @@
 				opacity 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
 				font-size      : var(--font-size-a);
 				font-family    : sans-serif;
-				border-top     : 1px solid rgba(0, 0, 0, 0.2);
+				border-top     : 1px solid rgb(0 0 0 / 0.2);
 				border-radius  : 16px;
 				padding        : 1rem;
 				background-clip: padding-box;
 				display        : flex;
 				justify-content: center;
 				align-items    : center;
-				box-shadow     : 0 0 8px 4px rgba(0, 0, 0, 0.1);
+				box-shadow     : 0 0 8px 4px rgb(0 0 0 / 0.1);
 
 				&:hover {
 					background-color: #444cf7;
-					color           : #FFFFFF;
+					color           : #FFF;
 				}
 
 				&:active {
@@ -117,9 +117,9 @@
 	.toggle {
 		vertical-align  : baseline;
 		cursor          : pointer;
-		font-size       : 1.33333em;
+		font-size       : 1.3333em;
 		line-height     : 45.6px;
-		font-family     : "Dosis", sans-serif;
+		font-family     : Dosis, sans-serif;
 		background-color: #F2F2F2;
 		font-weight     : 600;
 		outline         : none;
@@ -130,30 +130,20 @@
 		width           : 56px;
 		transition      : color 0.6s cubic-bezier(0.165, 0.84, 0.44, 1), background-color 0.6s cubic-bezier(0.165, 0.84, 0.44, 1), opacity 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
 		transform       : translateX(-4px);
-		box-shadow      : 0 2px 8px rgba(0, 0, 0, 0.6);
+		box-shadow      : 0 2px 8px rgb(0 0 0 / 0.6);
 		position        : absolute;
 		left            : 50%;
 		margin          : -24px;
 		bottom          : 12%;
 		z-index         : 10;
 
-		&:hover {
-			background-color: #D92400;
-			color           : #FFFFFF;
-
-			.cross>.x,
-			.cross>.y {
-				background-color: #FFFFFF;
-			}
-		}
-
 		.cross {
 			-webkit-text-size-adjust: 100%;
 			cursor                  : pointer;
 			-webkit-font-smoothing  : antialiased;
-			font-size               : 1.33333em;
+			font-size               : 1.3333em;
 			line-height             : 45.6px;
-			font-family             : "Dosis", sans-serif;
+			font-family             : Dosis, sans-serif;
 			font-weight             : 600;
 			transition              : all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
 
@@ -161,13 +151,13 @@
 				-webkit-text-size-adjust: 100%;
 				cursor                  : pointer;
 				-webkit-font-smoothing  : antialiased;
-				font-size               : 1.33333em;
+				font-size               : 1.3333em;
 				line-height             : 45.6px;
 				position                : absolute;
 				left                    : 50%;
 				top                     : 50%;
 				transform               : rotate(45deg);
-				font-family             : "Dosis", sans-serif;
+				font-family             : Dosis, sans-serif;
 				font-weight             : 600;
 				transition              : all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
 				border-radius           : 2px;
@@ -175,7 +165,6 @@
 				background-color        : #1D1F27;
 				height                  : 4px;
 				margin                  : -2px;
-				position                : absolute;
 				margin-left             : -12px;
 				margin-top              : -2px;
 				width                   : 24px;
@@ -189,9 +178,9 @@
 				left                    : 50%;
 				top                     : 50%;
 				transform               : rotate(45deg);
-				font-size               : 1.33333em;
+				font-size               : 1.3333em;
 				line-height             : 45.6px;
-				font-family             : "Dosis", sans-serif;
+				font-family             : Dosis, sans-serif;
 				font-weight             : 600;
 				transition              : all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
 				border-radius           : 2px;
@@ -199,7 +188,6 @@
 				background-color        : #1D1F27;
 				width                   : 4px;
 				margin                  : -2px;
-				position                : absolute;
 				margin-top              : -12px;
 				height                  : 24px;
 			}
@@ -208,6 +196,16 @@
 				position: static;
 				left    : 25px;
 				top     : 6px;
+			}
+		}
+
+		&:hover {
+			background-color: #D92400;
+			color           : #FFF;
+
+			.cross .x,
+			.cross .y {
+				background-color: #FFF;
 			}
 		}
 	}

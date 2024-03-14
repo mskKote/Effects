@@ -1,0 +1,23 @@
+{
+  "extends": "stylelint-config-standard-scss",
+  "rules": {
+    "alpha-value-notation": "number",
+    "property-no-vendor-prefix": null,
+    "value-keyword-case": [
+      "lower",
+      {
+        "ignoreKeywords": ["optimizeLegibility"]
+      }
+    ],
+    "media-feature-range-notation": "prefix",
+    "scss/dollar-variable-colon-space-before": null,
+    "rule-empty-line-before": null,
+    "declaration-block-no-redundant-longhand-properties": [
+      true,
+      {
+        "ignoreShorthands": ["grid-template"]
+      }
+    ],
+    "selector-class-pattern": null
+  }
+}

@@ -2,16 +2,17 @@
   --container-size: 40vw;
   --squares-count : 5;
 
-  @media screen and (max-width: 550px) {
+  @media (max-width: 550px) {
     --container-size: 80vw;
   }
 
-  --square-size    : calc(var(--container-size)/var(--squares-count));
-  --lines-size     : calc(var(--square-size)/var(--squares-count));
+  --square-size    : calc(var(--container-size) / var(--squares-count));
+  --lines-size     : calc(var(--square-size) / var(--squares-count));
   --squares-padding: 0;
 
-  $animation-time    : 3s;
-  $animation-curve   : cubic-bezier(1, .5, .25, .5);
+  $animation-time  : 3s;
+  $animation-curve : cubic-bezier(1, .5, .25, .5);
+
   // $animation-curve: ease-in-out;
 
   background-color : #131313;
@@ -27,13 +28,13 @@
     height   : var(--container-size);
     width    : var(--container-size);
 
-    >.row {
+    .row {
       position: relative;
       float   : left;
       width   : 100%;
       clear   : both;
 
-      >.loader {
+      .loader {
         position: relative;
         display : inline-block;
         height  : var(--square-size);
@@ -41,10 +42,7 @@
         float   : left;
 
         >.lines {
-          bottom  : var(--squares-padding);
-          right   : var(--squares-padding);
-          left    : var(--squares-padding);
-          top     : var(--squares-padding);
+          inset   : var(--squares-padding);
           position: absolute;
 
           >span {
@@ -157,21 +155,24 @@
 }
 
 @keyframes shift-background {
+  // stylelint-disable scss/no-global-function-names
 
   0%,
   100% {
-    background-color: hsla(random(360), 50%, 50%, 100*random(100)*.1);
+    background-color: rgb(random(360) 50% 50% / 100 * random(100) * .1);
   }
 
   25% {
-    background-color: hsla(random(360), 50%, 50%, 100*random(100)*.1);
+    background-color: rgb(random(360) 50% 50% / 100 * random(100) * .1);
   }
 
   50% {
-    background-color: hsla(random(360), 50%, 50%, 100*random(100)*.1);
+    background-color: rgb(random(360) 50% 50% / 100 * random(100) * .1);
   }
 
   75% {
-    background-color: hsla(random(360), 50%, 50%, 100*random(100)*.1);
+    background-color: rgb(random(360) 50% 50% / 100 * random(100) * .1);
   }
+
+  // stylelint-enable scss/no-global-function-names
 }

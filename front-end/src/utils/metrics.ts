@@ -1,4 +1,4 @@
-import ym from 'react-yandex-metrika';
+import ym from "react-yandex-metrika";
 
 /**
  ** нажатие на публикацию
@@ -8,20 +8,22 @@ import ym from 'react-yandex-metrika';
  */
 class Metrics {
   publish() {
-    ym('reachGoal', 'publish')
+    ym("reachGoal", "publish");
   }
 
   info() {
-    ym('reachGoal', 'info')
+    ym("reachGoal", "info");
   }
 
   createOwn() {
-    ym('reachGoal', 'createOwn')
+    ym("reachGoal", "createOwn");
   }
 
   survey() {
-    ym('reachGoal', 'survey')
+    ym("reachGoal", "survey");
   }
 }
 
-export default new Metrics()
+const metrics = new Metrics();
+
+export default metrics;

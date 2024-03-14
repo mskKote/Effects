@@ -1,1 +1,1 @@
-declare module 'parallax-js';
+declare module "parallax-js";

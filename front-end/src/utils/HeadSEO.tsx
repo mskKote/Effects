@@ -1,13 +1,13 @@
-import Head from 'next/head'
+import Head from "next/head";
 
 type Props = {
-  title: string,
-  description: string,
-  keywords: Array<string>,
-  author: string,
-  iconImg: string,
-  socialNetworkImg: string
-}
+  title: string;
+  description: string;
+  keywords: string[];
+  author: string;
+  iconImg: string;
+  socialNetworkImg: string;
+};
 
 const EffectsHead = ({
   title = "Effects",
@@ -15,7 +15,8 @@ const EffectsHead = ({
   keywords = ["Comics", "manga", "effects", "parallax", "2.5d"],
   author = "🔮 Effects team",
   iconImg,
-  socialNetworkImg }: Props) => (
+  socialNetworkImg,
+}: Props) => (
   <Head>
     <title>{title}</title>
     <link rel="icon" href={iconImg} />
@@ -39,6 +40,7 @@ const EffectsHead = ({
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={socialNetworkImg} />
-  </Head>)
+  </Head>
+);
 
-export default EffectsHead
+export default EffectsHead;
