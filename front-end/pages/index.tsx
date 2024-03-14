@@ -4,13 +4,13 @@ import { YMInitializer } from "react-yandex-metrika";
 import { EEffects } from "../src/interfaces/IEffects";
 import EffectsSettings from "../src/components/effectsSettigns/EffectsSettings";
 import HeadSEO from "../src/utils/HeadSEO";
-import Layers from "../src/components/layers/layers";
-import LayersSettings from "../src/components/layersSettings/layersSettings";
+import Layers from "../src/components/layers/Layers";
+import LayersSettings from "../src/components/layersSettings/LayersSettings";
 import IContentPage, { ELanguages } from "../src/interfaces/IContentPage";
-import EditorHeader from "../src/components/header/editorHeader";
-import Loader from "../src/components/loader/loader";
+import EditorHeader from "../src/components/header/EditorHeader";
+import Loader from "../src/components/loader/Loader";
 import styles from "../styles/Editor.module.scss";
-import Research from "../src/components/research/research";
+import Research from "../src/components/research/Research";
 import Requests from "../src/utils/Requests";
 
 //#region Mock
@@ -58,7 +58,7 @@ const Editor: NextPage<Props, {}> = ({ page, isEdit, resolvedUrl }) => {
     const isEdit =
       url.searchParams.has("edit") || url.searchParams.get("id") === null;
     setEditMode(isEdit);
-    setTimeout(() => setLoading(false), 1400);
+    setTimeout(() => setLoading(false), 400);
   }, []);
 
   //* Пока чудо не произошло, показываем загрузку

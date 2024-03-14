@@ -305,12 +305,14 @@ const EffectsSettings = ({
           <small>MVP1: пока картинки стоит добавлять одинакового размера</small>
         </fieldset>
         <fieldset className={styles.step}>
-          <h2>
-            Шаг 2. Задайте&nbsp;
-            <span className={styles.parallaxTerm} title="Движение слоя">
-              параллакс
-            </span>
-          </h2>
+          <label htmlFor="parallax">
+            <h2>
+              Шаг 2. Задайте&nbsp;
+              <span className={styles.parallaxTerm} title="Движение слоя">
+                параллакс
+              </span>
+            </h2>
+          </label>
           <div className={styles.parallaxContainer}>
             <input
               type="range"
