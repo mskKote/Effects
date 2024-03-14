@@ -320,10 +320,14 @@ const EffectsSettings = ({
               inputMode="decimal"
               name="parallax"
               id="parallax"
+              list="parallax-datalist"
               value={currentPageEffects[EEffects.parallax]?.value ?? 0}
               onInput={editContentPage}
             />
-            <datalist id="parallax" className={styles.optionsContainer}>
+            <datalist
+              id="parallax-datalist"
+              className={styles.optionsContainer}
+            >
               {[-5, -2.5, 0, 2.5, 5].map((x, i) => (
                 <option value={x} key={i}>
                   {x}

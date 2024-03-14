@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Image from "next/image";
+import Image from "next/legacy/image";
 import Requests from "../../utils/Requests";
 import IContentPage from "../../interfaces/IContentPage";
 import styles from "./EditorHeader.module.scss";

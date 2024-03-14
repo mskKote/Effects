@@ -1,5 +1,5 @@
 /* eslint-disable react/no-unknown-property */
-import Image from "next/image";
+import Image from "next/legacy/image";
 import React from "react";
 import { ELanguages } from "../../../interfaces/IContentPage";
 import IEffects, { EEffects } from "../../../interfaces/IEffects";

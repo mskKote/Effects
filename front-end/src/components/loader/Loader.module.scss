@@ -10,7 +10,7 @@
   --lines-size     : calc(var(--square-size) / var(--squares-count));
   --squares-padding: 0;
 
-  $animation-time  : 3s;
+  $animation-time  : 1s;
   $animation-curve : cubic-bezier(1, .5, .25, .5);
 
   // $animation-curve: ease-in-out;
