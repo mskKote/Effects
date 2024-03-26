@@ -63,24 +63,11 @@
 }
 
 /* ===== Scrollbar CSS ===== */
-
-/* Firefox */
 aside.effectsSettingsContainer {
   scrollbar-width: gray;
   scrollbar-color: white #e5e5f7;
-}
 
-/* Chrome, Edge, and Safari */
-aside.effectsSettingsContainer::-webkit-scrollbar {
-  width: 16px;
-}
-
-aside.effectsSettingsContainer::-webkit-scrollbar-track {
-  background: #e5e5f7;
-}
-
-aside.effectsSettingsContainer::-webkit-scrollbar-thumb {
-  background-color: gray;
-  border-radius   : 10px;
-  border          : 3px solid #e5e5f7;
+  &::-webkit-scrollbar-thumb {
+    background-color: gray;
+  }
 }

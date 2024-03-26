@@ -1,18 +1,19 @@
-import React, { useState } from "react";
+import React from "react";
 import Image from "next/legacy/image";
 import Requests from "../../utils/Requests";
 import IContentPage from "../../interfaces/IContentPage";
 import styles from "./EditorHeader.module.scss";
 import metrics from "../../utils/metrics";
 
+const defaultCopyText = "Копировать 📋";
+
 type Props = {
   contentPage: IContentPage;
 };
 
 const EditorHeader = ({ contentPage }: Props) => {
-  const [link, setLink] = useState("");
-  const defaultCopyText = "Копировать 📋";
-  const [copyText, setCopyText] = useState(defaultCopyText);
+  const [link, setLink] = React.useState("");
+  const [copyText, setCopyText] = React.useState(defaultCopyText);
 
   async function publish() {
     metrics.publish();

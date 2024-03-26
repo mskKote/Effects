@@ -5,13 +5,13 @@ import { EEffects } from "../src/interfaces/IEffects";
 import EffectsSettings from "../src/components/effectsSettigns/EffectsSettings";
 import HeadSEO from "../src/utils/HeadSEO";
 import Layers from "../src/components/layers/Layers";
-import LayersSettings from "../src/components/layersSettings/LayersSettings";
+import LayersSettings from "../src/components/layers/LayersSettings";
 import IContentPage, { ELanguages } from "../src/interfaces/IContentPage";
 import EditorHeader from "../src/components/header/EditorHeader";
 import Loader from "../src/components/loader/Loader";
 import styles from "../styles/Editor.module.scss";
-import Research from "../src/components/research/Research";
 import Requests from "../src/utils/Requests";
+import cn from "classnames";
 
 //#region Mock
 const mockData: IContentPage = {
@@ -66,9 +66,10 @@ const Editor: NextPage<Props, {}> = ({ page, isEdit, resolvedUrl }) => {
 
   return (
     <div
-      className={`${styles.editorContainer} ${
-        editMode ? styles.editorTime : styles.showTime
-      }`}
+      className={cn(styles.editorContainer, {
+        [styles.editorTime]: editMode,
+        [styles.showTime]: !editMode,
+      })}
     >
       <HeadSEO
         title="Effects"
@@ -116,9 +117,6 @@ const Editor: NextPage<Props, {}> = ({ page, isEdit, resolvedUrl }) => {
           setCurrentLayer={setCurrentLayer}
         />
       )}
-
-      {/* Призыв пройти опрос */}
-      {!editMode && <Research url={resolvedUrl} />}
     </div>
   );
 };

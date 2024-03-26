@@ -2,143 +2,17 @@ import React from "react";
 import IContentPage from "../../interfaces/IContentPage";
 import IEffects, {
   EEffects,
-  effect,
+  Effect,
   getEEffectsByString,
 } from "../../interfaces/IEffects";
 import styles from "./EffectsSettings.module.scss";
+import allDefaultEffects, { RangeEffectTypes } from "./model";
+import RangeEffectSetting from "./RangeEffectSetting";
 
-//#region Types
-type range = {
-  title: string;
-  options: React.DetailedHTMLProps<
-    React.InputHTMLAttributes<HTMLInputElement>,
-    HTMLInputElement
-  >;
-  dataList: number[];
-};
-type rangeEffectTypes = {
-  [name: string]: range;
-};
 type Props = {
   contentPage: IContentPage;
   setContentPage: React.Dispatch<React.SetStateAction<IContentPage>>;
   currentLayer: number;
-};
-//#endregion
-
-/**
- * Все эффекты
- * TODO: вынести в конфиг
- */
-const allDefaultEffects: rangeEffectTypes = {
-  [EEffects.blur]: {
-    title: "Размытие",
-    options: {
-      min: 0,
-      max: 15,
-      step: 0.5,
-      inputMode: "decimal",
-      value: 0,
-      name: "blur",
-    },
-    dataList: [0, 5, 10, 15],
-  },
-  [EEffects.brightness]: {
-    title: "Яркость",
-    options: {
-      min: 0,
-      max: 200,
-      step: 10,
-      inputMode: "numeric",
-      value: 100,
-      name: "brightness",
-    },
-    dataList: [0, 100, 200],
-  },
-  [EEffects.saturate]: {
-    title: "Насыщенность",
-    options: {
-      min: 0,
-      max: 200,
-      step: 1,
-      inputMode: "numeric",
-      value: 100,
-      name: "saturate",
-    },
-    dataList: [0, 100, 200],
-  },
-  [EEffects.contrast]: {
-    title: "Контраст",
-    options: {
-      min: 0,
-      max: 200,
-      step: 10,
-      inputMode: "numeric",
-      value: 100,
-      name: "contrast",
-    },
-    dataList: [0, 100, 200],
-  },
-  [EEffects.grayscale]: {
-    title: "Серость",
-    options: {
-      min: 0,
-      max: 100,
-      step: 10,
-      inputMode: "numeric",
-      value: 0,
-      name: "grayscale",
-    },
-    dataList: [0, 50, 100],
-  },
-  [EEffects.invert]: {
-    title: "Инвертировать",
-    options: {
-      min: 0,
-      max: 100,
-      step: 10,
-      inputMode: "numeric",
-      value: 0,
-      name: "invert",
-    },
-    dataList: [0, 50, 100],
-  },
-  [EEffects.hueRotate]: {
-    title: "Повернуть палитру",
-    options: {
-      min: 0,
-      max: 360,
-      step: 5,
-      inputMode: "numeric",
-      value: 0,
-      name: "hueRotate",
-    },
-    dataList: [0, 180, 360],
-  },
-  [EEffects.sepia]: {
-    title: "Сепия",
-    options: {
-      min: 0,
-      max: 100,
-      step: 10,
-      inputMode: "numeric",
-      value: 0,
-      name: "sepia",
-    },
-    dataList: [0, 50, 100],
-  },
-  [EEffects.opacity]: {
-    title: "Прозрачность",
-    options: {
-      min: 0,
-      max: 100,
-      step: 10,
-      inputMode: "numeric",
-      value: 100,
-      name: "opacity",
-    },
-    dataList: [0, 50, 100],
-  },
 };
 
 const EffectsSettings = ({
@@ -149,7 +23,7 @@ const EffectsSettings = ({
   //* Отвечает за контент на странице
   const currentPageEffects = contentPage.layers[currentLayer]?.effects;
   const [effectsSettings, setEffectsSettings] =
-    React.useState<rangeEffectTypes>();
+    React.useState<RangeEffectTypes>(createRangeEffects(currentPageEffects));
   /**
    * Функция отвечает за изменение useState, отвечающего за страницу.
    * Используется, чтобы применить эффекты
@@ -164,7 +38,7 @@ const EffectsSettings = ({
     const _effect = _contentPage.layers[currentLayer].effects;
 
     // Установка значения
-    if (_effect[effectType]) (_effect[effectType] as effect).value = value;
+    if (_effect[effectType]) (_effect[effectType] as Effect).value = value;
     else _effect[effectType] = { value };
 
     setContentPage(_contentPage);
@@ -202,9 +76,10 @@ const EffectsSettings = ({
    * @param currentPageEffects настройки не по умолчанию
    * @returns настройки для отрисовки
    */
-  function createRangeEffects(currentPageEffects: IEffects): rangeEffectTypes {
+  function createRangeEffects(currentPageEffects: IEffects): RangeEffectTypes {
     // console.groupCollapsed('createRangeEffects')
-    const _defaultEffects: rangeEffectTypes = JSON.parse(
+    //* Deep copy
+    const _defaultEffects: RangeEffectTypes = JSON.parse(
       JSON.stringify(allDefaultEffects)
     );
 
@@ -220,46 +95,6 @@ const EffectsSettings = ({
     // console.groupEnd();
     return _defaultEffects;
   }
-  /**
-   * Визуализирует 1 эффект
-   */
-  function generateRange({ title, options, dataList }: range, key: number) {
-    return (
-      <div className={styles.effectContainer} key={key}>
-        <label className={styles.inputLabel} htmlFor={options.name}>
-          {title} ({options.name})
-        </label>
-
-        <div className={styles.inputContainer}>
-          <input
-            list={`effect-${key}`}
-            type="range"
-            {...options}
-            id={options.name}
-            name={options.name}
-            onChange={editContentPage}
-          />
-          <datalist id={`effect-${key}`} className={styles.optionsContainer}>
-            {dataList.map((item, i) => (
-              <option key={i} value={item}>
-                {item}
-              </option>
-            ))}
-          </datalist>
-        </div>
-      </div>
-    );
-  }
-  /**
-   * Создаёт эффект
-   * @param param0 настройки эффекта
-   * @param key key атрибут
-   * @returns jsx
-   */
-  const rangeEffect = (param: rangeEffectTypes) =>
-    Object.keys(param)
-      .map((x) => param[x])
-      .map(generateRange);
 
   //* useEffect срабатывает при изменение слоёв / страницы
   React.useEffect(() => {
@@ -267,14 +102,10 @@ const EffectsSettings = ({
     // console.log("currentLayer", currentLayer)
     setEffectsSettings(createRangeEffects(currentPageEffects));
     // console.groupEnd();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [currentLayer, contentPage]);
-
-  // Пока слои не созданы в useEffect
-  if (effectsSettings === undefined) return <aside />;
+  }, [currentPageEffects]);
 
   // Слои отсутствуют
-  if (currentLayer <= -1 || currentPageEffects === undefined)
+  if (currentLayer < 0 || !currentPageEffects)
     return (
       <aside className={styles.effectsSettingsContainer}>
         <h1>Настройки&nbsp;эффектов</h1>
@@ -289,7 +120,6 @@ const EffectsSettings = ({
     <aside className={styles.effectsSettingsContainer}>
       <h1>Настройки&nbsp;эффектов</h1>
       <form>
-        Эффекты к текущему слою
         <fieldset className={styles.step}>
           <h2>Шаг 1. Добавьте&nbsp;картинку</h2>
           <label htmlFor="layer-image" className={styles.layerImage}>
@@ -340,7 +170,15 @@ const EffectsSettings = ({
         </fieldset>
         <fieldset className={styles.step}>
           <h2>Шаг 3. Попробуйте другие эффекты</h2>
-          {rangeEffect(effectsSettings)}
+          {Object.values(effectsSettings).map((v) => (
+            <RangeEffectSetting
+              onChange={editContentPage}
+              key={v.options.name}
+              dataList={v.dataList}
+              options={v.options}
+              title={v.title}
+            />
+          ))}
         </fieldset>
       </form>
     </aside>

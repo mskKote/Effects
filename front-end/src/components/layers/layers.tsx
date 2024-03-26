@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import IContentPage, { ELanguages } from "../../interfaces/IContentPage";
-import Layer from "./layer/layer";
+import Layer from "./layer";
 import Parallax from "parallax-js";
 import styles from "./Layers.module.scss";
 

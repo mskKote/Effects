@@ -16,42 +16,21 @@ export enum EEffects {
 }
 
 export function getEEffectsByString(value: string): EEffects {
-  switch (value) {
-    case "parallax":
-      return EEffects[value];
-    case "blur":
-      return EEffects[value];
-    case "brightness":
-      return EEffects[value];
-    case "saturate":
-      return EEffects[value];
-    case "contrast":
-      return EEffects[value];
-    case "grayscale":
-      return EEffects[value];
-    case "invert":
-      return EEffects[value];
-    case "hueRotate":
-      return EEffects[value];
-    case "sepia":
-      return EEffects[value];
-    case "opacity":
-      return EEffects[value];
-    default:
-      return EEffects.default;
-  }
+  return Object.keys(EEffects).includes(value)
+    ? EEffects[value as EEffects]
+    : EEffects.default;
 }
 /**
  * Представление эффекта
  */
-export type effect = {
+export type Effect = {
   value: number;
   coords?: { X: number; Y: number };
   params?: any;
 };
 
 type IEffects = {
-  [type in EEffects]?: effect;
+  [type in EEffects]?: Effect;
 };
 
 export default IEffects;
