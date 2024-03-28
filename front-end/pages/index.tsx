@@ -81,8 +81,16 @@ const Index: NextPage<Props, {}> = ({ page, isEditMode }) => {
         />
       )}
 
-      <button onClick={() => setIsEdit((x) => !x)}>Toggle EDIT</button>
-      <button onClick={() => setIsParallax((x) => !x)}>Toggle PARALLAX</button>
+      <button style={{ display: "none" }} onClick={() => setIsEdit((x) => !x)}>
+        Toggle EDIT
+      </button>
+      <button
+        style={{ display: "none" }}
+        onClick={() => setIsParallax((x) => !x)}
+      >
+        Toggle PARALLAX
+      </button>
+
       {isEdit ? (
         <React.Suspense fallback={<Loader />}>
           <LazyEditor
