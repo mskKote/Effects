@@ -1,111 +1,78 @@
 import React from "react";
-import IContentPage from "../../interfaces/IContentPage";
 import IEffects, {
   EEffects,
   Effect,
   getEEffectsByString,
 } from "../../interfaces/IEffects";
-import styles from "./EffectsSettings.module.scss";
+import styles from "./LayerEffectsSettings.module.scss";
 import allDefaultEffects, { RangeEffectTypes } from "./model";
 import RangeEffectSetting from "./RangeEffectSetting";
 
-type Props = {
-  contentPage: IContentPage;
-  setContentPage: React.Dispatch<React.SetStateAction<IContentPage>>;
-  currentLayer: number;
-};
+//* Отвечает за эффекты
+/**
+ * Преобразует сохранённые значения в настройки
+ * Берём дефолтную структуру и закидывает значения
+ * Так мы храним в базе только НЕ дефолтные параметры
+ * @param effects настройки НЕ по умолчанию
+ * @returns настройки для отрисовки
+ */
+function createRangeEffects(effects: IEffects): RangeEffectTypes {
+  //* Deep copy
+  const _defaultEffects: RangeEffectTypes = JSON.parse(
+    JSON.stringify(allDefaultEffects)
+  );
 
-const EffectsSettings = ({
-  contentPage,
-  setContentPage,
-  currentLayer,
+  //* Вставить эффекты в модель
+  for (const key in effects) {
+    if (!Object.prototype.hasOwnProperty.call(effects, key)) continue;
+    if (_defaultEffects[key])
+      _defaultEffects[key].options.value = effects[key as EEffects]?.value;
+  }
+
+  return _defaultEffects;
+}
+
+type Props = {
+  effects: IEffects;
+  onEffectChange: (effectType: EEffects, value: Effect) => void;
+  onImageChange: (url: string) => void;
+  layersExists: boolean; //TODO: удалить как-то
+  effectsDeps: Effect[]; //TODO: удалить. Переделать всё в массивы
+};
+const LayerEffectsSettings = ({
+  effects,
+  effectsDeps,
+  onEffectChange,
+  onImageChange,
+  layersExists,
 }: Props) => {
   //* Отвечает за контент на странице
-  const currentPageEffects = contentPage.layers[currentLayer]?.effects;
   const [effectsSettings, setEffectsSettings] =
-    React.useState<RangeEffectTypes>(createRangeEffects(currentPageEffects));
+    React.useState<RangeEffectTypes>(createRangeEffects(effects));
+
   /**
    * Функция отвечает за изменение useState, отвечающего за страницу.
    * Используется, чтобы применить эффекты
    * @param event Введённое значение. Изменяет 1 эффект
    */
   function editContentPage(event: React.ChangeEvent<HTMLInputElement>) {
-    // console.group("editContentPage")
     const name = event.target.name;
     const value = +event.target.value;
     const effectType = getEEffectsByString(name);
-    const _contentPage: IContentPage = JSON.parse(JSON.stringify(contentPage));
-    const _effect = _contentPage.layers[currentLayer].effects;
-
-    // Установка значения
-    if (_effect[effectType]) (_effect[effectType] as Effect).value = value;
-    else _effect[effectType] = { value };
-
-    setContentPage(_contentPage);
-    // console.groupEnd();
+    onEffectChange(effectType, { value });
   }
   function addImage(event: React.ChangeEvent<HTMLInputElement>) {
     if (!event.target.files || event.target.files.length === 0) return;
-    const image = event.target.files[0];
-    const imageUrl = URL.createObjectURL(image);
-    // Изменяем текущий слой
-    setContentPage((page) => ({
-      ...page,
-      layers: page.layers.map((layer, i) =>
-        // Нахождение нужного слоя
-        i !== currentLayer
-          ? layer
-          : // Установка значения
-            {
-              ...layer,
-              content: {
-                ...layer.content,
-                ru_RU: {
-                  name: layer.content.ru_RU?.name as string,
-                  url: imageUrl,
-                },
-              },
-            }
-      ),
-    }));
+    const img = URL.createObjectURL(event.target.files[0]);
+    onImageChange(img);
   }
 
-  //* Отвечает за эффекты
-  /**
-   * Преобразует сохранённые значения в настройки
-   * @param currentPageEffects настройки не по умолчанию
-   * @returns настройки для отрисовки
-   */
-  function createRangeEffects(currentPageEffects: IEffects): RangeEffectTypes {
-    // console.groupCollapsed('createRangeEffects')
-    //* Deep copy
-    const _defaultEffects: RangeEffectTypes = JSON.parse(
-      JSON.stringify(allDefaultEffects)
-    );
-
-    //* Вставляет эффекты модель
-    for (const key in currentPageEffects) {
-      if (!Object.prototype.hasOwnProperty.call(currentPageEffects, key))
-        continue;
-      if (_defaultEffects[key])
-        _defaultEffects[key].options.value =
-          currentPageEffects[key as EEffects]?.value;
-    }
-
-    // console.groupEnd();
-    return _defaultEffects;
-  }
-
-  //* useEffect срабатывает при изменение слоёв / страницы
   React.useEffect(() => {
-    // console.group('useEffect');
-    // console.log("currentLayer", currentLayer)
-    setEffectsSettings(createRangeEffects(currentPageEffects));
-    // console.groupEnd();
-  }, [currentPageEffects]);
+    setEffectsSettings(createRangeEffects(effects));
+  }, [effects, effectsDeps]);
 
   // Слои отсутствуют
-  if (currentLayer < 0 || !currentPageEffects)
+  if (!layersExists || !effects)
     return (
       <aside className={styles.effectsSettingsContainer}>
         <h1>Настройки&nbsp;эффектов</h1>
@@ -153,7 +120,7 @@ const EffectsSettings = ({
               name="parallax"
               id="parallax"
               list="parallax-datalist"
-              value={currentPageEffects[EEffects.parallax]?.value ?? 0}
+              value={effects[EEffects.parallax]?.value ?? 0}
               onInput={editContentPage}
             />
             <datalist
@@ -185,4 +152,4 @@ const EffectsSettings = ({
   );
 };
 
-export default EffectsSettings;
+export default LayerEffectsSettings;

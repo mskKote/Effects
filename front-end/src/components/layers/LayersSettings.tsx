@@ -1,4 +1,4 @@
-import React, { ChangeEvent, Dispatch, SetStateAction } from "react";
+import React from "react";
 import {
   DragDropContext,
   Draggable,
@@ -10,121 +10,122 @@ import ILayer from "../../interfaces/ILayer";
 import styles from "./LayersSettings.module.scss";
 
 type Props = {
-  contentPage: IContentPage;
-  setContentPage: Dispatch<SetStateAction<IContentPage>>;
+  lang: ELanguages;
+  layers: ILayer[];
   currentLayer: number;
-  setCurrentLayer: Dispatch<SetStateAction<number>>;
+  setContentPage: React.Dispatch<React.SetStateAction<IContentPage>>;
+  setCurrentLayer: React.Dispatch<React.SetStateAction<number>>;
 };
 
 const LayersSettings = ({
-  contentPage,
-  setContentPage,
+  lang,
+  layers,
   currentLayer,
+  setContentPage,
   setCurrentLayer,
 }: Props) => {
-  const { layers } = contentPage;
-
   //*================================= Dnd
-  function handleOnDragEnd({ source, destination }: DropResult) {
+  //#region
+  const [loading, setLoading] = React.useState(true);
+  React.useEffect(() => setLoading(false), []);
+  if (loading) return <></>;
+
+  function dragEndHandler({ source, destination }: DropResult) {
     if (!destination) return;
-    const _layers = layers;
-    //*==================== source ←→ destination
-    const [reorderedItem] = _layers.splice(source.index, 1);
-    _layers.splice(destination.index, 0, reorderedItem);
-    // updateLayers(_layers)
     //*==================== Изменение текущего слоя при необходимости
     if (source.index === currentLayer) setCurrentLayer(destination.index);
     else if (destination.index === currentLayer) setCurrentLayer(source.index);
-    //*==================== Меняет расположение слоёв на странице
-    setContentPage((x) => ({ ...x, layers: _layers }));
+    //*==================== source ←→ destination
+    setContentPage((x) => {
+      // TODO: менять номера промежуточных слоёв между source и destination
+      x.layers[source.index].position = destination.index;
+      x.layers[destination.index].position = source.index;
+      return { ...x };
+    });
   }
+  //#endregion
   //*================================= Взаимодействие со слоями
+  //#region Layers interaction
   function deleteLayer(pos: number) {
     if (pos <= currentLayer) setCurrentLayer(currentLayer - 1);
     setContentPage((x) => ({
       ...x,
-      layers: x.layers.filter((_, i) => i !== pos),
+      layers: x.layers
+        .filter((_, i) => i !== pos)
+        .map((x, i) => ({ ...x, position: i })),
     }));
   }
   function changeLayer(pos: number) {
     setCurrentLayer(pos);
   }
-  function changeLayerName(event: ChangeEvent<HTMLInputElement>, pos: number) {
-    const value = event.target.value;
-    const getContentLanguage = ({ content }: ILayer, language: ELanguages) => ({
-      name: value,
-      url: content[language]?.url as string,
+  function changeLayerNameHandler(name: string, pos: number) {
+    setContentPage((page) => {
+      const x = page.layers[pos].content[lang];
+      if (x) page.layers[pos].content[lang] = { name, url: x.url };
+      return { ...page };
     });
-    setContentPage((page) => ({
-      ...page,
-      layers: page.layers.map((layer, i) =>
-        // Нахождение нужного слоя
-        i !== pos
-          ? layer
-          : // Установка значения
-            {
-              ...layer,
-              content: {
-                ...layer.content,
-                ru_RU: getContentLanguage(layer, ELanguages.ru_RU),
-              },
-            }
-      ),
-    }));
   }
   function addLayer() {
-    const newLayer: ILayer = {
-      content: { ru_RU: { name: "", url: "/mock/Scott-p1.png" } },
-      effects: { parallax: { value: 0 } },
-    };
-    setContentPage((x) => ({ ...x, layers: [...x.layers, newLayer] }));
-    setCurrentLayer(contentPage.layers.length);
+    setContentPage((x) => {
+      const last = x.layers.findLast((x) => x.position)?.position;
+      x.layers.push({
+        position: last ? last + 1 : 0,
+        content: { [lang]: { name: "", url: "/mock/Scott-p1.png" } },
+        effects: { parallax: { value: 0 } },
+      });
+      return { ...x };
+    });
+    setCurrentLayer(layers.length - 1);
   }
+  //#endregion
 
   return (
     <aside className={styles.layersSettingsWrapper}>
       <div className={styles.layersSettingsContainer}>
         <h1>Настройки слоёв</h1>
         {/* Колонки */}
-        <DragDropContext onDragEnd={handleOnDragEnd}>
+        <DragDropContext onDragEnd={dragEndHandler}>
           {/* 1 колонка */}
           <Droppable droppableId="layers">
             {(provided) => (
               <div ref={provided.innerRef} {...provided.droppableProps}>
                 {/* Карточки */}
-                {layers.map(({ content }, i) => (
-                  <Draggable key={i} index={i} draggableId={`${i}`}>
-                    {/* 1 карточка */}
-                    {(provided) => (
-                      <div
-                        onClick={() => changeLayer(i)}
-                        className={`${styles.layerCard} ${
-                          i === currentLayer ? styles.layerActive : ""
-                        }`}
-                        ref={provided.innerRef}
-                        {...provided.draggableProps}
-                        {...provided.dragHandleProps}
-                      >
-                        <input
-                          value={content.ru_RU?.name}
-                          onChange={(event) => changeLayerName(event, i)}
-                          placeholder={"Введите название слоя..."}
-                          className={styles.layerName}
-                          autoFocus
-                        />
-                        <button
-                          className={styles.deleteLayer}
-                          onClick={(event) => {
-                            event.stopPropagation();
-                            deleteLayer(i);
-                          }}
+                {layers
+                  .sort((a, b) => a.position - b.position)
+                  .map(({ content, position }, i) => (
+                    <Draggable key={position} index={i} draggableId={`${i}`}>
+                      {(provided) => (
+                        <div
+                          onClick={() => changeLayer(i)}
+                          className={`${styles.layerCard} ${
+                            i === currentLayer ? styles.layerActive : ""
+                          }`}
+                          ref={provided.innerRef}
+                          {...provided.draggableProps}
+                          {...provided.dragHandleProps}
                         >
-                          🗑️
-                        </button>
-                      </div>
-                    )}
-                  </Draggable>
-                ))}
+                          <input
+                            value={content.ru_RU?.name}
+                            onChange={(e) =>
+                              changeLayerNameHandler(e.target.value, i)
+                            }
+                            placeholder={"Введите название слоя..."}
+                            className={styles.layerName}
+                            autoFocus
+                          />
+                          <button
+                            className={styles.deleteLayer}
+                            onClick={(event) => {
+                              event.stopPropagation();
+                              deleteLayer(i);
+                            }}
+                          >
+                            🗑️
+                          </button>
+                        </div>
+                      )}
+                    </Draggable>
+                  ))}
                 {provided.placeholder}
               </div>
             )}

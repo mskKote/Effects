@@ -8,7 +8,7 @@ import styles from "./Layer.module.scss";
 
 interface Props {
   layer: ILayer;
-  currentLanguage: ELanguages;
+  lang: ELanguages;
   num: number;
 }
 
@@ -53,23 +53,24 @@ function getFilter(effects: IEffects): string {
   return filters.join(" ");
 }
 
-const Layer = ({ num, layer, currentLanguage = ELanguages.ru_RU }: Props) => {
-  const contentWithLanguage = layer.content[currentLanguage];
+const Layer = ({ num, layer, lang = ELanguages.ru_RU }: Props) => {
+  const content = layer.content[lang];
   const parallax = layer.effects[EEffects.parallax]?.value;
-  // const effects = { filter: getFilter(layer.effects) }
   const effects = getFilter(layer.effects);
+  // TODO: при нажатии кнопки ставить data-depth={parallax} = 0
+  // и возвращать в исходное положение
 
   return (
     <div data-depth={parallax} className={styles.layerContainer}>
-      {contentWithLanguage?.url && (
+      {content?.url && (
         <>
           <Image
             draggable={false}
-            src={contentWithLanguage.url}
+            src={content.url}
             layout="fill"
             loading={"eager"}
             className={`${styles.layerImage} layer-${num}`}
-            alt={contentWithLanguage.name}
+            alt={content.name}
           />
           <style jsx global>{`
             img.layer-${num} {
@@ -82,14 +83,5 @@ const Layer = ({ num, layer, currentLanguage = ELanguages.ru_RU }: Props) => {
     </div>
   );
 };
-{
-  /* <img
-    src={contentWithLanguage.url}
-    alt={contentWithLanguage.name}
-    className={styles.layerImage} */
-}
-{
-  /* style={{ objectFit: "contain", ...effects }} />} */
-}
 
 export default Layer;

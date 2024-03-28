@@ -1,3 +1,4 @@
+import React from "react";
 import styles from "./RangeEffectSetting.module.scss";
 
 export type RangeSettingProps = {
@@ -18,6 +19,7 @@ function RangeEffectSetting({
 }: RangeSettingProps & {
   onChange: React.ChangeEventHandler<HTMLInputElement>;
 }) {
+  // console.log("RangeEffectSetting", title, options.value);
   return (
     <div className={styles.effectContainer}>
       <label htmlFor={options.name}>
@@ -47,4 +49,4 @@ function RangeEffectSetting({
   );
 }
 
-export default RangeEffectSetting;
+export default React.memo(RangeEffectSetting);

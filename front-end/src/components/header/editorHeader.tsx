@@ -20,7 +20,7 @@ const EditorHeader = ({ contentPage }: Props) => {
     setCopyText(defaultCopyText);
     const result = await Requests.publishPage(contentPage);
     console.log("publish", result);
-    setLink(`${Requests.URL}?id=${result}`);
+    setLink(`/?id=${result}`);
   }
   function copyToClipboard() {
     navigator.clipboard.writeText(link);

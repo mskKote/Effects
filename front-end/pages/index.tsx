@@ -2,21 +2,20 @@ import React from "react";
 import type { NextPage, GetServerSideProps } from "next";
 import { YMInitializer } from "react-yandex-metrika";
 import { EEffects } from "../src/interfaces/IEffects";
-import EffectsSettings from "../src/components/effectsSettigns/EffectsSettings";
 import HeadSEO from "../src/utils/HeadSEO";
 import Layers from "../src/components/layers/Layers";
-import LayersSettings from "../src/components/layers/LayersSettings";
 import IContentPage, { ELanguages } from "../src/interfaces/IContentPage";
-import EditorHeader from "../src/components/header/EditorHeader";
-import Loader from "../src/components/loader/Loader";
 import styles from "../styles/Editor.module.scss";
 import Requests from "../src/utils/Requests";
 import cn from "classnames";
+import Loader from "../src/components/loader/Loader";
+const LazyEditor = React.lazy(() => import("../src/components/editor/Editor"));
 
 //#region Mock
 const mockData: IContentPage = {
   layers: [
     {
+      position: 0,
       content: {
         [ELanguages.ru_RU]: { name: "Задний фонк", url: "/mock/p1.png" },
       },
@@ -26,6 +25,7 @@ const mockData: IContentPage = {
       },
     },
     {
+      position: 1,
       content: {
         [ELanguages.ru_RU]: { name: "Персонаж", url: "/mock/Scott-p1.png" },
       },
@@ -39,36 +39,23 @@ const mockData: IContentPage = {
 
 type Props = {
   page: IContentPage;
-  isEdit: boolean;
-  resolvedUrl: string;
+  isEditMode: boolean;
 };
-
-const Editor: NextPage<Props, {}> = ({ page, isEdit, resolvedUrl }) => {
-  const [editMode, setEditMode] = React.useState<boolean>(isEdit);
-  const [loading, setLoading] = React.useState<boolean>(true);
-  const [currentLayer, setCurrentLayer] = React.useState(0);
+const Index: NextPage<Props, {}> = ({ page, isEditMode }) => {
   const [contentPage, setContentPage] = React.useState(page);
-  const [currentLanguage, setCurrentLanguage] = React.useState(
-    ELanguages.ru_RU
+  // TODO: i18n
+  const [lang, setLang] = React.useState(ELanguages.ru_RU);
+  const [isEdit, setIsEdit] = React.useState(isEditMode);
+
+  const [isParallax, setIsParallax] = React.useState(
+    contentPage.layers.some((x) => x.effects.parallax?.value !== 0)
   );
-
-  //* Загрузка контента
-  React.useEffect(() => {
-    const url = new URL(window.location.href);
-    const isEdit =
-      url.searchParams.has("edit") || url.searchParams.get("id") === null;
-    setEditMode(isEdit);
-    setTimeout(() => setLoading(false), 400);
-  }, []);
-
-  //* Пока чудо не произошло, показываем загрузку
-  if (editMode === undefined || loading) return <Loader />;
 
   return (
     <div
       className={cn(styles.editorContainer, {
-        [styles.editorTime]: editMode,
-        [styles.showTime]: !editMode,
+        [styles.editorTime]: isEditMode,
+        [styles.showTime]: !isEditMode,
       })}
     >
       <HeadSEO
@@ -79,71 +66,82 @@ const Editor: NextPage<Props, {}> = ({ page, isEdit, resolvedUrl }) => {
         iconImg="/icon.svg"
         socialNetworkImg="/icon.svg"
       />
-
       {/* Yandex.Metrika counter */}
-      <YMInitializer
-        version="2"
-        accounts={[88113924]}
-        options={{
-          clickmap: true,
-          trackLinks: true,
-          accurateTrackBounce: true,
-          webvisor: true,
-          trackHash: true,
-        }}
-      />
-
-      {/* Поле для публикации и аккаунта */}
-      {editMode && <EditorHeader contentPage={contentPage} />}
-
-      {/* Настроки эффектов */}
-      {editMode && (
-        <EffectsSettings
-          contentPage={contentPage}
-          setContentPage={setContentPage}
-          currentLayer={currentLayer}
+      {process.env.NODE_ENV === "production" && (
+        <YMInitializer
+          version="2"
+          accounts={[Number(process.env.NEXT_PUBLIC_YANDEX_MAPS)]}
+          options={{
+            clickmap: true,
+            trackLinks: true,
+            accurateTrackBounce: true,
+            webvisor: true,
+            trackHash: true,
+          }}
         />
       )}
 
-      {/* Сами слои */}
-      <Layers contentPage={contentPage} currentLanguage={currentLanguage} />
-
-      {/* Настройки слоёв */}
-      {editMode && (
-        <LayersSettings
-          contentPage={contentPage}
-          setContentPage={setContentPage}
-          currentLayer={currentLayer}
-          setCurrentLayer={setCurrentLayer}
+      <button onClick={() => setIsEdit((x) => !x)}>Toggle EDIT</button>
+      <button onClick={() => setIsParallax((x) => !x)}>Toggle PARALLAX</button>
+      {isEdit ? (
+        <React.Suspense fallback={<Loader />}>
+          <LazyEditor
+            lang={lang}
+            page={contentPage}
+            setContentPage={setContentPage}
+          >
+            <Layers
+              key="layers"
+              lang={lang}
+              layers={contentPage.layers}
+              isParallax={isParallax}
+              parallaxes={contentPage.layers
+                .map((x) => x.effects.parallax?.value ?? 0)
+                .join()}
+            />
+          </LazyEditor>
+        </React.Suspense>
+      ) : (
+        <Layers
+          key="layers"
+          lang={lang}
+          layers={contentPage.layers}
+          isParallax={isParallax}
+          parallaxes={contentPage.layers
+            .map((x) => x.effects.parallax?.value ?? 0)
+            .join()}
         />
       )}
     </div>
   );
 };
 
-export const getServerSideProps: GetServerSideProps = async ({
-  query,
-  resolvedUrl,
-}) => {
-  //* Установка значений
+/**
+ * id -> load the content
+ *
+ * TODO: переместить на отдельную страницу контента
+ */
+export const getServerSideProps: GetServerSideProps = async ({ query }) => {
   const id = query["id"] as string;
-  let isEdit = Object.prototype.hasOwnProperty.call(query, "edit");
-  if (id === undefined) isEdit = true;
-  let page: IContentPage | string = mockData;
-  console.log("getServerSideProps :>> ", query, id, isEdit, resolvedUrl);
+  const isEdit = !id || Object.prototype.hasOwnProperty.call(query, "edit");
+  console.log(
+    Object.prototype.hasOwnProperty.call(query, "edit"),
+    !!Object.prototype.hasOwnProperty.call(query, "edit")
+  );
+
+  //* Без ID → попадаем в дефолт
+  if (!id || id === "1")
+    return { props: { page: mockData, isEditMode: isEdit } };
 
   //* Получение контента
-  if (id) {
-    page = await Requests.getPage(id);
-    console.log("page", page);
-    //* Контента не существует → редирект на 404
-    if (page === "ERROR")
-      return { redirect: { destination: "/404", permanent: true } };
-    //* Контента не существует, но хотим в редактор → попадаем в редактор
-    else if (page === "ERROR" && isEdit) page = mockData;
-  }
+  const page = await Requests.getPage(id);
+  //* Контента не существует → редирект на 404
+  if (!page) return { redirect: { destination: "/404", permanent: true } };
+  //* Контента не существует, но хотим в редактор → попадаем в редактор
+  else if (!page && isEdit)
+    return { props: { page: mockData, isEditMode: isEdit } };
 
-  return { props: { page, isEdit, resolvedUrl } };
+  return { props: { page, isEditMode: isEdit } };
 };
 
-export default Editor;
+export default Index;
