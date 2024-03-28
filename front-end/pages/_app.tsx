@@ -2,7 +2,7 @@ import React from "react";
 import "../styles/globals.scss";
 import type { AppProps } from "next/app";
 import Router from "next/router";
-// import Loader from "../src/components/loader/Loader";
+import Loader from "../src/components/loader/Loader";
 
 function MyApp({ Component, pageProps }: AppProps) {
   const [loading, setLoading] = React.useState(false);
@@ -19,7 +19,7 @@ function MyApp({ Component, pageProps }: AppProps) {
     };
   }, []);
 
-  if (loading) return <>LOADING...</>;
+  if (loading) return <Loader />;
 
   return <Component {...pageProps} />;
 }
