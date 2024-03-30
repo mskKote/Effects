@@ -4,19 +4,18 @@ import EditorHeader from "../header/EditorHeader";
 import LayersSettings from "../layers/LayersSettings";
 import IContentPage, { ELanguages } from "../../interfaces/IContentPage";
 import { EEffects, Effect } from "../../interfaces/IEffects";
+import Layers from "../layers/Layers";
 
 type Props = {
   lang: ELanguages;
   page: IContentPage;
   setContentPage: React.Dispatch<React.SetStateAction<IContentPage>>;
 };
-function Editor({
-  children,
-  lang,
-  page,
-  setContentPage,
-}: React.PropsWithChildren<Props>) {
+function Editor({ lang, page, setContentPage }: Props) {
   const [currentLayer, setCurrentLayer] = React.useState(0);
+  const [isParallax, setIsParallax] = React.useState(
+    page.layers.some((x) => x.effects.parallax?.value !== 0)
+  );
 
   function effectChangeHandler(effectType: EEffects, value: Effect) {
     setContentPage((prev) => {
@@ -34,6 +33,12 @@ function Editor({
   }
   return (
     <>
+      <button
+        id="toggle-parallax"
+        style={{ display: "none" }}
+        onClick={() => setIsParallax((x) => !x)}
+      />
+
       <EditorHeader contentPage={page} />
 
       <LayerEffectsSettings
@@ -44,7 +49,15 @@ function Editor({
         layersExists={currentLayer >= 0}
       />
 
-      {children}
+      <Layers
+        lang={lang}
+        key="layers"
+        layers={page.layers}
+        isParallax={isParallax}
+        parallaxes={page.layers
+          .map((x) => x.effects.parallax?.value ?? 0)
+          .join()}
+      />
 
       <LayersSettings
         lang={lang}

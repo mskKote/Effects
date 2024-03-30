@@ -57,8 +57,7 @@ const Layer = ({ num, layer, lang = ELanguages.ru_RU }: Props) => {
   const content = layer.content[lang];
   const parallax = layer.effects[EEffects.parallax]?.value;
   const effects = getFilter(layer.effects);
-  // TODO: при нажатии кнопки ставить data-depth={parallax} = 0
-  // и возвращать в исходное положение
+  // TODO: при нажатии кнопки возвращать в исходное положение
 
   return (
     <div data-depth={parallax} className={styles.layerContainer}>
