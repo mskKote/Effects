@@ -8,6 +8,7 @@ import {
 import IContentPage, { ELanguages } from "../../interfaces/IContentPage";
 import ILayer from "../../interfaces/ILayer";
 import styles from "./LayersSettings.module.scss";
+import LayerCard from "./LayerCard";
 
 type Props = {
   lang: ELanguages;
@@ -104,7 +105,14 @@ const LayersSettings = ({
                           {...provided.draggableProps}
                           {...provided.dragHandleProps}
                         >
-                          <input
+                          <LayerCard
+                            name={content.ru_RU?.name ?? ""}
+                            onDeleteLayer={() => deleteLayer(i)}
+                            onNameChange={(name) =>
+                              changeLayerNameHandler(name, i)
+                            }
+                          />
+                          {/* <input
                             value={content.ru_RU?.name}
                             onChange={(e) =>
                               changeLayerNameHandler(e.target.value, i)
@@ -121,7 +129,7 @@ const LayersSettings = ({
                             }}
                           >
                             🗑️
-                          </button>
+                          </button> */}
                         </div>
                       )}
                     </Draggable>
