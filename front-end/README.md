@@ -1,5 +1,7 @@
 ## Getting Started
 
+[Storybook](https://effects-sb.vercel.app/)
+
 Используем pnpm
 
 ```
