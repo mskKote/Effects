@@ -91,7 +91,6 @@
       }
     }
 
-
     .deleteLayer {
       cursor          : pointer;
       border          : none;
@@ -132,6 +131,8 @@
     }
 
     .layerCard {
+      border: 1px solid var(--secondary-color);
+
       .deleteLayer {
         &:active {
           background-color: var(--active-color);

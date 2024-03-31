@@ -66,12 +66,6 @@
     }
   }
 
-  @media (prefers-color-scheme: light) {
-    button.copyPublishedUrl {
-      color: var(--primary-color);
-    }
-  }
-
   button.publish {
     position   : relative;
     padding    : 0 1rem;
@@ -90,7 +84,7 @@
       left         : 0;
       display      : block;
       border-radius: 50px;
-      background   : var(--primary-color);
+      background   : var(--secondary-color);
       width        : 42px;
       height       : 42px;
       transition   : all 0.3s ease;
@@ -137,6 +131,18 @@
       svg {
         color : var(--elements-background-color);
         stroke: var(--elements-background-color);
+      }
+    }
+  }
+
+  @media (prefers-color-scheme: light) {
+    button.copyPublishedUrl {
+      color: var(--primary-color);
+    }
+
+    button.publish {
+      ::before {
+        background: var(--primary-color);
       }
     }
   }

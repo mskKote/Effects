@@ -5,6 +5,10 @@
   border         : 2px dashed transparent;
   gap            : 1rem;
 
+  input {
+    min-width: 100%;
+  }
+
   &:hover {
     border-color: var(--active-color);
   }
