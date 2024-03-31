@@ -3,6 +3,8 @@ import Editor from "./Editor";
 import { mockPage } from "../../utils/mock";
 import { fn } from "@storybook/test";
 import { ELanguages } from "../../interfaces/IContentPage";
+import styles from "../../../styles/Index.module.scss";
+import classNames from "classnames";
 
 const meta = {
   title: "Editor/Editor",
@@ -28,4 +30,10 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const EditorStory: Story = {};
+export const EditorStory: Story = {
+  render: (args) => (
+    <div className={classNames(styles.editorContainer, styles.editorTime)}>
+      <Editor {...args} />
+    </div>
+  ),
+};
