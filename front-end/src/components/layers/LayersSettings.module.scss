@@ -1,7 +1,7 @@
 .layersSettingsWrapper {
   grid-area       : layers;
-  background-color: #e5e5f7;
-  background-image: radial-gradient(#444cf7 0.65px, #e5e5f7 0.65px);
+  background-color: var(--primary-color);
+  background-image: radial-gradient(var(--active-color) 0.65px, var(--primary-color) 0.65px);
   background-size : 13px 13px;
   display         : flex;
   flex-direction  : column;
@@ -24,15 +24,15 @@
     text-align    : right;
 
     a {
-      color: #55607f;
+      color: var(--secondary-color);
 
       &:hover {
-        text-decoration: 2px underline #55607f solid;
+        text-decoration: 2px underline var(--secondary-color) solid;
       }
 
       &:active {
-        text-decoration: 2px underline #55607f double;
-        color          : #55607f;
+        text-decoration: 2px underline var(--secondary-color) double;
+        color          : var(--secondary-color);
       }
     }
   }
@@ -41,8 +41,8 @@
   .addLayerBtn {
     padding         : 1rem;
     margin          : 1rem;
-    border          : 2px #55607f dashed;
-    color           : #55607f;
+    border          : 2px var(--secondary-color) dashed;
+    color           : var(--secondary-color);
     border-spacing  : 15px;
     border-radius   : 16px;
     cursor          : pointer;
@@ -56,8 +56,8 @@
     }
 
     &:active {
-      background-color: #55607f;
-      color           : #e5e5f7;
+      background-color: var(--secondary-color);
+      color           : var(--primary-color);
     }
   }
 
@@ -65,8 +65,8 @@
     padding      : 1rem;
     margin       : 1rem;
     border-radius: 16px;
-    background   : #FFF;
-    border       : 0 #e2e8f0 solid;
+    background   : var(--elements-background-color);
+    border       : 0;
     box-shadow   :
       0 20px 25px -5px rgb(0 0 0 / 0.1),
       0 10px 10px -5px rgb(0 0 0 / 0.04);
@@ -76,18 +76,21 @@
     align-items    : center;
 
     .layerName {
-      font-size    : 17px;
-      line-height  : 2;
-      font-family  : monospace;
-      border       : none;
-      outline      : none;
-      border-bottom: solid 1px transparent;
-      transition   : border 0.3s ease-out;
+      font-size       : 17px;
+      line-height     : 2;
+      font-family     : monospace;
+      border          : none;
+      outline         : none;
+      border-bottom   : solid 1px transparent;
+      transition      : border 0.3s ease-out;
+      background-color: transparent;
+      color           : var(--text-color);
 
       &:focus {
-        border-bottom-color: #444cf7;
+        border-bottom-color: var(--active-color);
       }
     }
+
 
     .deleteLayer {
       cursor          : pointer;
@@ -99,16 +102,56 @@
       transition      : background-color 0.15s ease-in-out;
 
       &:hover {
-        background-color: #e5e5f7;
+        background-color: var(--primary-color);
       }
 
       &:focus {
-        background-color: #b9b9c8;
+        background-color: var(--primary-color);
+        filter          : brightness(0.85);
       }
     }
   }
 
   .layerActive {
-    outline: 1px solid #444cf7;
+    outline: 1px solid var(--active-color);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    .addLayerBtn {
+      border: 2px var(--text-color) dashed;
+      color : var(--text-color);
+
+      &:hover {
+        background-color: var(--elements-background-color);
+      }
+
+      &:active {
+        background-color: var(--active-color);
+        color           : var(--text-color);
+      }
+    }
+
+    .layerCard {
+      .deleteLayer {
+        &:active {
+          background-color: var(--active-color);
+        }
+      }
+    }
+
+    .legalContainer {
+      a {
+        color: var(--text-color);
+
+        &:hover {
+          text-decoration-color: var(--text-color);
+        }
+
+        &:active {
+          text-decoration-color: var(--text-color);
+          color                : var(--text-color);
+        }
+      }
+    }
   }
 }

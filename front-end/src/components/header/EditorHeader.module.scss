@@ -1,7 +1,7 @@
 .editorHeader {
   grid-area       : header;
-  background-color: #FFF;
-  border-bottom   : 1px solid #e7e8ec;
+  background-color: var(--elements-background-color);
+  border-bottom   : 1px solid var(--elements-background-color);
   display         : flex;
   flex-direction  : row;
   justify-content : flex-end;
@@ -22,8 +22,8 @@
     line-height   : 40px;
     font-size     : 20px;
     font-family   : monospace;
-    background    : #e5e5f7;
-    color         : #55607f;
+    background    : var(--primary-color);
+    color         : var(--secondary-color);
     padding-inline: 3rem;
     border-radius : 45px;
     border        : none;
@@ -33,8 +33,8 @@
     }
 
     &:focus {
-      outline-color: #234567;
-      color        : #131313;
+      outline-color: var(--text-action-color);
+      color        : var(--text-action-color);
     }
   }
 
@@ -47,8 +47,8 @@
     font-weight  : 600;
     border-radius: 0 50px 50px 0;
     border       : 0;
-    color        : #fff;
-    background   : #55607f;
+    color        : var(--text-color);
+    background   : var(--secondary-color);
     padding      : 12px 24px;
     line-height  : 1.15;
     font-size    : 16px;
@@ -63,6 +63,12 @@
       border-radius: 50px;
       width        : calc(50% - 5vmax + 1px);
       outline      : none;
+    }
+  }
+
+  @media (prefers-color-scheme: light) {
+    button.copyPublishedUrl {
+      color: var(--primary-color);
     }
   }
 
@@ -84,7 +90,7 @@
       left         : 0;
       display      : block;
       border-radius: 50px;
-      background   : #e5e5f7;
+      background   : var(--primary-color);
       width        : 42px;
       height       : 42px;
       transition   : all 0.3s ease;
@@ -96,7 +102,7 @@
       font-size     : 15px;
       font-weight   : 700;
       letter-spacing: 0.05em;
-      color         : #234567;
+      color         : var(--text-action-color);
     }
 
     svg {
@@ -106,7 +112,7 @@
       fill           : none;
       stroke-linecap : round;
       stroke-linejoin: round;
-      stroke         : #234567;
+      stroke         : var(--text-action-color);
       stroke-width   : 2;
       transform      : translateX(-5px);
       transition     : all 0.3s ease;
@@ -124,13 +130,13 @@
       transform: scale(0.95);
 
       &::before {
-        background: #55607f;
+        background: var(--secondary-color);
       }
 
       span,
       svg {
-        color : #fff;
-        stroke: #fff;
+        color : var(--elements-background-color);
+        stroke: var(--elements-background-color);
       }
     }
   }

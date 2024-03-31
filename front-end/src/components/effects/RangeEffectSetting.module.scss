@@ -6,7 +6,7 @@
   gap            : 1rem;
 
   &:hover {
-    border-color: #444cf7;
+    border-color: var(--active-color);
   }
 
   .optionsContainer {

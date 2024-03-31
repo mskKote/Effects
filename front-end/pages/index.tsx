@@ -4,7 +4,7 @@ import { YMInitializer } from "react-yandex-metrika";
 import HeadSEO from "../src/utils/HeadSEO";
 import Layers from "../src/components/layers/Layers";
 import IContentPage, { ELanguages } from "../src/interfaces/IContentPage";
-import styles from "../styles/Editor.module.scss";
+import styles from "../styles/Index.module.scss";
 import Requests from "../src/utils/Requests";
 import cn from "classnames";
 import Loader from "../src/components/loader/Loader";
