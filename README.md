@@ -1,6 +1,34 @@
-# effects
-Здесь нужно разместить код сервера и фронта
+## Getting Started
 
-[Notion ТЗ](https://www.notion.so/94116febc5d1448489598ba944ea71b5)
+[Storybook](https://effects-sb.vercel.app/)
 
-[Figma](https://www.figma.com/file/eV2SVJQDfZVmgYeGawY3oi/Effects?node-id=0%3A1)
+Используем pnpm
+
+```
+pnpm && pnpm dev
+```
+
+И расширения в VS Code ради единого код-стайла:
+
+- Better Comments
+- formate: CSS/LESS/SCSS formatter
+- форматтер стандартный от VS Code
+- stylelint
+
+```
+npx stylelint "**/*.scss"
+```
+
+## Deploy on Vercel
+
+The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+
+Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+
+## Добавление эффектов для filter
+
+Инструкция:
+
+1. Зайти в IEffects
+2. Создать в EEfects нужное значение
+3. В поиске найти все "IEffects" и добавить то, что необходимо
