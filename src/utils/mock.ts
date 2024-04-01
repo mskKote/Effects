@@ -6,7 +6,7 @@ export const mockPage: IContentPage = {
     {
       position: 0,
       content: {
-        [ELanguages.ru_RU]: { name: "Задний фонк", url: "/mock/p1.png" },
+        [ELanguages.ru]: { name: "Задний фонк", url: "/mock/p1.png" },
       },
       effects: {
         [EEffects.parallax]: { value: 0.5 },
@@ -16,7 +16,7 @@ export const mockPage: IContentPage = {
     {
       position: 1,
       content: {
-        [ELanguages.ru_RU]: { name: "Персонаж", url: "/mock/Scott-p1.png" },
+        [ELanguages.ru]: { name: "Персонаж", url: "/mock/Scott-p1.png" },
       },
       effects: {
         [EEffects.parallax]: { value: 0.6 },

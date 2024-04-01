@@ -53,7 +53,7 @@ function getFilter(effects: IEffects): string {
   return filters.join(" ");
 }
 
-const Layer = ({ num, layer, lang = ELanguages.ru_RU }: Props) => {
+const Layer = ({ num, layer, lang = ELanguages.ru }: Props) => {
   const content = layer.content[lang];
   const parallax = layer.effects[EEffects.parallax]?.value;
   const effects = getFilter(layer.effects);

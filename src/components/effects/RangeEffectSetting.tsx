@@ -1,8 +1,10 @@
 import React from "react";
 import styles from "./RangeEffectSetting.module.scss";
+import useLocale from "../../utils/useLocale";
+import { ELanguages } from "../../interfaces/IContentPage";
+import { Trans } from "next-i18next";
 
 export type RangeSettingProps = {
-  title: string;
   options: React.DetailedHTMLProps<
     React.InputHTMLAttributes<HTMLInputElement>,
     HTMLInputElement
@@ -12,18 +14,18 @@ export type RangeSettingProps = {
 
 /** effect with range slider */
 function RangeEffectSetting({
-  title,
   options,
   dataList,
   onChange,
 }: RangeSettingProps & {
   onChange: React.ChangeEventHandler<HTMLInputElement>;
 }) {
-  // console.log("RangeEffectSetting", title, options.value);
+  const { locale } = useLocale();
   return (
     <div className={styles.effectContainer}>
       <label htmlFor={options.name}>
-        {title} ({options.name})
+        <Trans i18nKey={`editor:${options.name}`} />{" "}
+        {locale !== ELanguages.en && <>({options.name})</>}
       </label>
       <div>
         <input

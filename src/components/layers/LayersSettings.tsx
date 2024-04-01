@@ -9,6 +9,7 @@ import IContentPage, { ELanguages } from "../../interfaces/IContentPage";
 import ILayer from "../../interfaces/ILayer";
 import styles from "./LayersSettings.module.scss";
 import LayerCard from "./LayerCard";
+import { Trans } from "next-i18next";
 
 type Props = {
   lang: ELanguages;
@@ -83,7 +84,9 @@ const LayersSettings = ({
   return (
     <aside className={styles.layersSettingsWrapper}>
       <div className={styles.layersSettingsContainer}>
-        <h1>Настройки слоёв</h1>
+        <h1>
+          <Trans i18nKey="editor:layersSettings" />
+        </h1>
         {/* Колонки */}
         <DragDropContext onDragEnd={dragEndHandler}>
           {/* 1 колонка */}
@@ -106,30 +109,12 @@ const LayersSettings = ({
                           {...provided.dragHandleProps}
                         >
                           <LayerCard
-                            name={content.ru_RU?.name ?? ""}
+                            name={content[lang]?.name ?? ""}
                             onDeleteLayer={() => deleteLayer(i)}
                             onNameChange={(name) =>
                               changeLayerNameHandler(name, i)
                             }
                           />
-                          {/* <input
-                            value={content.ru_RU?.name}
-                            onChange={(e) =>
-                              changeLayerNameHandler(e.target.value, i)
-                            }
-                            placeholder={"Введите название слоя..."}
-                            className={styles.layerName}
-                            autoFocus
-                          />
-                          <button
-                            className={styles.deleteLayer}
-                            onClick={(event) => {
-                              event.stopPropagation();
-                              deleteLayer(i);
-                            }}
-                          >
-                            🗑️
-                          </button> */}
                         </div>
                       )}
                     </Draggable>
@@ -140,7 +125,7 @@ const LayersSettings = ({
           </Droppable>
         </DragDropContext>
         <button className={styles.addLayerBtn} onClick={addLayer}>
-          Добавить слой
+          <Trans i18nKey="editor:addLayer" />
         </button>
       </div>
       <div className={styles.legalContainer}>
@@ -149,14 +134,14 @@ const LayersSettings = ({
           rel="noreferrer"
           href="https://docs.google.com/document/d/1ARDFMZ8LzKIGQWZ3Mn3D1KsErW1b5Icxv6HzdkmVpZI/edit?usp=sharing"
         >
-          Оферта
+          <Trans i18nKey="editor:legalOffer" />
         </a>
         <a
           target="_blank"
           rel="noreferrer"
           href="https://docs.google.com/document/d/1FeVVtyyHC1wWqx8_ve5b3FdyM-ADF8Flufx3D0EQ-9o/edit?usp=sharing"
         >
-          Политика обработки персональных данных
+          <Trans i18nKey="editor:personalDataAgreement" />
         </a>
       </div>
     </aside>

@@ -1,8 +1,18 @@
 import ILayer from "./ILayer";
 
 export enum ELanguages {
-  en_EN = "en_EN",
-  ru_RU = "ru_RU",
+  en = "en",
+  ru = "ru",
+  de = "de",
+}
+
+// TODO: продумать логику переключения языка в произведениях
+// по умолчанию ставить язык человека, но менять это по кнопке -> нужен параметр извне
+export function localeToContentLang(locale: string): ELanguages {
+  switch (locale) {
+    default:
+      return ELanguages.ru;
+  }
 }
 
 /**

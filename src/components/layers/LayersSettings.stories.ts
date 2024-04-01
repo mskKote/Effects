@@ -13,14 +13,14 @@ const meta = {
   },
   args: {
     layers: mockPage.layers,
-    lang: ELanguages.ru_RU,
+    lang: ELanguages.ru,
     currentLayer: 0,
     setContentPage: () => fn(),
     setCurrentLayer: () => fn(),
   },
   argTypes: {
     lang: {
-      defaultValue: ELanguages.ru_RU,
+      defaultValue: ELanguages.ru,
       options: ELanguages,
       control: "select",
     },

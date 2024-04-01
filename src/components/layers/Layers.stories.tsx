@@ -12,7 +12,7 @@ const meta = {
   },
   args: {
     layers: mockPage.layers,
-    lang: ELanguages.ru_RU,
+    lang: ELanguages.ru,
     parallaxes: mockPage.layers
       .map((x) => x.effects.parallax?.value ?? 0)
       .join(),
@@ -20,7 +20,7 @@ const meta = {
   },
   argTypes: {
     lang: {
-      defaultValue: ELanguages.ru_RU,
+      defaultValue: ELanguages.ru,
       options: ELanguages,
       control: "select",
     },

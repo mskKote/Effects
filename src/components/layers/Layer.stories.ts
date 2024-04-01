@@ -12,12 +12,12 @@ const meta = {
   },
   args: {
     layer: mockPage.layers[1],
-    lang: ELanguages.ru_RU,
+    lang: ELanguages.ru,
     num: 1,
   },
   argTypes: {
     lang: {
-      defaultValue: ELanguages.ru_RU,
+      defaultValue: ELanguages.ru,
       options: ELanguages,
       control: "select",
     },

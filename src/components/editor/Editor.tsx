@@ -2,20 +2,24 @@ import React from "react";
 import LayerEffectsSettings from "../effects/LayerEffectsSettings";
 import EditorHeader from "../header/EditorHeader";
 import LayersSettings from "../layers/LayersSettings";
-import IContentPage, { ELanguages } from "../../interfaces/IContentPage";
+import IContentPage, {
+  localeToContentLang,
+} from "../../interfaces/IContentPage";
 import { EEffects, Effect } from "../../interfaces/IEffects";
 import Layers from "../layers/Layers";
+import useLocale from "../../utils/useLocale";
 
 type Props = {
-  lang: ELanguages;
   page: IContentPage;
   setContentPage: React.Dispatch<React.SetStateAction<IContentPage>>;
 };
-function Editor({ lang, page, setContentPage }: Props) {
+function Editor({ page, setContentPage }: Props) {
   const [currentLayer, setCurrentLayer] = React.useState(0);
   const [isParallax, setIsParallax] = React.useState(
     page.layers.some((x) => x.effects.parallax?.value !== 0)
   );
+  const { locale } = useLocale();
+  const [lang, setLang] = React.useState(localeToContentLang(locale));
 
   function effectChangeHandler(effectType: EEffects, value: Effect) {
     setContentPage((prev) => {

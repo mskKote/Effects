@@ -1,0 +1,31 @@
+{
+  "copied": "Copied 👌",
+  "copy": "Copy 📋",
+  "urlPlaceholder": "Here will be URL...",
+  "publish": "Publish",
+
+  "effectsSettings": "Effects settings",
+  "step": "Step",
+  "step1Title": "Add picture",
+  "step1Label": "Add picture on layer",
+  "step1MVPNote": "MVP1: pictures need to be same size now",
+  "step2Title": "Setup",
+  "parallaxDef": "Layer shift",
+  "parallaxName": "parallax",
+  "step3Title": "Try another effects",
+  "blur": "Blur",
+  "brightness": "Brightness",
+  "saturate": "Saturate",
+  "contrast": "Contrast",
+  "grayscale": "Grayscale",
+  "invert": "Invert",
+  "hueRotate": "HueRotate",
+  "sepia": "Sepia",
+  "opacity": "Opacity",
+
+  "layersSettings": "Layers settings",
+  "addLayer": "Add layer",
+  "layerPlaceholder": "Layer name...",
+  "legalOffer": "Offer",
+  "personalDataAgreement": "Privacy"
+}

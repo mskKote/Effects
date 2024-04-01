@@ -7,7 +7,6 @@ export type RangeEffectTypes = {
 
 export const allDefaultEffects: RangeEffectTypes = {
   [EEffects.blur]: {
-    title: "Размытие",
     options: {
       min: 0,
       max: 15,
@@ -19,7 +18,6 @@ export const allDefaultEffects: RangeEffectTypes = {
     dataList: [0, 5, 10, 15],
   },
   [EEffects.brightness]: {
-    title: "Яркость",
     options: {
       min: 0,
       max: 200,
@@ -31,7 +29,6 @@ export const allDefaultEffects: RangeEffectTypes = {
     dataList: [0, 100, 200],
   },
   [EEffects.saturate]: {
-    title: "Насыщенность",
     options: {
       min: 0,
       max: 200,
@@ -43,7 +40,6 @@ export const allDefaultEffects: RangeEffectTypes = {
     dataList: [0, 100, 200],
   },
   [EEffects.contrast]: {
-    title: "Контраст",
     options: {
       min: 0,
       max: 200,
@@ -55,7 +51,6 @@ export const allDefaultEffects: RangeEffectTypes = {
     dataList: [0, 100, 200],
   },
   [EEffects.grayscale]: {
-    title: "Серость",
     options: {
       min: 0,
       max: 100,
@@ -67,7 +62,6 @@ export const allDefaultEffects: RangeEffectTypes = {
     dataList: [0, 50, 100],
   },
   [EEffects.invert]: {
-    title: "Инвертировать",
     options: {
       min: 0,
       max: 100,
@@ -79,7 +73,6 @@ export const allDefaultEffects: RangeEffectTypes = {
     dataList: [0, 50, 100],
   },
   [EEffects.hueRotate]: {
-    title: "Повернуть палитру",
     options: {
       min: 0,
       max: 360,
@@ -91,7 +84,6 @@ export const allDefaultEffects: RangeEffectTypes = {
     dataList: [0, 180, 360],
   },
   [EEffects.sepia]: {
-    title: "Сепия",
     options: {
       min: 0,
       max: 100,
@@ -103,7 +95,6 @@ export const allDefaultEffects: RangeEffectTypes = {
     dataList: [0, 50, 100],
   },
   [EEffects.opacity]: {
-    title: "Прозрачность",
     options: {
       min: 0,
       max: 100,

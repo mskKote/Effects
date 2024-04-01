@@ -4,14 +4,15 @@ import Requests from "../../utils/Requests";
 import IContentPage from "../../interfaces/IContentPage";
 import styles from "./EditorHeader.module.scss";
 import metrics from "../../utils/metrics";
-
-const defaultCopyText = "Копировать 📋";
+import { Trans, useTranslation } from "next-i18next";
 
 type Props = {
   contentPage: IContentPage;
 };
 
 const EditorHeader = ({ contentPage }: Props) => {
+  const { t } = useTranslation();
+  const defaultCopyText = t("editor:copy");
   const [link, setLink] = React.useState("");
   const [copyText, setCopyText] = React.useState(defaultCopyText);
 
@@ -24,7 +25,7 @@ const EditorHeader = ({ contentPage }: Props) => {
   }
   function copyToClipboard() {
     navigator.clipboard.writeText(link);
-    setCopyText("Скопировано 👌");
+    setCopyText(t("editor:copied"));
     setTimeout(() => setCopyText(defaultCopyText), 1250);
   }
 
@@ -34,7 +35,7 @@ const EditorHeader = ({ contentPage }: Props) => {
       <input
         className={styles.publishedUrl}
         value={link}
-        placeholder={"Тут будет URL..."}
+        placeholder={t("editor:urlPlaceholder")}
         readOnly
       />
       <button
@@ -47,7 +48,9 @@ const EditorHeader = ({ contentPage }: Props) => {
 
       {/* Кнопка публикации */}
       <button className={styles.publish} onClick={publish}>
-        <span>Опубликовать</span>
+        <span>
+          <Trans i18nKey="editor:publish" />
+        </span>
         <svg width="15px" height="10px" viewBox="0 0 13 10">
           <path d="M1,5 L11,5" />
           <polyline points="8 1 12 5 8 9" />
@@ -56,7 +59,7 @@ const EditorHeader = ({ contentPage }: Props) => {
 
       {/* Профиль */}
       <div className={styles.profileContainer}>
-        <Image src="/user-icon.png" layout="fill" alt="аккаунт" />
+        <Image src="/user-icon.png" layout="fill" alt="profile" />
       </div>
     </header>
   );

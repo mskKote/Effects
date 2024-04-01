@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { useDebouncedState } from "../../utils/useDebouncedState";
 import styles from "./LayersSettings.module.scss";
+import { useTranslation } from "next-i18next";
 
 type Props = {
   name: string;
@@ -10,7 +11,7 @@ type Props = {
 const LayerCard = ({ name, onNameChange, onDeleteLayer }: Props) => {
   const [debouncedValue, setValue] = useDebouncedState(name, 200);
   const isFirstRender = React.useRef(true);
-
+  const { t } = useTranslation();
   useEffect(() => {
     if (isFirstRender.current) {
       isFirstRender.current = false;
@@ -25,7 +26,7 @@ const LayerCard = ({ name, onNameChange, onDeleteLayer }: Props) => {
       <input
         defaultValue={name}
         onChange={(e) => setValue(e.target.value)}
-        placeholder={"Введите название слоя..."}
+        placeholder={t("layerPlaceholder")}
         className={styles.layerName}
         autoFocus
       />

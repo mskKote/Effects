@@ -7,6 +7,7 @@ import IEffects, {
 import styles from "./LayerEffectsSettings.module.scss";
 import allDefaultEffects, { RangeEffectTypes } from "./model";
 import RangeEffectSetting from "./RangeEffectSetting";
+import { Trans, useTranslation } from "next-i18next";
 
 //* Отвечает за эффекты
 /**
@@ -46,6 +47,8 @@ const LayerEffectsSettings = ({
   onImageChange,
   layersExists,
 }: Props) => {
+  const { t } = useTranslation();
+
   //* Отвечает за контент на странице
   const [effectsSettings, setEffectsSettings] =
     React.useState<RangeEffectTypes>(createRangeEffects(effects));
@@ -85,12 +88,17 @@ const LayerEffectsSettings = ({
 
   return (
     <aside className={styles.effectsSettingsContainer}>
-      <h1>Настройки&nbsp;эффектов</h1>
+      <h1>
+        <Trans i18nKey="editor:effectsSettings" />
+      </h1>
       <form>
         <fieldset className={styles.step}>
-          <h2>Шаг 1. Добавьте&nbsp;картинку</h2>
+          <h2>
+            <Trans i18nKey="editor:step" /> 1.{" "}
+            <Trans i18nKey="editor:step1Title" />
+          </h2>
           <label htmlFor="layer-image" className={styles.layerImage}>
-            Добавьте картинку на слой
+            <Trans i18nKey="editor:step1Label" />
           </label>
           <input
             type="file"
@@ -99,14 +107,18 @@ const LayerEffectsSettings = ({
             style={{ display: "none" }}
             accept={"image/*"}
           />
-          <small>MVP1: пока картинки стоит добавлять одинакового размера</small>
+          <small>
+            <Trans i18nKey="editor:step1MVPNote" />
+          </small>
         </fieldset>
         <fieldset className={styles.step}>
           <label htmlFor="parallax">
             <h2>
-              Шаг 2. Задайте&nbsp;
-              <span className={styles.parallaxTerm} title="Движение слоя">
-                параллакс
+              <Trans i18nKey="editor:step" /> 2.{" "}
+              <Trans i18nKey="editor:step2Title" />
+              &nbsp;
+              <span className={styles.parallaxTerm} title={t("editor:parallaxDef")}>
+                <Trans i18nKey="editor:parallaxName" />
               </span>
             </h2>
           </label>
@@ -136,14 +148,16 @@ const LayerEffectsSettings = ({
           </div>
         </fieldset>
         <fieldset className={styles.step}>
-          <h2>Шаг 3. Попробуйте другие эффекты</h2>
+          <h2>
+            <Trans i18nKey="editor:step" /> 3.{" "}
+            <Trans i18nKey="editor:step3Title" />
+          </h2>
           {Object.values(effectsSettings).map((v) => (
             <RangeEffectSetting
               onChange={editContentPage}
               key={v.options.name}
               dataList={v.dataList}
               options={v.options}
-              title={v.title}
             />
           ))}
         </fieldset>

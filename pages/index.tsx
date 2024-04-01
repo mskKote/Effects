@@ -3,12 +3,17 @@ import type { NextPage, GetServerSideProps } from "next";
 import { YMInitializer } from "react-yandex-metrika";
 import HeadSEO from "../src/utils/HeadSEO";
 import Layers from "../src/components/layers/Layers";
-import IContentPage, { ELanguages } from "../src/interfaces/IContentPage";
+import IContentPage, {
+  localeToContentLang,
+} from "../src/interfaces/IContentPage";
 import styles from "../styles/Index.module.scss";
 import Requests from "../src/utils/Requests";
 import cn from "classnames";
 import Loader from "../src/components/loader/Loader";
 import { mockPage } from "../src/utils/mock";
+import { withTranslationProps } from "../src/utils/withTranslationProps";
+import useLocale from "../src/utils/useLocale";
+import { useTranslation } from "next-i18next";
 const LazyEditor = React.lazy(() => import("../src/components/editor/Editor"));
 
 type Props = {
@@ -17,9 +22,10 @@ type Props = {
 };
 const Index: NextPage<Props, {}> = ({ page, isEditMode }) => {
   const [contentPage, setContentPage] = React.useState(page);
-  // TODO: i18n
-  const [lang, setLang] = React.useState(ELanguages.ru_RU);
   const [isEdit, setIsEdit] = React.useState(isEditMode);
+  const { locale } = useLocale();
+  const { t } = useTranslation();
+  const [lang, setLang] = React.useState(localeToContentLang(locale));
 
   return (
     <div
@@ -29,9 +35,9 @@ const Index: NextPage<Props, {}> = ({ page, isEditMode }) => {
       })}
     >
       <HeadSEO
-        title="Effects"
-        description="Manga&comics with effects"
-        keywords={["Comics", "manga", "effects", "parallax", "2.5d"]}
+        title={t("title")}
+        description={t("description")}
+        keywords={t("keywords").split(" ")}
         author="🔮 Effects team"
         iconImg="/icon.svg"
         socialNetworkImg="/icon.svg"
@@ -50,20 +56,14 @@ const Index: NextPage<Props, {}> = ({ page, isEditMode }) => {
           }}
         />
       )}
-
       <button
         id="toggle-edit"
         style={{ display: "none" }}
         onClick={() => setIsEdit((x) => !x)}
       />
-
       {isEdit ? (
         <React.Suspense fallback={<Loader />}>
-          <LazyEditor
-            lang={lang}
-            page={contentPage}
-            setContentPage={setContentPage}
-          />
+          <LazyEditor page={contentPage} setContentPage={setContentPage} />
         </React.Suspense>
       ) : (
         <Layers
@@ -82,30 +82,33 @@ const Index: NextPage<Props, {}> = ({ page, isEditMode }) => {
 
 /**
  * id -> load the content
- *
  * TODO: переместить на отдельную страницу контента
  */
-export const getServerSideProps: GetServerSideProps = async ({ query }) => {
-  const id = query["id"] as string;
-  const isEdit = !id || Object.prototype.hasOwnProperty.call(query, "edit");
-  console.log(
-    Object.prototype.hasOwnProperty.call(query, "edit"),
-    !!Object.prototype.hasOwnProperty.call(query, "edit")
-  );
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
+  const { props: translationProps } = await withTranslationProps(ctx);
+  const id = ctx.query["id"] as string;
+  const isEditMode =
+    !id || Object.prototype.hasOwnProperty.call(ctx.query, "edit");
+
+  const props = (page: IContentPage) => ({
+    props: {
+      page,
+      isEditMode,
+      ...translationProps,
+    },
+  });
 
   //* Без ID → попадаем в дефолт
-  if (!id || id === "1")
-    return { props: { page: mockPage, isEditMode: isEdit } };
+  if (!id || id === "mskKote") return props(mockPage);
 
   //* Получение контента
   const page = await Requests.getPage(id);
   //* Контента не существует → редирект на 404
   if (!page) return { redirect: { destination: "/404", permanent: true } };
   //* Контента не существует, но хотим в редактор → попадаем в редактор
-  else if (!page && isEdit)
-    return { props: { page: mockPage, isEditMode: isEdit } };
+  else if (!page && isEditMode) return props(mockPage);
 
-  return { props: { page, isEditMode: isEdit } };
+  return props(page);
 };
 
 export default Index;
