@@ -31,22 +31,23 @@ const EditorHeader = ({ contentPage }: Props) => {
 
   return (
     <header className={styles.editorHeader}>
-      {/* Опубликованный URL */}
-      <input
-        className={styles.publishedUrl}
-        value={link}
-        placeholder={t("editor:urlPlaceholder")}
-        readOnly
-      />
-      <button
-        className={styles.copyPublishedUrl}
-        disabled={link.length === 0}
-        onClick={copyToClipboard}
-      >
-        {copyText}
-      </button>
+      {/* Publish */}
+      <div className={styles.publishedUrlContainer}>
+        <input
+          className={styles.publishedUrl}
+          value={link}
+          placeholder={t("editor:urlPlaceholder")}
+          readOnly
+        />
+        <button
+          className={styles.copyPublishedUrl}
+          disabled={link.length === 0}
+          onClick={copyToClipboard}
+        >
+          {copyText}
+        </button>
+      </div>
 
-      {/* Кнопка публикации */}
       <button className={styles.publish} onClick={publish}>
         <span>
           <Trans i18nKey="editor:publish" />
@@ -57,7 +58,7 @@ const EditorHeader = ({ contentPage }: Props) => {
         </svg>
       </button>
 
-      {/* Профиль */}
+      {/* Profile */}
       <div className={styles.profileContainer}>
         <Image src="/user-icon.png" layout="fill" alt="profile" />
       </div>
