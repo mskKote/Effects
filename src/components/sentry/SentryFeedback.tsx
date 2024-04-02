@@ -1,11 +1,26 @@
 import React from "react";
 import styles from "./SentryFeedback.module.scss";
 import * as Sentry from "@sentry/nextjs";
+import { toast } from "sonner";
 import { Trans, useTranslation } from "next-i18next";
 
 const SentryFeedback = () => {
   const [feedback, setFeedback] = React.useState("");
   const { t } = useTranslation();
+
+  const sendFeedback = React.useCallback(async () => {
+    const promise = new Promise<void>((resolve) => {
+      setTimeout(() => {
+        console.log("send error");
+        resolve();
+      }, 500);
+    });
+    await toast.promise(promise, {
+      success: t("editor:sentrySendSuccess"),
+      loading: t("editor:sentrySendLoading"),
+      error: t("editor:sentrySendError"),
+    });
+  }, [t]);
 
   return (
     <div className={styles.sentryContainer}>
@@ -24,10 +39,15 @@ const SentryFeedback = () => {
               name: "Feedback Frontend Span",
               op: "feedback",
             },
-            () => {
-              throw new Error(
-                `[Frontend feedback (${feedback.length})] ${feedback}`
-              );
+            async () => {
+              try {
+                throw new Error(
+                  `[Frontend feedback (${feedback.length})] ${feedback}`
+                );
+              } catch (error) {
+                await sendFeedback();
+                throw error;
+              }
             }
           );
         }}

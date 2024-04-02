@@ -1,19 +1,19 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import MotionPermission from "./SentryFeedback";
+import SentryFeedback from "./SentryFeedback";
 import { fn } from "@storybook/test";
 
 const meta = {
-  title: "Common/MotionPermission",
-  component: MotionPermission,
+  title: "Common/SentryFeedback",
+  component: SentryFeedback,
   parameters: {
-    layout: "fullscreen",
+    layout: "centered",
   },
   args: {
     requestPermission: () => fn(),
   },
-} satisfies Meta<typeof MotionPermission>;
+} satisfies Meta<typeof SentryFeedback>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const MotionPermissionStory: Story = {};
+export const SentryFeedbackStory: Story = {};

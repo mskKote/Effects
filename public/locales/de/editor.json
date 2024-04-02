@@ -29,5 +29,9 @@
   "legalOffer": "Angebot",
   "personalDataAgreement": "Datenschutz",
   "sentryPlaceholder": "Hoppla, etwas funktioniert nicht",
-  "sendFeedback": "Feedback senden"
+  "sendFeedback": "Feedback senden",
+
+  "sentrySendSuccess": "Benachrichtigt!!",
+  "sentrySendLoading": "Hochladen...",
+  "sentrySendError": "Etwas ist schief gelaufen..."
 }

@@ -29,5 +29,9 @@
   "legalOffer": "Offer",
   "personalDataAgreement": "Privacy",
   "sentryPlaceholder": "oops, smth doesn't work",
-  "sendFeedback": "send feedback"
+  "sendFeedback": "send feedback",
+
+  "sentrySendSuccess": "Notified!!",
+  "sentrySendLoading": "Uploading...",
+  "sentrySendError": "Smth went wrong..."
 }

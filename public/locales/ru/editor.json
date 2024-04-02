@@ -29,5 +29,9 @@
   "legalOffer": "Оферта",
   "personalDataAgreement": "Политика обработки персональных данных",
   "sentryPlaceholder": "упс, что-то пошло не так",
-  "sendFeedback": "отправить отзыв"
+  "sendFeedback": "отправить отзыв",
+
+  "sentrySendSuccess": "Уведомлено!!",
+  "sentrySendLoading": "Загрузка...",
+  "sentrySendError": "Что-то пошло не так..."
 }
