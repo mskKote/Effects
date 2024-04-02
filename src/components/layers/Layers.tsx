@@ -35,17 +35,19 @@ const Layers = ({ layers, lang, parallaxes, isParallax = true }: Props) => {
     return <MotionPermission requestPermission={requestPermission} />;
 
   return (
-    <main className={styles.layersContainer} ref={parallaxRef}>
-      {layers.length === 0 ? (
-        <h1 className={styles.placeholder}>Добавьте слой</h1>
-      ) : (
-        layers
-          .sort((a, b) => a.position - b.position)
-          .map((layer, i) => (
-            <Layer key={i} num={i} layer={layer} lang={lang} />
-          ))
-      )}
-    </main>
+    <div className={styles.layersContainerWrapper}>
+      <main className={styles.layersContainer} ref={parallaxRef}>
+        {layers.length === 0 ? (
+          <h1 className={styles.placeholder}>Добавьте слой</h1>
+        ) : (
+          layers
+            .sort((a, b) => a.position - b.position)
+            .map((layer, i) => (
+              <Layer key={i} num={i} layer={layer} lang={lang} />
+            ))
+        )}
+      </main>
+    </div>
   );
 };
 

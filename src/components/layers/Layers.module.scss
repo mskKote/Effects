@@ -1,8 +1,8 @@
 .layersContainer {
-  grid-area       : content;
   background-color: black;
   position        : relative;
-  min-height      : 100vh;
+  height          : 100%;
+
 
   .placeholder {
     text-align: center;
@@ -10,5 +10,17 @@
     left      : 50% !important;
     transform : translate(-50%, -100%) !important;
     position  : absolute !important;
+  }
+}
+
+.layersContainerWrapper {
+  grid-area: content;
+
+  @media screen and (max-width: 767px) {
+    height  : 25vh;
+    top     : 5vh;
+    width   : 100vw;
+    position: fixed;
+    z-index : 4;
   }
 }

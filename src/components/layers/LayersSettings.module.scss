@@ -125,8 +125,8 @@
 
   @media screen and (max-width: 767px) {
     width     : 100%;
-    overflow-y: scroll;
     height    : 100%;
+    overflow-y: visible;
   }
 
   @media (prefers-color-scheme: dark) {
@@ -160,6 +160,7 @@
 
         &:hover {
           text-decoration-color: var(--text-color);
+          color                : var(--text-color);
         }
 
         &:active {

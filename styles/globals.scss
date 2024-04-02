@@ -33,7 +33,9 @@ body {
   margin : 0;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
     Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
-  overflow: hidden;
+  overflow        : hidden;
+  background-color: var(--primary-color);
+  background-image: radial-gradient(var(--active-color) 0.65px, var(--primary-color) 0.65px);
 }
 
 a {
