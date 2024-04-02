@@ -14,6 +14,7 @@ import { mockPage } from "../src/utils/mock";
 import { withTranslationProps } from "../src/utils/withTranslationProps";
 import useLocale from "../src/utils/useLocale";
 import { useTranslation } from "next-i18next";
+import configuration from "../src/utils/configuration";
 const LazyEditor = React.lazy(() => import("../src/components/editor/Editor"));
 
 type Props = {
@@ -43,10 +44,10 @@ const Index: NextPage<Props, {}> = ({ page, isEditMode }) => {
         socialNetworkImg="/icon.svg"
       />
       {/* Yandex.Metrika counter */}
-      {process.env.NODE_ENV === "production" && (
+      {configuration.production && (
         <YMInitializer
           version="2"
-          accounts={[Number(process.env.NEXT_PUBLIC_YANDEX_MAPS)]}
+          accounts={[configuration.yandexMetrika]}
           options={{
             clickmap: true,
             trackLinks: true,

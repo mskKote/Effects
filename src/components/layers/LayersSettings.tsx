@@ -9,8 +9,8 @@ import IContentPage, { ELanguages } from "../../interfaces/IContentPage";
 import ILayer from "../../interfaces/ILayer";
 import styles from "./LayersSettings.module.scss";
 import LayerCard from "./LayerCard";
-import { Trans, useTranslation } from "next-i18next";
-import * as Sentry from "@sentry/nextjs";
+import { Trans } from "next-i18next";
+import SentryFeedback from "../sentry/SentryFeedback";
 
 type Props = {
   lang: ELanguages;
@@ -27,11 +27,6 @@ const LayersSettings = ({
   setContentPage,
   setCurrentLayer,
 }: Props) => {
-  //*================================= Sentry
-  //#region Sentry
-  const [feedback, setFeedback] = React.useState("");
-  const { t } = useTranslation();
-  //#endregion
   //*================================= Dnd
   //#region Dnd
   const [loading, setLoading] = React.useState(true);
@@ -135,33 +130,7 @@ const LayersSettings = ({
         </button>
       </div>
       <div className={styles.infoContainer}>
-        <div className={styles.sentryContainer}>
-          <textarea
-            maxLength={1000}
-            placeholder={t("editor:sentryPlaceholder")}
-            value={feedback}
-            onChange={(e) => setFeedback(e.target.value)}
-          />
-          <button
-            type="button"
-            disabled={feedback.length === 0}
-            onClick={() => {
-              Sentry.startSpan(
-                {
-                  name: "Feedback Frontend Span",
-                  op: "feedback",
-                },
-                () => {
-                  throw new Error(
-                    `[Frontend feedback (${feedback.length})] ${feedback}`
-                  );
-                }
-              );
-            }}
-          >
-            <Trans i18nKey="editor:sendFeedback" />
-          </button>
-        </div>
+        <SentryFeedback />
         <div className={styles.legalContainer}>
           <a
             target="_blank"

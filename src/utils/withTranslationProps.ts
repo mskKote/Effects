@@ -1,5 +1,5 @@
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
-import config from "./config";
+import configuration from "./configuration";
 
 type Options = {
   locale: string | undefined;
@@ -7,9 +7,9 @@ type Options = {
   localeNamespaces: string[];
 };
 const DEFAULT_OPTIONS: Options = {
-  locale: config.i18n.defaultLocale,
-  locales: config.i18n.locales,
-  localeNamespaces: config.i18n.NAMESPACES,
+  locale: configuration.i18n.defaultLocale,
+  locales: configuration.i18n.locales,
+  localeNamespaces: configuration.i18n.NAMESPACES,
 };
 
 /**

@@ -1,8 +1,9 @@
 import faunaDB from "faunadb";
+import configuration from "./configuration";
 
 class FaunaDBServer {
   static client = new faunaDB.Client({
-    secret: process.env.FAUNA_SECRET as string,
+    secret: configuration.faunaSecret,
     domain: "db.eu.fauna.com",
   });
 }

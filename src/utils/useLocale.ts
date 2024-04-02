@@ -1,13 +1,13 @@
 import React from "react";
 import { useRouter } from "next/router";
 import { ELanguages } from "../interfaces/IContentPage";
-import config from "./config";
+import configuration from "./configuration";
 
 const useLocale = () => {
   const router = useRouter();
-  const locale = router.locale ?? config.i18n.defaultLocale;
+  const locale = router.locale ?? configuration.i18n.defaultLocale;
   const locales = router.locales ?? [
-    router.locale ?? config.i18n.defaultLocale,
+    router.locale ?? configuration.i18n.defaultLocale,
   ];
 
   const switchToLocale = React.useCallback(
