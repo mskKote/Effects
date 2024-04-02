@@ -10,6 +10,30 @@
     "effects content layers";
 }
 
+@media screen and (min-width: 768px) and (max-width: 1024px) {
+  .editorTime {
+    grid-template-columns: 6fr 2fr;
+    grid-template-rows   : 8.75vh calc(92.5vh / 2) calc(92.5vh / 2);
+    grid-template-areas  :
+      "header header"
+      "content effects"
+      "content layers";
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .editorTime {
+    grid-template-columns: auto;
+    grid-template-rows   : 8.75vh auto auto auto;
+    grid-template-areas  :
+      "header"
+      "content"
+      "layers"
+      "effects";
+  }
+}
+
+
 .showTime {
   background-color: black;
 

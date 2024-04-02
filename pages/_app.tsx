@@ -31,7 +31,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <>
       <Sonner theme="system" duration={1000} position="top-right" />
-      <Component {...pageProps} />;
+      <Component {...pageProps} />
     </>
   );
 }
