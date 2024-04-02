@@ -33,5 +33,8 @@
 
   "sentrySendSuccess": "Benachrichtigt!!",
   "sentrySendLoading": "Hochladen...",
-  "sentrySendError": "Etwas ist schief gelaufen..."
+  "sentrySendError": "Etwas ist schief gelaufen...",
+
+  "gyroscopePermissionMessage": "IOS: Gyroskop- und Beschleunigungssensorenberechtigung erforderlich",
+  "permissionInstructions": "Tippen Sie auf den Bildschirm, um Berechtigungen zu erteilen ✔️🤏"
 }

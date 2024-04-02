@@ -33,5 +33,8 @@
 
   "sentrySendSuccess": "Notified!!",
   "sentrySendLoading": "Uploading...",
-  "sentrySendError": "Smth went wrong..."
+  "sentrySendError": "Smth went wrong...",
+
+  "gyroscopePermissionMessage": "IOS: Gyroscope and accelerometer permission required",
+  "permissionInstructions": "Tap the screen to grant permissions ✔️🤏"
 }
