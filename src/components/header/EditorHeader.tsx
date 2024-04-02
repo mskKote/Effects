@@ -1,9 +1,9 @@
 import React from "react";
 import Image from "next/legacy/image";
-import Requests from "../../utils/Requests";
-import IContentPage from "../../interfaces/IContentPage";
+import Requests from "@utils/Requests";
+import IContentPage from "@interfaces/IContentPage";
 import styles from "./EditorHeader.module.scss";
-import metrics from "../../utils/metrics";
+import metrics from "@utils/metrics";
 import { Trans, useTranslation } from "next-i18next";
 
 type Props = {

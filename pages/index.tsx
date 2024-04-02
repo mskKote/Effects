@@ -1,21 +1,19 @@
 import React from "react";
 import type { NextPage, GetServerSideProps } from "next";
 import { YMInitializer } from "react-yandex-metrika";
-import HeadSEO from "../src/utils/HeadSEO";
-import Layers from "../src/components/layers/Layers";
-import IContentPage, {
-  localeToContentLang,
-} from "../src/interfaces/IContentPage";
-import styles from "../styles/Index.module.scss";
-import Requests from "../src/utils/Requests";
+import HeadSEO from "@utils/HeadSEO";
+import Layers from "@components/layers/Layers";
+import IContentPage, { localeToContentLang } from "@interfaces/IContentPage";
+import styles from "@root/styles/Index.module.scss";
+import Requests from "@utils/Requests";
 import cn from "classnames";
-import Loader from "../src/components/loader/Loader";
-import { mockPage } from "../src/utils/mock";
-import { withTranslationProps } from "../src/utils/withTranslationProps";
-import useLocale from "../src/utils/useLocale";
+import Loader from "@components/loader/Loader";
+import { mockPage } from "@utils/mock";
+import { withTranslationProps } from "@utils/withTranslationProps";
+import useLocale from "@utils/useLocale";
 import { useTranslation } from "next-i18next";
-import configuration from "../src/utils/configuration";
-const LazyEditor = React.lazy(() => import("../src/components/editor/Editor"));
+import configuration from "@utils/configuration";
+const LazyEditor = React.lazy(() => import("@components/editor/Editor"));
 
 type Props = {
   page: IContentPage;

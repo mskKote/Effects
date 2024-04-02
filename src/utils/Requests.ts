@@ -1,4 +1,4 @@
-import IContentPage from "../interfaces/IContentPage";
+import IContentPage from "@interfaces/IContentPage";
 
 class Requests {
   async publishPage(contentPage: IContentPage): Promise<string> {

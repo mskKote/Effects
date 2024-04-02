@@ -1,11 +1,11 @@
 import React from "react";
-import { ELanguages } from "../../interfaces/IContentPage";
+import { ELanguages } from "@interfaces/IContentPage";
 import Layer from "./Layer";
 import Parallax from "parallax-js";
 import styles from "./Layers.module.scss";
-import { useMotionPermission } from "../../utils/useMotionPermission";
-import MotionPermission from "../permission/MotionPermission";
-import ILayer from "../../interfaces/ILayer";
+import { useMotionPermission } from "@utils/useMotionPermission";
+import MotionPermission from "@components/permission/MotionPermission";
+import ILayer from "@interfaces/ILayer";
 
 type Props = {
   layers: ILayer[];

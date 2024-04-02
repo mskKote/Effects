@@ -1,5 +1,5 @@
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
-import configuration from "./configuration";
+import configuration from "@utils/configuration";
 
 type Options = {
   locale: string | undefined;

@@ -1,8 +1,8 @@
 import React from "react";
-import "../styles/globals.scss";
+import "@root/styles/globals.scss";
 import type { AppProps } from "next/app";
 import Router from "next/router";
-import Loader from "../src/components/loader/Loader";
+import Loader from "@components/loader/Loader";
 import { appWithTranslation } from "next-i18next";
 
 function MyApp({ Component, pageProps }: AppProps) {

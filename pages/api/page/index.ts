@@ -1,6 +1,6 @@
 import FaunaDB from "faunadb";
 import type { NextApiRequest, NextApiResponse } from "next";
-import FaunaDBServer from "../../../src/utils/faunaDB";
+import FaunaDBServer from "@utils/faunaDB";
 
 async function CreatePage(req: NextApiRequest, res: NextApiResponse) {
   if (req.method !== "POST") res.send("Use POST");

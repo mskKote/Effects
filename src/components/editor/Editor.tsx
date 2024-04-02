@@ -1,13 +1,11 @@
 import React from "react";
-import LayerEffectsSettings from "../effects/LayerEffectsSettings";
-import EditorHeader from "../header/EditorHeader";
-import LayersSettings from "../layers/LayersSettings";
-import IContentPage, {
-  localeToContentLang,
-} from "../../interfaces/IContentPage";
-import { EEffects, Effect } from "../../interfaces/IEffects";
-import Layers from "../layers/Layers";
-import useLocale from "../../utils/useLocale";
+import LayerEffectsSettings from "@components/effects/LayerEffectsSettings";
+import EditorHeader from "@components/header/EditorHeader";
+import LayersSettings from "@components/layers/LayersSettings";
+import IContentPage, { localeToContentLang } from "@interfaces/IContentPage";
+import { EEffects, Effect } from "@interfaces/IEffects";
+import Layers from "@components/layers/Layers";
+import useLocale from "@utils/useLocale";
 
 type Props = {
   page: IContentPage;

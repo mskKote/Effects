@@ -1,7 +1,7 @@
 import React from "react";
 import { useRouter } from "next/router";
-import { ELanguages } from "../interfaces/IContentPage";
-import configuration from "./configuration";
+import { ELanguages } from "@interfaces/IContentPage";
+import configuration from "@utils/configuration";
 
 const useLocale = () => {
   const router = useRouter();

@@ -2,7 +2,7 @@ import React from "react";
 import type { Meta, StoryObj } from "@storybook/react";
 import RangeEffectSetting from "./RangeEffectSetting";
 import allDefaultEffects from "./model";
-import { EEffects } from "../../interfaces/IEffects";
+import { EEffects } from "@interfaces/IEffects";
 
 const RangeEffectSettingWithHooks = ({ type }: { type: EEffects }) => {
   const data = allDefaultEffects[type];

@@ -1,5 +1,5 @@
 import React from "react";
-import HeadSEO from "../../utils/HeadSEO";
+import HeadSEO from "@utils/HeadSEO";
 import styles from "./Loader.module.scss";
 
 function emptyArray(arrayLength: number = 5, fill: any = {}) {

@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./RangeEffectSetting.module.scss";
-import useLocale from "../../utils/useLocale";
-import { ELanguages } from "../../interfaces/IContentPage";
+import useLocale from "@utils/useLocale";
+import { ELanguages } from "@interfaces/IContentPage";
 import { Trans } from "next-i18next";
 
 export type RangeSettingProps = {

@@ -1,4 +1,4 @@
-import { i18n } from "../../next-i18next.config";
+import { i18n } from "@root/next-i18next.config";
 
 /**
  * Full config of the website

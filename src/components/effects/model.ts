@@ -1,4 +1,4 @@
-import { EEffects } from "../../interfaces/IEffects";
+import { EEffects } from "@interfaces/IEffects";
 import { RangeSettingProps } from "./RangeEffectSetting";
 
 export type RangeEffectTypes = {

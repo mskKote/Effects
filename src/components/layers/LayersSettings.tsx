@@ -5,12 +5,12 @@ import {
   Droppable,
   DropResult,
 } from "react-beautiful-dnd";
-import IContentPage, { ELanguages } from "../../interfaces/IContentPage";
-import ILayer from "../../interfaces/ILayer";
+import IContentPage, { ELanguages } from "@interfaces/IContentPage";
+import ILayer from "@interfaces/ILayer";
 import styles from "./LayersSettings.module.scss";
 import LayerCard from "./LayerCard";
 import { Trans } from "next-i18next";
-import SentryFeedback from "../sentry/SentryFeedback";
+import SentryFeedback from "@components/sentry/SentryFeedback";
 
 type Props = {
   lang: ELanguages;

@@ -1,5 +1,5 @@
-import IContentPage, { ELanguages } from "../interfaces/IContentPage";
-import { EEffects } from "../interfaces/IEffects";
+import IContentPage, { ELanguages } from "@interfaces/IContentPage";
+import { EEffects } from "@interfaces/IEffects";
 
 export const mockPage: IContentPage = {
   layers: [

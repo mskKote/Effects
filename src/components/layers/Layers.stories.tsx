@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import Layers from "./Layers";
-import { mockPage } from "../../utils/mock";
-import { ELanguages } from "../../interfaces/IContentPage";
+import { mockPage } from "@utils/mock";
+import { ELanguages } from "@interfaces/IContentPage";
 
 const meta = {
   title: "Editor/Layers",

@@ -3,7 +3,7 @@ import IEffects, {
   EEffects,
   Effect,
   getEEffectsByString,
-} from "../../interfaces/IEffects";
+} from "@interfaces/IEffects";
 import styles from "./LayerEffectsSettings.module.scss";
 import allDefaultEffects, { RangeEffectTypes } from "./model";
 import RangeEffectSetting from "./RangeEffectSetting";
@@ -117,7 +117,10 @@ const LayerEffectsSettings = ({
               <Trans i18nKey="editor:step" /> 2.{" "}
               <Trans i18nKey="editor:step2Title" />
               &nbsp;
-              <span className={styles.parallaxTerm} title={t("editor:parallaxDef")}>
+              <span
+                className={styles.parallaxTerm}
+                title={t("editor:parallaxDef")}
+              >
                 <Trans i18nKey="editor:parallaxName" />
               </span>
             </h2>

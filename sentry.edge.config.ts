@@ -4,7 +4,7 @@
 // https://docs.sentry.io/platforms/javascript/guides/nextjs/
 
 import * as Sentry from "@sentry/nextjs";
-import configuration from "./src/utils/configuration";
+import configuration from "@utils/configuration";
 
 configuration.production &&
   Sentry.init({

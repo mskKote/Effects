@@ -1,6 +1,6 @@
 import { Collection, Get, Ref } from "faunadb";
 import type { NextApiRequest, NextApiResponse } from "next";
-import Fauna from "../../../src/utils/faunaDB";
+import Fauna from "@utils/faunaDB";
 
 async function GetPage(req: NextApiRequest, res: NextApiResponse) {
   const result = await Fauna.client

@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import EditorHeader from "./EditorHeader";
-import { mockPage } from "../../utils/mock";
+import { mockPage } from "@utils/mock";
 
 const meta = {
   title: "Editor/Header",

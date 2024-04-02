@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import LayerEffectsSettings from "./LayerEffectsSettings";
-import { mockPage } from "../../utils/mock";
+import { mockPage } from "@utils/mock";
 import { fn } from "@storybook/test";
 
 const meta = {
