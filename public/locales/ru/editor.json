@@ -27,5 +27,7 @@
   "addLayer": "Добавить слой",
   "layerPlaceholder": "Введите название слоя...",
   "legalOffer": "Оферта",
-  "personalDataAgreement": "Политика обработки персональных данных"
+  "personalDataAgreement": "Политика обработки персональных данных",
+  "sentryPlaceholder": "упс, что-то пошло не так",
+  "sendFeedback": "отправить отзыв"
 }

@@ -9,7 +9,8 @@ import IContentPage, { ELanguages } from "../../interfaces/IContentPage";
 import ILayer from "../../interfaces/ILayer";
 import styles from "./LayersSettings.module.scss";
 import LayerCard from "./LayerCard";
-import { Trans } from "next-i18next";
+import { Trans, useTranslation } from "next-i18next";
+import * as Sentry from "@sentry/nextjs";
 
 type Props = {
   lang: ELanguages;
@@ -26,8 +27,13 @@ const LayersSettings = ({
   setContentPage,
   setCurrentLayer,
 }: Props) => {
+  //*================================= Sentry
+  //#region Sentry
+  const [feedback, setFeedback] = React.useState("");
+  const { t } = useTranslation();
+  //#endregion
   //*================================= Dnd
-  //#region
+  //#region Dnd
   const [loading, setLoading] = React.useState(true);
   React.useEffect(() => setLoading(false), []);
   if (loading) return <></>;
@@ -128,21 +134,50 @@ const LayersSettings = ({
           <Trans i18nKey="editor:addLayer" />
         </button>
       </div>
-      <div className={styles.legalContainer}>
-        <a
-          target="_blank"
-          rel="noreferrer"
-          href="https://docs.google.com/document/d/1ARDFMZ8LzKIGQWZ3Mn3D1KsErW1b5Icxv6HzdkmVpZI/edit?usp=sharing"
-        >
-          <Trans i18nKey="editor:legalOffer" />
-        </a>
-        <a
-          target="_blank"
-          rel="noreferrer"
-          href="https://docs.google.com/document/d/1FeVVtyyHC1wWqx8_ve5b3FdyM-ADF8Flufx3D0EQ-9o/edit?usp=sharing"
-        >
-          <Trans i18nKey="editor:personalDataAgreement" />
-        </a>
+      <div className={styles.infoContainer}>
+        <div className={styles.sentryContainer}>
+          <textarea
+            maxLength={1000}
+            placeholder={t("editor:sentryPlaceholder")}
+            value={feedback}
+            onChange={(e) => setFeedback(e.target.value)}
+          />
+          <button
+            type="button"
+            disabled={feedback.length === 0}
+            onClick={() => {
+              Sentry.startSpan(
+                {
+                  name: "Feedback Frontend Span",
+                  op: "feedback",
+                },
+                () => {
+                  throw new Error(
+                    `[Frontend feedback (${feedback.length})] ${feedback}`
+                  );
+                }
+              );
+            }}
+          >
+            <Trans i18nKey="editor:sendFeedback" />
+          </button>
+        </div>
+        <div className={styles.legalContainer}>
+          <a
+            target="_blank"
+            rel="noreferrer"
+            href="https://docs.google.com/document/d/1ARDFMZ8LzKIGQWZ3Mn3D1KsErW1b5Icxv6HzdkmVpZI/edit?usp=sharing"
+          >
+            <Trans i18nKey="editor:legalOffer" />
+          </a>
+          <a
+            target="_blank"
+            rel="noreferrer"
+            href="https://docs.google.com/document/d/1FeVVtyyHC1wWqx8_ve5b3FdyM-ADF8Flufx3D0EQ-9o/edit?usp=sharing"
+          >
+            <Trans i18nKey="editor:personalDataAgreement" />
+          </a>
+        </div>
       </div>
     </aside>
   );

@@ -27,5 +27,7 @@
   "addLayer": "Add layer",
   "layerPlaceholder": "Layer name...",
   "legalOffer": "Offer",
-  "personalDataAgreement": "Privacy"
+  "personalDataAgreement": "Privacy",
+  "sentryPlaceholder": "oops, smth doesn't work",
+  "sendFeedback": "send feedback"
 }

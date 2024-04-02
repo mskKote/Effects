@@ -145,10 +145,8 @@
       color: var(--primary-color);
     }
 
-    .publish {
-      ::before {
-        background: var(--primary-color);
-      }
+    .publish::before {
+      background: var(--primary-color);
     }
   }
 }

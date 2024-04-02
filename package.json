@@ -12,6 +12,7 @@
     "serve-storybook": "serve storybook-static"
   },
   "dependencies": {
+    "@sentry/nextjs": "^7.105.0",
     "classnames": "^2.5.1",
     "faunadb": "^4.8.0",
     "i18next": "^23.10.1",

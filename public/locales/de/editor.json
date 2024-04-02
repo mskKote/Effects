@@ -27,5 +27,7 @@
   "addLayer": "Ebene hinzufügen",
   "layerPlaceholder": "Ebenenname...",
   "legalOffer": "Angebot",
-  "personalDataAgreement": "Datenschutz"
+  "personalDataAgreement": "Datenschutz",
+  "sentryPlaceholder": "Hoppla, etwas funktioniert nicht",
+  "sendFeedback": "Feedback senden"
 }
