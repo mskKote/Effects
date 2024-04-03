@@ -18,10 +18,13 @@ const Layers = ({ layers, lang, parallaxes, isParallax = true }: Props) => {
   const parallaxRef = React.useRef<HTMLElement>(null);
   const { permission, requestPermission } = useMotionPermission();
 
-  // React.useEffect(
-  //   () => (isParallax ? parallaxScene?.enable() : parallaxScene?.disable()),
-  //   [isParallax, parallaxScene]
-  // );
+  React.useEffect(() => {
+    try {
+      isParallax ? parallaxScene?.enable() : parallaxScene?.disable();
+    } catch (error) {
+      console.log("[useEffect ENABLE/DISABLE]", error);
+    }
+  }, [isParallax, parallaxScene]);
 
   React.useEffect(() => {
     if (permission && parallaxRef?.current && isParallax) {
