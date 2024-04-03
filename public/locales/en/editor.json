@@ -22,6 +22,8 @@
   "hueRotate": "HueRotate",
   "sepia": "Sepia",
   "opacity": "Opacity",
+  "needLayers": "Creating a layer",
+  "needLayersDesc": "Effects are attached to a specific layer",
 
   "layersSettings": "Layers settings",
   "addLayer": "Add layer",

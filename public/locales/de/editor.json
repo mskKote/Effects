@@ -22,6 +22,8 @@
   "hueRotate": "Farbton drehen",
   "sepia": "Sepia",
   "opacity": "Deckkraft",
+  "needLayers": "Erstellen Sie eine Ebene",
+  "needLayersDesc": "Effekte werden an eine bestimmte Ebene angehängt",
 
   "layersSettings": "Ebeneneinstellungen",
   "addLayer": "Ebene hinzufügen",

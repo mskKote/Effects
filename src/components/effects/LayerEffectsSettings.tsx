@@ -78,10 +78,16 @@ const LayerEffectsSettings = ({
   if (!layersExists || !effects)
     return (
       <aside className={styles.effectsSettingsContainer}>
-        <h1>Настройки&nbsp;эффектов</h1>
+        <h1>
+          <Trans i18nKey="editor:effectsSettings" />
+        </h1>
         <div className={styles.step}>
-          <h2>Создаёте слой</h2>
-          <p>Эффект прикрепляются к определённому слою</p>
+          <h2>
+            <Trans i18nKey="editor:needLayers" />{" "}
+          </h2>
+          <p>
+            <Trans i18nKey="editor:needLayersDesc" />
+          </p>
         </div>
       </aside>
     );
