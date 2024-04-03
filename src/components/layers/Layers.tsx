@@ -19,28 +19,19 @@ const Layers = ({ layers, lang, parallaxes, isParallax = true }: Props) => {
   const { permission, requestPermission } = useMotionPermission();
 
   React.useEffect(() => {
-    try {
-      isParallax ? parallaxScene?.enable() : parallaxScene?.disable();
-    } catch (error) {
-      console.log("[useEffect ENABLE/DISABLE]", error);
-    }
-  }, [isParallax, parallaxScene]);
-
-  React.useEffect(() => {
     if (permission && parallaxRef?.current && isParallax) {
       try {
-        console.log("[useEffect] parallaxRef", parallaxRef.current);
+        // console.log("[useEffect] parallaxRef", parallaxRef.current);
         const newParallax = new Parallax(parallaxRef.current);
-        console.log("[useEffect] after creation of parallax", newParallax);
+        // console.log("[useEffect] after creation of parallax", newParallax);
         setParallaxScene(newParallax);
       } catch (error) {
         console.log("[useEffect] ERROR", error);
       }
     }
-
     return () => {
       try {
-        console.log("[useEffect unmount] parallax destroy ", parallaxScene);
+        // console.log("[useEffect unmount] parallax destroy ", parallaxScene);
         if (parallaxScene) parallaxScene?.destroy();
       } catch (error) {
         console.log("[useEffect unmount] ERROR", error);
@@ -48,6 +39,16 @@ const Layers = ({ layers, lang, parallaxes, isParallax = true }: Props) => {
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [permission, parallaxRef, parallaxes]);
+
+  React.useEffect(() => {
+    try {
+      isParallax && parallaxScene
+        ? parallaxScene?.enable()
+        : parallaxScene?.disable();
+    } catch (error) {
+      console.log("[useEffect ENABLE/DISABLE]", error);
+    }
+  }, [isParallax, parallaxScene]);
 
   if (!permission)
     return <MotionPermission requestPermission={requestPermission} />;
