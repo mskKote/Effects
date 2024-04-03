@@ -21,9 +21,7 @@ const Layers = ({ layers, lang, parallaxes, isParallax = true }: Props) => {
   React.useEffect(() => {
     if (permission && parallaxRef?.current && isParallax) {
       try {
-        // console.log("[useEffect] parallaxRef", parallaxRef.current);
         const newParallax = new Parallax(parallaxRef.current);
-        // console.log("[useEffect] after creation of parallax", newParallax);
         setParallaxScene(newParallax);
       } catch (error) {
         console.log("[useEffect] ERROR", error);
@@ -31,7 +29,6 @@ const Layers = ({ layers, lang, parallaxes, isParallax = true }: Props) => {
     }
     return () => {
       try {
-        // console.log("[useEffect unmount] parallax destroy ", parallaxScene);
         if (parallaxScene) parallaxScene?.destroy();
       } catch (error) {
         console.log("[useEffect unmount] ERROR", error);
