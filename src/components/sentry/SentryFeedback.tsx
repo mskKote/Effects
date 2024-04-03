@@ -11,7 +11,7 @@ const SentryFeedback = () => {
   const sendFeedback = React.useCallback(async () => {
     const promise = new Promise<void>((resolve) => {
       setTimeout(() => {
-        console.log("send error");
+        console.log("[Sentry] send error");
         resolve();
       }, 500);
     });

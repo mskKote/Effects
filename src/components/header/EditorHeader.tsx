@@ -20,7 +20,7 @@ const EditorHeader = ({ contentPage }: Props) => {
     metrics.publish();
     setCopyText(defaultCopyText);
     const result = await Requests.publishPage(contentPage);
-    console.log("publish", result);
+    console.log("[EditorHeader] publish", result);
     setLink(`/?id=${result}`);
   }
   function copyToClipboard() {
