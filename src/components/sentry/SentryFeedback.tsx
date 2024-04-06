@@ -1,12 +1,13 @@
+"use client";
 import React from "react";
 import styles from "./SentryFeedback.module.scss";
 import * as Sentry from "@sentry/nextjs";
 import { toast } from "sonner";
-import { Trans, useTranslation } from "next-i18next";
+import { useTranslations } from "next-intl";
 
 const SentryFeedback = () => {
   const [feedback, setFeedback] = React.useState("");
-  const { t } = useTranslation();
+  const t = useTranslations("Editor");
 
   const sendFeedback = React.useCallback(async () => {
     const promise = new Promise<void>((resolve) => {
@@ -16,9 +17,9 @@ const SentryFeedback = () => {
       }, 500);
     });
     await toast.promise(promise, {
-      success: t("editor:sentrySendSuccess"),
-      loading: t("editor:sentrySendLoading"),
-      error: t("editor:sentrySendError"),
+      success: t("sentrySendSuccess"),
+      loading: t("sentrySendLoading"),
+      error: t("sentrySendError"),
     });
   }, [t]);
 
@@ -26,7 +27,7 @@ const SentryFeedback = () => {
     <div className={styles.sentryContainer}>
       <textarea
         maxLength={1000}
-        placeholder={t("editor:sentryPlaceholder")}
+        placeholder={t("sentryPlaceholder")}
         value={feedback}
         onChange={(e) => setFeedback(e.target.value)}
       />
@@ -52,7 +53,7 @@ const SentryFeedback = () => {
           );
         }}
       >
-        <Trans i18nKey="editor:sendFeedback" />
+        {t("sendFeedback")}
       </button>
     </div>
   );

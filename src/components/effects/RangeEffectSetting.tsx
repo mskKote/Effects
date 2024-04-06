@@ -1,8 +1,7 @@
 import React from "react";
 import styles from "./RangeEffectSetting.module.scss";
-import useLocale from "@utils/useLocale";
 import { ELanguages } from "@interfaces/IContentPage";
-import { Trans } from "next-i18next";
+import { useLocale, useTranslations } from "next-intl";
 
 export type RangeSettingProps = {
   options: React.DetailedHTMLProps<
@@ -20,12 +19,15 @@ function RangeEffectSetting({
 }: RangeSettingProps & {
   onChange: React.ChangeEventHandler<HTMLInputElement>;
 }) {
-  const { locale } = useLocale();
+  const locale = useLocale();
+  const t = useTranslations("Editor");
+  // @ts-expect-error - error based on next-intl
+  const labelName = t(options.name);
+
   return (
     <div className={styles.effectContainer}>
       <label htmlFor={options.name}>
-        <Trans i18nKey={`editor:${options.name}`} />{" "}
-        {locale !== ELanguages.en && <>({options.name})</>}
+        {labelName} {locale !== ELanguages.en && <>({options.name})</>}
       </label>
       <div>
         <input
@@ -51,4 +53,4 @@ function RangeEffectSetting({
   );
 }
 
-export default React.memo(RangeEffectSetting);
+export default RangeEffectSetting;

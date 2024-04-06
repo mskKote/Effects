@@ -4,7 +4,7 @@
 
 .editorTime {
   grid-template-columns: 2fr 6fr 2fr;
-  grid-template-rows   : 8.75vh 92.5vh;
+  grid-template-rows   : 7.5vh 92.5vh;
   grid-template-areas  :
     "header header header"
     "effects content layers";
@@ -13,7 +13,7 @@
 @media screen and (min-width: 768px) and (max-width: 1024px) {
   .editorTime {
     grid-template-columns: 6fr 2fr;
-    grid-template-rows   : 8.75vh calc(92.5vh / 2) calc(92.5vh / 2);
+    grid-template-rows   : 7.5vh calc(92.5vh / 2) calc(92.5vh / 2);
     grid-template-areas  :
       "header header"
       "content effects"
@@ -24,7 +24,7 @@
 @media screen and (max-width: 767px) {
   .editorTime {
     grid-template-columns: auto;
-    grid-template-rows   : 5vh 25vh auto auto;
+    grid-template-rows   : 6.5vh 25vh auto auto;
     grid-template-areas  :
       "header"
       "content"

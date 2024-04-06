@@ -1,23 +1,20 @@
 import React from "react";
 import styles from "./MotionPermission.module.scss";
-import { Trans } from "next-i18next";
+import { useTranslations } from "next-intl";
 
 type Props = {
   requestPermission: () => void;
 };
 
 function MotionPermission({ requestPermission }: Props) {
+  const t = useTranslations("Common");
   return (
     <button className={styles.permissionBtn} onClick={requestPermission}>
-      <code>
-        <Trans i18nKey="editor:gyroscopePermissionMessage" />
-      </code>
+      <code>{t("gyroscopePermissionMessage")}</code>
       <br />
       <br />
       <br />
-      <b>
-        <Trans i18nKey="editor:permissionInstructions" />
-      </b>
+      <b>{t("permissionInstructions")}</b>
     </button>
   );
 }

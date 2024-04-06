@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import IEffects, {
   EEffects,
@@ -7,7 +8,7 @@ import IEffects, {
 import styles from "./LayerEffectsSettings.module.scss";
 import allDefaultEffects, { RangeEffectTypes } from "./model";
 import RangeEffectSetting from "./RangeEffectSetting";
-import { Trans, useTranslation } from "next-i18next";
+import { useTranslations } from "next-intl";
 
 //* Отвечает за эффекты
 /**
@@ -47,7 +48,7 @@ const LayerEffectsSettings = ({
   onImageChange,
   layersExists,
 }: Props) => {
-  const { t } = useTranslation();
+  const t = useTranslations("Editor");
 
   //* Отвечает за контент на странице
   const [effectsSettings, setEffectsSettings] =
@@ -78,33 +79,24 @@ const LayerEffectsSettings = ({
   if (!layersExists || !effects)
     return (
       <aside className={styles.effectsSettingsContainer}>
-        <h1>
-          <Trans i18nKey="editor:effectsSettings" />
-        </h1>
+        <h1>{t("effectsSettings")}</h1>
         <div className={styles.step}>
-          <h2>
-            <Trans i18nKey="editor:needLayers" />{" "}
-          </h2>
-          <p>
-            <Trans i18nKey="editor:needLayersDesc" />
-          </p>
+          <h2>{t("needLayers")}</h2>
+          <p>{t("needLayersDesc")}</p>
         </div>
       </aside>
     );
 
   return (
     <aside className={styles.effectsSettingsContainer}>
-      <h1>
-        <Trans i18nKey="editor:effectsSettings" />
-      </h1>
+      <h1>{t("effectsSettings")}</h1>
       <form>
         <fieldset className={styles.step}>
           <h2>
-            <Trans i18nKey="editor:step" /> 1.{" "}
-            <Trans i18nKey="editor:step1Title" />
+            {t("step")} 1. {t("step1Title")}
           </h2>
           <label htmlFor="layer-image" className={styles.layerImage}>
-            <Trans i18nKey="editor:step1Label" />
+            {t("step1Label")}
           </label>
           <input
             type="file"
@@ -113,21 +105,15 @@ const LayerEffectsSettings = ({
             style={{ display: "none" }}
             accept={"image/*"}
           />
-          <small>
-            <Trans i18nKey="editor:step1MVPNote" />
-          </small>
+          <small>{t("step1MVPNote")}</small>
         </fieldset>
         <fieldset className={styles.step}>
           <label htmlFor="parallax">
             <h2>
-              <Trans i18nKey="editor:step" /> 2.{" "}
-              <Trans i18nKey="editor:step2Title" />
+              {t("step")} 2. {t("step2Title")}
               &nbsp;
-              <span
-                className={styles.parallaxTerm}
-                title={t("editor:parallaxDef")}
-              >
-                <Trans i18nKey="editor:parallaxName" />
+              <span className={styles.parallaxTerm} title={t("parallaxDef")}>
+                {t("parallaxName")}
               </span>
             </h2>
           </label>
@@ -158,8 +144,7 @@ const LayerEffectsSettings = ({
         </fieldset>
         <fieldset className={styles.step}>
           <h2>
-            <Trans i18nKey="editor:step" /> 3.{" "}
-            <Trans i18nKey="editor:step3Title" />
+            {t("step")} 3. {t("step3Title")}
           </h2>
           {Object.values(effectsSettings).map((v) => (
             <RangeEffectSetting

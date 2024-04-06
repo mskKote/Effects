@@ -1,29 +1,17 @@
-import React, { Suspense } from "react";
-import type { Preview } from "@storybook/react";
+import React from "react";
 import "@root/styles/globals.scss";
+import type { Preview } from "@storybook/react";
+import { IntlProvider } from "next-intl";
+import configuration from "../src/lib/configuration";
+import en from "../messages/en.json";
+import de from "../messages/de.json";
+import ru from "../messages/ru.json";
 
-import i18n from "i18next";
-import { I18nextProvider, initReactI18next } from "react-i18next";
-import Backend from "i18next-http-backend";
-import LanguageDetector from "i18next-browser-languagedetector";
-import configuration from "../src/utils/configuration";
-import Loader from "../src/components/loader/Loader";
-
-i18n
-  .use(Backend) // lazy loads translations from /public/locales
-  .use(LanguageDetector) // detect user language
-  .use(initReactI18next)
-  .init({
-    ns: configuration.i18n.NAMESPACES,
-    fallbackLng: "en",
-    debug: true,
-    interpolation: {
-      escapeValue: false,
-    },
-  });
+const messages = { en, de, ru };
 
 const preview: Preview = {
   parameters: {
+    nextjs: { appDirectory: true },
     controls: {
       matchers: {
         color: /(background|color)$/i,
@@ -32,37 +20,33 @@ const preview: Preview = {
     },
   },
 };
-// Wrap your stories in the I18nextProvider component
-const withI18next = (Story, context) => {
+
+const withNextIntl = (Story, context) => {
   const { locale } = context.globals;
 
-  // When the locale global changes
-  // Set the new locale in i18n
-  React.useEffect(() => void i18n.changeLanguage(locale), [locale]);
-
   return (
-    <Suspense fallback={<Loader />}>
-      <I18nextProvider i18n={i18n}>
-        <Story />
-      </I18nextProvider>
-    </Suspense>
+    <IntlProvider locale={locale} messages={messages[locale]}>
+      <Story />
+    </IntlProvider>
   );
 };
 
-export const decorators = [withI18next];
+export const decorators = [withNextIntl];
 
 export const globalTypes = {
   locale: {
     name: "Locale",
     description: "Internationalization locale",
+    defaultValue: configuration.i18n.defaultLocale,
     toolbar: {
       icon: "globe",
       items: [
-        { value: "en", title: "English" },
-        { value: "de", title: "Deutsch" },
-        { value: "ru", title: "Russian" },
+        { value: "en", right: "🇺🇸", title: "English" },
+        { value: "de", right: "🇩🇪", title: "Deutsch" },
+        { value: "ru", right: "🇷🇺", title: "Russian" },
       ],
       showName: true,
+      dynamicTitle: true,
     },
   },
 };

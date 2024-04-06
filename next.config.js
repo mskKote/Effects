@@ -1,14 +1,15 @@
-const { i18n } = require("./next-i18next.config");
 const { withSentryConfig } = require("@sentry/nextjs");
+const createNextIntlPlugin = require("next-intl/plugin");
+
+const withNextIntl = createNextIntlPlugin("./src/lib/i18n.ts");
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: false,
-  i18n,
 };
 
 module.exports = withSentryConfig(
-  nextConfig,
+  withNextIntl(nextConfig),
   {
     // For all available options, see:
     // https://github.com/getsentry/sentry-webpack-plugin#options

@@ -1,10 +1,10 @@
-/* eslint-disable react/no-unknown-property */
 import Image from "next/legacy/image";
 import React from "react";
 import { ELanguages } from "@interfaces/IContentPage";
 import IEffects, { EEffects } from "@interfaces/IEffects";
 import ILayer from "@interfaces/ILayer";
 import styles from "./Layer.module.scss";
+import LayerStyle from "./LayerStyle";
 
 interface Props {
   layer: ILayer;
@@ -53,7 +53,7 @@ function getFilter(effects: IEffects): string {
   return filters.join(" ");
 }
 
-const Layer = ({ num, layer, lang = ELanguages.ru }: Props) => {
+const Layer = ({ num, layer, lang }: Props) => {
   const content = layer.content[lang];
   const parallax = layer.effects[EEffects.parallax]?.value;
   const effects = getFilter(layer.effects);
@@ -71,12 +71,7 @@ const Layer = ({ num, layer, lang = ELanguages.ru }: Props) => {
             className={`${styles.layerImage} layer-${num}`}
             alt={content.name}
           />
-          <style jsx global>{`
-            img.layer-${num} {
-              filter: ${effects};
-              user-select: none;
-            }
-          `}</style>
+          <LayerStyle num={num} effects={effects} />
         </>
       )}
     </div>
