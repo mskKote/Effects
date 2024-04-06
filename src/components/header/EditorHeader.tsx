@@ -1,18 +1,19 @@
+"use client";
 import React from "react";
 import Image from "next/legacy/image";
-import Requests from "@utils/Requests";
+import Requests from "@root/src/lib/Requests";
 import IContentPage from "@interfaces/IContentPage";
 import styles from "./EditorHeader.module.scss";
-import metrics from "@utils/metrics";
-import { Trans, useTranslation } from "next-i18next";
+import metrics from "@root/src/lib/metrics";
+import { useTranslations } from "next-intl";
 
 type Props = {
   contentPage: IContentPage;
 };
 
 const EditorHeader = ({ contentPage }: Props) => {
-  const { t } = useTranslation();
-  const defaultCopyText = t("editor:copy");
+  const t = useTranslations("Editor");
+  const defaultCopyText = t("copy");
   const [link, setLink] = React.useState("");
   const [copyText, setCopyText] = React.useState(defaultCopyText);
 
@@ -25,7 +26,7 @@ const EditorHeader = ({ contentPage }: Props) => {
   }
   function copyToClipboard() {
     navigator.clipboard.writeText(link);
-    setCopyText(t("editor:copied"));
+    setCopyText(t("copied"));
     setTimeout(() => setCopyText(defaultCopyText), 1250);
   }
 
@@ -36,7 +37,7 @@ const EditorHeader = ({ contentPage }: Props) => {
         <input
           className={styles.publishedUrl}
           value={link}
-          placeholder={t("editor:urlPlaceholder")}
+          placeholder={t("urlPlaceholder")}
           readOnly
         />
         <button
@@ -49,9 +50,7 @@ const EditorHeader = ({ contentPage }: Props) => {
       </div>
 
       <button className={styles.publish} onClick={publish}>
-        <span>
-          <Trans i18nKey="editor:publish" />
-        </span>
+        <span>{t("publish")}</span>
         <svg width="15px" height="10px" viewBox="0 0 13 10">
           <path d="M1,5 L11,5" />
           <polyline points="8 1 12 5 8 9" />

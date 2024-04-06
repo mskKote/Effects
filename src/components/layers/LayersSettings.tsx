@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import {
   DragDropContext,
@@ -9,8 +10,8 @@ import IContentPage, { ELanguages } from "@interfaces/IContentPage";
 import ILayer from "@interfaces/ILayer";
 import styles from "./LayersSettings.module.scss";
 import LayerCard from "./LayerCard";
-import { Trans } from "next-i18next";
 import SentryFeedback from "@components/sentry/SentryFeedback";
+import { useTranslations } from "next-intl";
 
 type Props = {
   lang: ELanguages;
@@ -27,6 +28,8 @@ const LayersSettings = ({
   setContentPage,
   setCurrentLayer,
 }: Props) => {
+  const t = useTranslations("Editor");
+
   //*================================= Dnd
   //#region Dnd
   const [loading, setLoading] = React.useState(true);
@@ -85,9 +88,7 @@ const LayersSettings = ({
   return (
     <aside className={styles.layersSettingsWrapper}>
       <div className={styles.layersSettingsContainer}>
-        <h1>
-          <Trans i18nKey="editor:layersSettings" />
-        </h1>
+        <h1>{t("layersSettings")}</h1>
         {/* Колонки */}
         <DragDropContext onDragEnd={dragEndHandler}>
           {/* 1 колонка */}
@@ -126,7 +127,7 @@ const LayersSettings = ({
           </Droppable>
         </DragDropContext>
         <button className={styles.addLayerBtn} onClick={addLayer}>
-          <Trans i18nKey="editor:addLayer" />
+          {t("addLayer")}
         </button>
       </div>
       <div className={styles.infoContainer}>
@@ -137,14 +138,14 @@ const LayersSettings = ({
             rel="noreferrer"
             href="https://docs.google.com/document/d/1ARDFMZ8LzKIGQWZ3Mn3D1KsErW1b5Icxv6HzdkmVpZI/edit?usp=sharing"
           >
-            <Trans i18nKey="editor:legalOffer" />
+            {t("legalOffer")}
           </a>
           <a
             target="_blank"
             rel="noreferrer"
             href="https://docs.google.com/document/d/1FeVVtyyHC1wWqx8_ve5b3FdyM-ADF8Flufx3D0EQ-9o/edit?usp=sharing"
           >
-            <Trans i18nKey="editor:personalDataAgreement" />
+            {t("personalDataAgreement")}
           </a>
         </div>
       </div>

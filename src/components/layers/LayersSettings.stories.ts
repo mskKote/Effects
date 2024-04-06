@@ -1,13 +1,12 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import LayersSettings from "./LayersSettings";
-import { mockPage } from "@utils/mock";
+import { mockPage } from "@root/src/lib/mock";
 import { ELanguages } from "@interfaces/IContentPage";
 import { fn } from "@storybook/test";
 
 const meta = {
   title: "Editor/LayersSettings",
   component: LayersSettings,
-  tags: ["autodocs"],
   parameters: {
     layout: "centered",
   },

@@ -1,11 +1,14 @@
+"use client";
 import React from "react";
 import LayerEffectsSettings from "@components/effects/LayerEffectsSettings";
 import EditorHeader from "@components/header/EditorHeader";
 import LayersSettings from "@components/layers/LayersSettings";
-import IContentPage, { localeToContentLang } from "@interfaces/IContentPage";
+import IContentPage, {
+  ELanguages,
+  localeToContentLang,
+} from "@interfaces/IContentPage";
 import { EEffects, Effect } from "@interfaces/IEffects";
 import Layers from "@components/layers/Layers";
-import useLocale from "@utils/useLocale";
 
 type Props = {
   page: IContentPage;
@@ -16,8 +19,7 @@ function Editor({ page, setContentPage }: Props) {
   const [isParallax, setIsParallax] = React.useState(
     page.layers.some((x) => x.effects.parallax?.value !== 0)
   );
-  const { locale } = useLocale();
-  const [lang, setLang] = React.useState(localeToContentLang(locale));
+  const [lang, setLang] = React.useState(localeToContentLang(ELanguages.ru));
 
   function effectChangeHandler(effectType: EEffects, value: Effect) {
     setContentPage((prev) => {

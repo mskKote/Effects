@@ -1,5 +1,4 @@
 import React from "react";
-import HeadSEO from "@utils/HeadSEO";
 import styles from "./Loader.module.scss";
 
 function emptyArray(arrayLength: number = 5, fill: any = {}) {
@@ -9,15 +8,6 @@ function emptyArray(arrayLength: number = 5, fill: any = {}) {
 const Loader = () => {
   return (
     <div className={styles.loaderContainer}>
-      <HeadSEO
-        title="Effects"
-        description="Manga&comics with effects"
-        keywords={["Comics", "manga", "effects", "parallax", "2.5d"]}
-        author="🔮 Effects team"
-        iconImg="/icon.svg"
-        socialNetworkImg="/icon.svg"
-      />
-
       <div className={styles.container}>
         {/* Строки */}
         {emptyArray().map((_, rowI) => (

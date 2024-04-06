@@ -1,9 +1,10 @@
+"use client";
 import React from "react";
 import { ELanguages } from "@interfaces/IContentPage";
 import Layer from "./Layer";
 import Parallax from "parallax-js";
 import styles from "./Layers.module.scss";
-import { useMotionPermission } from "@utils/useMotionPermission";
+import { useMotionPermission } from "@root/src/lib/useMotionPermission";
 import MotionPermission from "@components/permission/MotionPermission";
 import ILayer from "@interfaces/ILayer";
 
@@ -53,15 +54,11 @@ const Layers = ({ layers, lang, parallaxes, isParallax = true }: Props) => {
   return (
     <div className={styles.layersContainerWrapper}>
       <main className={styles.layersContainer} ref={parallaxRef}>
-        {layers.length === 0 ? (
-          <h1 className={styles.placeholder}>Добавьте слой</h1>
-        ) : (
-          layers
-            .sort((a, b) => a.position - b.position)
-            .map((layer, i) => (
-              <Layer key={i} num={i} layer={layer} lang={lang} />
-            ))
-        )}
+        {layers
+          .sort((a, b) => a.position - b.position)
+          .map((layer, i) => (
+            <Layer key={i} num={i} layer={layer} lang={lang} />
+          ))}
       </main>
     </div>
   );

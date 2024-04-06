@@ -22,14 +22,15 @@
     align-content : flex-start;
     grid-gap      : 1.5rem;
     padding-inline: 1.5rem;
+    padding-block : 0.5rem 2.5rem;
   }
 
   .legalContainer {
     display       : flex;
     flex-direction: column;
     grid-gap      : 0.5rem;
-    padding-bottom: 2rem;
     text-align    : right;
+    width         : min-content;
 
     a {
       color: var(--secondary-color);

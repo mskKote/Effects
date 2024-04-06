@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import Editor from "./Editor";
-import { mockPage } from "@utils/mock";
+import { mockPage } from "@root/src/lib/mock";
 import { fn } from "@storybook/test";
 import styles from "@root/styles/Index.module.scss";
 import classNames from "classnames";
@@ -8,7 +8,6 @@ import classNames from "classnames";
 const meta = {
   title: "Editor/Editor",
   component: Editor,
-  tags: ["autodocs"],
   parameters: {
     layout: "fullscreen",
   },

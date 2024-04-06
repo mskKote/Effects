@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
-import { useDebouncedState } from "@utils/useDebouncedState";
+import { useDebouncedState } from "@root/src/lib/useDebouncedState";
 import styles from "./LayersSettings.module.scss";
-import { useTranslation } from "next-i18next";
+import { useTranslations } from "next-intl";
 
 type Props = {
   name: string;
@@ -11,7 +11,7 @@ type Props = {
 const LayerCard = ({ name, onNameChange, onDeleteLayer }: Props) => {
   const [debouncedValue, setValue] = useDebouncedState(name, 200);
   const isFirstRender = React.useRef(true);
-  const { t } = useTranslation();
+  const t = useTranslations("Editor");
   useEffect(() => {
     if (isFirstRender.current) {
       isFirstRender.current = false;

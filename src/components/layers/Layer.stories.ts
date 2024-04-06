@@ -1,12 +1,11 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import Layer from "./Layer";
-import { mockPage } from "@utils/mock";
+import { mockPage } from "@root/src/lib/mock";
 import { ELanguages } from "@interfaces/IContentPage";
 
 const meta = {
   title: "Editor/Layer",
   component: Layer,
-  tags: ["autodocs"],
   parameters: {
     layout: "fullscreen",
   },

@@ -1,11 +1,10 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import EditorHeader from "./EditorHeader";
-import { mockPage } from "@utils/mock";
+import { mockPage } from "@root/src/lib/mock";
 
 const meta = {
   title: "Editor/Header",
   component: EditorHeader,
-  tags: ["autodocs"],
   parameters: {
     layout: "fullscreen",
   },

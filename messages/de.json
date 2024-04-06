@@ -1,0 +1,50 @@
+{
+  "Editor": {
+    "copied": "Kopiert 👌",
+    "copy": "Kopieren 📋",
+    "urlPlaceholder": "Hier wird die URL sein...",
+    "publish": "Veröffentlichen",
+
+    "effectsSettings": "Effekteinstellungen",
+    "step": "Schritt",
+    "step1Title": "Bild hinzufügen",
+    "step1Label": "Bild auf Ebene hinzufügen",
+    "step1MVPNote": "MVP1: Bilder müssen jetzt dieselbe Größe haben",
+    "step2Title": "Einstellungen",
+    "parallaxDef": "Ebenenverschiebung",
+    "parallaxName": "Parallax",
+    "step3Title": "Andere Effekte ausprobieren",
+    "blur": "Unschärfe",
+    "brightness": "Helligkeit",
+    "saturate": "Sättigung",
+    "contrast": "Kontrast",
+    "grayscale": "Graustufen",
+    "invert": "Invertieren",
+    "hueRotate": "Farbton drehen",
+    "sepia": "Sepia",
+    "opacity": "Deckkraft",
+    "needLayers": "Erstellen Sie eine Ebene",
+    "needLayersDesc": "Effekte werden an eine bestimmte Ebene angehängt",
+
+    "layersSettings": "Ebeneneinstellungen",
+    "addLayer": "Ebene hinzufügen",
+    "layerPlaceholder": "Ebenenname...",
+    "legalOffer": "Angebot",
+    "personalDataAgreement": "Datenschutz",
+    "sentryPlaceholder": "Hoppla, etwas funktioniert nicht",
+    "sendFeedback": "Feedback senden",
+
+    "sentrySendSuccess": "Benachrichtigt!!",
+    "sentrySendLoading": "Hochladen...",
+    "sentrySendError": "Etwas ist schief gelaufen..."
+  },
+  "Metadata": {
+    "title": "Effekte",
+    "description": "Manga & Comics mit Effekten",
+    "keywords": "Comics Manga Effekte Parallax 2,5D"
+  },
+  "Common": {
+    "gyroscopePermissionMessage": "IOS: Gyroskop- und Beschleunigungssensorenberechtigung erforderlich",
+    "permissionInstructions": "Tippen Sie auf den Bildschirm, um Berechtigungen zu erteilen ✔️🤏"
+  }
+}

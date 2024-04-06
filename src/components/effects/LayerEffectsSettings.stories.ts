@@ -1,12 +1,11 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import LayerEffectsSettings from "./LayerEffectsSettings";
-import { mockPage } from "@utils/mock";
+import { mockPage } from "@root/src/lib/mock";
 import { fn } from "@storybook/test";
 
 const meta = {
   title: "Editor/LayerEffectsSettings",
   component: LayerEffectsSettings,
-  tags: ["autodocs"],
   parameters: {
     layout: "fullscreen",
   },
