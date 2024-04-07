@@ -19,6 +19,7 @@ export async function generateMetadata({
     keywords: t("keywords").split(" "),
     authors: [{ name: "Vitalii Popov", url: "@mskKote" }],
     metadataBase: new URL("https://effects.vercel.app/"),
+    icons: img,
     twitter: {
       title,
       description,
