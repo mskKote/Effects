@@ -14,9 +14,15 @@ dependencies:
   faunadb:
     specifier: ^4.8.0
     version: 4.8.0
+  immer:
+    specifier: ^10.0.4
+    version: 10.0.4
   jotai:
     specifier: ^2.7.2
     version: 2.7.2(@types/react@18.2.71)(react@18.2.0)
+  jotai-immer:
+    specifier: ^0.3.0
+    version: 0.3.0(immer@10.0.4)(jotai@2.7.2)(react@18.2.0)
   next:
     specifier: 14.1.4
     version: 14.1.4(@babel/core@7.24.3)(react-dom@18.2.0)(react@18.2.0)(sass@1.72.0)
@@ -6984,6 +6990,10 @@ packages:
     resolution: {integrity: sha512-XXOFtyqDjNDAQxVfYxuF7g9Il/IbWmmlQg2MYKOH8ExIT1qg6xc4zyS3HaEEATgs1btfzxq15ciUiY7gjSXRGQ==}
     dev: false
 
+  /immer@10.0.4:
+    resolution: {integrity: sha512-cuBuGK40P/sk5IzWa9QPUaAdvPHjkk1c+xYsd9oZw+YQQEV+10G0P5uMpGctZZKnyQ+ibRO08bD25nWLmYi2pw==}
+    dev: false
+
   /immutable@4.3.5:
     resolution: {integrity: sha512-8eabxkth9gZatlwl5TBuJnCsoTADlL6ftEr7A4qgdaTsPyreilDSnUk57SO+jfKcNtxPa22U5KK6DSeAYhpBJw==}
 
@@ -7368,6 +7378,18 @@ packages:
     resolution: {integrity: sha512-gFqAIbuKyyso/3G2qhiO2OM6shY6EPP/R0+mkDbyspxKazh8BXDC5FiFsUjlczgdNz/vfra0da2y+aHrusLG/Q==}
     hasBin: true
     dev: true
+
+  /jotai-immer@0.3.0(immer@10.0.4)(jotai@2.7.2)(react@18.2.0):
+    resolution: {integrity: sha512-k+o4rWfWWLyHfucHAdoiN+l8flxMrKC/bEFvJA98znj+kbPW5R90EPa1u8mhWLJTABW3xjAp7Z3kyD3FVi0Hgw==}
+    peerDependencies:
+      immer: '*'
+      jotai: '>=2.0.0'
+      react: '>=17.0.0'
+    dependencies:
+      immer: 10.0.4
+      jotai: 2.7.2(@types/react@18.2.71)(react@18.2.0)
+      react: 18.2.0
+    dev: false
 
   /jotai@2.7.2(@types/react@18.2.71)(react@18.2.0):
     resolution: {integrity: sha512-6Ft5kpNu8p93Ssf1Faoza3hYQZRIYp7rioK8MwTTFnbQKwUyZElwquPwl1h6U0uo9hC0jr+ghO3gcSjc6P35/Q==}

@@ -107,4 +107,6 @@ export const allDefaultEffects: RangeEffectTypes = {
   },
 };
 
+export const parallaxDatalist = [-1, -0.5, 0, 0.5, 1] as const;
+
 export default allDefaultEffects;

@@ -12,9 +12,6 @@ const meta = {
   args: {
     effectsDeps: Object.values(mockPage.layers[0]?.effects ?? {}),
     effects: mockPage.layers[0]?.effects,
-    onEffectChange: () => fn(),
-    onImageChange: () => fn(),
-    layersExists: true,
   },
 } satisfies Meta<typeof LayerEffectsSettings>;
 

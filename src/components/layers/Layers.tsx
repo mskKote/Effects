@@ -54,7 +54,7 @@ const Layers = ({ layers, lang, parallaxes, isParallax = true }: Props) => {
   return (
     <div className={styles.layersContainerWrapper}>
       <main className={styles.layersContainer} ref={parallaxRef}>
-        {layers
+        {[...layers]
           .sort((a, b) => a.position - b.position)
           .map((layer, i) => (
             <Layer key={i} num={i} layer={layer} lang={lang} />

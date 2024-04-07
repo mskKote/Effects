@@ -9,7 +9,7 @@ export type RangeSettingProps = {
     React.InputHTMLAttributes<HTMLInputElement>,
     HTMLInputElement
   >;
-  dataList: number[];
+  dataList: readonly number[];
 };
 
 /** effect with range slider */

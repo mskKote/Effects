@@ -6,14 +6,21 @@ import { mockPage } from "@lib/mock";
 import { localeToContentLang } from "@interfaces/IContentPage";
 import { useLocale } from "next-intl";
 import YMetrikaWrapper from "../../YMetrikaWrapper";
+import { notFound } from "next/navigation";
 
-export default function BookPage({
+export default async function BookPage({
   params,
 }: {
   params: { book: string; bookPage: string };
 }) {
-  // TODO: SSR / SSG / ISR. async server component
-  const contentPage = mockPage;
+  // TODO: SSR / ISR
+  const request = async (book: string, bookPage: string) => {
+    console.log(`[BookPageEditor] get ${book}-${bookPage}`);
+    return mockPage;
+  };
+  const contentPage = await request(params.book, params.bookPage);
+  if (!contentPage) notFound();
+
   const locale = useLocale();
   const lang = localeToContentLang(locale);
 

@@ -12,24 +12,17 @@ import styles from "./LayersSettings.module.scss";
 import LayerCard from "./LayerCard";
 import SentryFeedback from "@components/sentry/SentryFeedback";
 import { useTranslations } from "next-intl";
-import { useAtomValue } from "jotai";
-import { contentLangAtom } from "@components/editor/Editor";
+import { atom, useAtom, useAtomValue, useSetAtom } from "jotai";
+import { contentLangAtom, pageImmerAtom } from "@components/editor/Editor";
 
-type Props = {
-  layers: ILayer[];
-  currentLayer: number;
-  setContentPage: React.Dispatch<React.SetStateAction<IContentPage>>;
-  setCurrentLayer: React.Dispatch<React.SetStateAction<number>>;
-};
+export const layerAtom = atom(0);
 
-const LayersSettings = ({
-  layers,
-  currentLayer,
-  setContentPage,
-  setCurrentLayer,
-}: Props) => {
+const LayersSettings = () => {
   const t = useTranslations("Editor");
   const lang = useAtomValue(contentLangAtom);
+  const [currentLayer, setCurrentLayer] = useAtom(layerAtom);
+  const [contentPage, setContentPage] = useAtom(pageImmerAtom);
+  const { layers } = contentPage;
 
   //*================================= Dnd
   //#region Dnd
@@ -43,11 +36,10 @@ const LayersSettings = ({
     if (source.index === currentLayer) setCurrentLayer(destination.index);
     else if (destination.index === currentLayer) setCurrentLayer(source.index);
     //*==================== source ←→ destination
-    setContentPage((x) => {
+    setContentPage((prev) => {
       // TODO: менять номера промежуточных слоёв между source и destination
-      x.layers[source.index].position = destination.index;
-      x.layers[destination.index].position = source.index;
-      return { ...x };
+      prev.layers[source.index].position = destination.index;
+      prev.layers[destination.index].position = source.index;
     });
   }
   //#endregion
@@ -55,32 +47,29 @@ const LayersSettings = ({
   //#region Layers interaction
   function deleteLayer(pos: number) {
     if (pos <= currentLayer) setCurrentLayer(currentLayer - 1);
-    setContentPage((x) => ({
-      ...x,
-      layers: x.layers
+    setContentPage((prev) => {
+      prev.layers = prev.layers
         .filter((_, i) => i !== pos)
-        .map((x, i) => ({ ...x, position: i })),
-    }));
+        .map((x, i) => ({ ...x, position: i }));
+    });
   }
   function changeLayer(pos: number) {
     setCurrentLayer(pos);
   }
   function changeLayerNameHandler(name: string, pos: number) {
-    setContentPage((page) => {
-      const x = page.layers[pos].content[lang];
-      if (x) page.layers[pos].content[lang] = { name, url: x.url };
-      return { ...page };
+    setContentPage((prev) => {
+      const x = prev.layers[pos].content[lang];
+      if (x) prev.layers[pos].content[lang] = { name, url: x.url };
     });
   }
   function addLayer() {
-    setContentPage((x) => {
-      const last = x.layers.findLast((x) => x.position)?.position;
-      x.layers.push({
+    setContentPage((prev) => {
+      const last = prev.layers.findLast((x) => x.position)?.position;
+      prev.layers.push({
         position: last ? last + 1 : 0,
         content: { [lang]: { name: "", url: "/mock/Scott-p1.png" } },
         effects: { parallax: { value: 0 } },
       });
-      return { ...x };
     });
     setCurrentLayer(layers.length - 1);
   }
@@ -97,7 +86,7 @@ const LayersSettings = ({
             {(provided) => (
               <div ref={provided.innerRef} {...provided.droppableProps}>
                 {/* Карточки */}
-                {layers
+                {[...layers]
                   .sort((a, b) => a.position - b.position)
                   .map(({ content, position }, i) => (
                     <Draggable key={position} index={i} draggableId={`${i}`}>

@@ -7,6 +7,13 @@ import en from "../messages/en.json";
 import de from "../messages/de.json";
 import ru from "../messages/ru.json";
 import { Provider } from "jotai";
+import { useHydrateAtoms } from "jotai/utils";
+import {
+  contentLangAtom,
+  isParallaxAtom,
+  pageImmerAtom,
+} from "../src/components/editor/Editor";
+import { mockPage } from "../src/lib/mock";
 
 const messages = { en, de, ru };
 
@@ -22,13 +29,21 @@ const preview: Preview = {
   },
 };
 
+const HydrateAtoms = ({ initialValues, children }) => {
+  useHydrateAtoms(initialValues);
+  return children;
+};
+
 const withNextIntl = (Story, context) => {
   const { locale } = context.globals;
+  //storybook-addon-jotai is incompatible with Storybook v8
 
   return (
     <IntlProvider locale={locale} messages={messages[locale]}>
       <Provider>
-        <Story />
+        <HydrateAtoms initialValues={[[pageImmerAtom, mockPage]]}>
+          <Story />
+        </HydrateAtoms>
       </Provider>
     </IntlProvider>
   );
