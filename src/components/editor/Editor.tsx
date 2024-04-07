@@ -3,22 +3,27 @@ import React from "react";
 import LayerEffectsSettings from "@components/effects/LayerEffectsSettings";
 import EditorHeader from "@components/header/EditorHeader";
 import LayersSettings from "@components/layers/LayersSettings";
-import IContentPage from "@interfaces/IContentPage";
+import IContentPage, { ELanguages } from "@interfaces/IContentPage";
 import { EEffects, Effect } from "@interfaces/IEffects";
 import Layers from "@components/layers/Layers";
-import { useAppSelector } from "@lib/store";
 import styles from "./Editor.module.scss";
 import cn from "classnames";
+import { atomWithToggle } from "@lib/store/atomWithToggle";
+import { atom, useAtomValue } from "jotai";
+
+export const isParallaxAtom = atomWithToggle(true);
+export const isEditModeAtom = atomWithToggle(true);
+export const contentLangAtom = atom(ELanguages.ru);
 
 type Props = {
   page: IContentPage;
   setContentPage: React.Dispatch<React.SetStateAction<IContentPage>>;
 };
 function Editor({ page, setContentPage }: Props) {
+  const isParallax = useAtomValue(isParallaxAtom);
+  const isEditMode = useAtomValue(isEditModeAtom);
+  const contentLang = useAtomValue(contentLangAtom);
   const [currentLayer, setCurrentLayer] = React.useState(0);
-  const { contentLang, isParallax, isEditMode } = useAppSelector(
-    ({ editor }) => editor
-  );
 
   function effectChangeHandler(effectType: EEffects, value: Effect) {
     setContentPage((prev) => {
@@ -64,7 +69,6 @@ function Editor({ page, setContentPage }: Props) {
 
       {isEditMode && (
         <LayersSettings
-          lang={contentLang}
           layers={page.layers}
           setContentPage={setContentPage}
           currentLayer={currentLayer}

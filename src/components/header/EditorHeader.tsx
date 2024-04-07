@@ -6,13 +6,9 @@ import IContentPage from "@interfaces/IContentPage";
 import styles from "./EditorHeader.module.scss";
 import metrics from "@root/src/lib/metrics";
 import { useTranslations } from "next-intl";
-import Toggler from "@components/toggler/Toggler";
-import { useAppDispatch, useAppSelector } from "@lib/store";
-import {
-  toggleEditMode,
-  toggleParallax,
-} from "@components/editor/Editor.slice";
 import cn from "classnames";
+import { isEditModeAtom, isParallaxAtom } from "@components/editor/Editor";
+import { useAtom } from "jotai";
 
 type Props = {
   contentPage: IContentPage;
@@ -23,10 +19,8 @@ const EditorHeader = ({ contentPage }: Props) => {
   const defaultCopyText = t("copy");
   const [link, setLink] = React.useState("");
   const [copyText, setCopyText] = React.useState(defaultCopyText);
-  const isParallax = useAppSelector(({ editor }) => editor.isParallax);
-  const isEditMode = useAppSelector(({ editor }) => editor.isEditMode);
-
-  const dispatch = useAppDispatch();
+  const [isParallax, toggleParallax] = useAtom(isParallaxAtom);
+  const [isEditMode, toggleEditMode] = useAtom(isEditModeAtom);
 
   async function publish() {
     metrics.publish();
@@ -41,10 +35,10 @@ const EditorHeader = ({ contentPage }: Props) => {
     setTimeout(() => setCopyText(defaultCopyText), 1250);
   }
   function parallaxToggleHandler() {
-    dispatch(toggleParallax());
+    toggleParallax();
   }
   function editModeToggleHandler() {
-    dispatch(toggleEditMode());
+    toggleEditMode();
   }
 
   return (

@@ -6,15 +6,16 @@ import {
   Droppable,
   DropResult,
 } from "react-beautiful-dnd";
-import IContentPage, { ELanguages } from "@interfaces/IContentPage";
+import IContentPage from "@interfaces/IContentPage";
 import ILayer from "@interfaces/ILayer";
 import styles from "./LayersSettings.module.scss";
 import LayerCard from "./LayerCard";
 import SentryFeedback from "@components/sentry/SentryFeedback";
 import { useTranslations } from "next-intl";
+import { useAtomValue } from "jotai";
+import { contentLangAtom } from "@components/editor/Editor";
 
 type Props = {
-  lang: ELanguages;
   layers: ILayer[];
   currentLayer: number;
   setContentPage: React.Dispatch<React.SetStateAction<IContentPage>>;
@@ -22,13 +23,13 @@ type Props = {
 };
 
 const LayersSettings = ({
-  lang,
   layers,
   currentLayer,
   setContentPage,
   setCurrentLayer,
 }: Props) => {
   const t = useTranslations("Editor");
+  const lang = useAtomValue(contentLangAtom);
 
   //*================================= Dnd
   //#region Dnd

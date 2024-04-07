@@ -6,7 +6,6 @@ import { mockPage } from "@root/src/lib/mock";
 import { notFound } from "next/navigation";
 import dynamic from "next/dynamic";
 import Editor from "@components/editor/Editor";
-import StoreProvider from "@root/src/app/StoreProvider";
 
 const Sonner = dynamic(async () => {
   const { Toaster } = await import("sonner");
@@ -25,9 +24,7 @@ export default function BookPageEditor({
   return (
     <div className={cn(styles.editorContainer, styles.editorTime)}>
       <Sonner theme="system" duration={1000} position="top-right" />
-      <StoreProvider>
-        <Editor page={contentPage} setContentPage={setContentPage} />
-      </StoreProvider>
+      <Editor page={contentPage} setContentPage={setContentPage} />
     </div>
   );
 }

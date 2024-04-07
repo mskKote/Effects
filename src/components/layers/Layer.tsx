@@ -5,7 +5,8 @@ import IEffects, { EEffects } from "@interfaces/IEffects";
 import ILayer from "@interfaces/ILayer";
 import styles from "./Layer.module.scss";
 import LayerStyle from "./LayerStyle";
-import { useAppSelector } from "@lib/store";
+import { useAtomValue } from "jotai";
+import { isParallaxAtom } from "@components/editor/Editor";
 
 interface Props {
   layer: ILayer;
@@ -59,12 +60,11 @@ const Layer = ({ num, layer, lang }: Props) => {
   const parallax = layer.effects[EEffects.parallax]?.value;
   const effects = getFilter(layer.effects);
   const ref = React.useRef<HTMLDivElement>(null);
+  const isParallax = useAtomValue(isParallaxAtom);
 
   function handleClick() {
     if (ref.current) ref.current.style.transform = "none";
   }
-
-  const isParallax = useAppSelector(({ editor }) => editor.isParallax);
 
   React.useEffect(() => handleClick(), [isParallax]);
 

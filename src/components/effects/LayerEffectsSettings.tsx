@@ -9,7 +9,8 @@ import styles from "./LayerEffectsSettings.module.scss";
 import allDefaultEffects, { RangeEffectTypes } from "./model";
 import RangeEffectSetting from "./RangeEffectSetting";
 import { useTranslations } from "next-intl";
-import { useAppSelector } from "@lib/store";
+import { useAtomValue } from "jotai";
+import { isParallaxAtom } from "@components/editor/Editor";
 
 //* Отвечает за эффекты
 /**
@@ -50,7 +51,7 @@ const LayerEffectsSettings = ({
   layersExists,
 }: Props) => {
   const t = useTranslations("Editor");
-  const isParallax = useAppSelector(({ editor }) => editor.isParallax);
+  const isParallax = useAtomValue(isParallaxAtom);
 
   const [effectsSettings, setEffectsSettings] =
     React.useState<RangeEffectTypes>(createRangeEffects(effects));

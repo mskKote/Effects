@@ -1,5 +1,6 @@
 import React from "react";
 import { Metadata } from "next";
+import { Provider } from "jotai";
 import { getTranslations } from "next-intl/server";
 import "@root/styles/globals.scss";
 
@@ -48,7 +49,9 @@ export default function Layout({
 }) {
   return (
     <html lang={locale}>
-      <body>{children}</body>
+      <body>
+        <Provider>{children}</Provider>
+      </body>
     </html>
   );
 }
