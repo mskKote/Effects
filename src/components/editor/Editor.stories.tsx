@@ -1,7 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import Editor from "./Editor";
 import { mockPage } from "@root/src/lib/mock";
-import { fn } from "@storybook/test";
 import styles from "@root/styles/Index.module.scss";
 import classNames from "classnames";
 
@@ -13,7 +12,6 @@ const meta = {
   },
   args: {
     page: mockPage,
-    setContentPage: () => fn(),
   },
 } satisfies Meta<typeof Editor>;
 

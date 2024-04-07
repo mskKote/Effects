@@ -1,77 +1,78 @@
 "use client";
 import React from "react";
-import IEffects, {
-  EEffects,
-  Effect,
-  getEEffectsByString,
-} from "@interfaces/IEffects";
+import { EEffects, Effect, getEEffectsByString } from "@interfaces/IEffects";
 import styles from "./LayerEffectsSettings.module.scss";
-import allDefaultEffects, { RangeEffectTypes } from "./model";
+import allDefaultEffects, { RangeEffectTypes, parallaxDatalist } from "./model";
 import RangeEffectSetting from "./RangeEffectSetting";
 import { useTranslations } from "next-intl";
-import { useAppSelector } from "@lib/store";
+import { useAtomValue, useSetAtom } from "jotai";
+import {
+  contentLangAtom,
+  isParallaxAtom,
+  pageImmerAtom,
+} from "@components/editor/Editor";
+import { layerAtom } from "@components/layers/LayersSettings";
 
-//* Отвечает за эффекты
+type EffectWithName = [string, Effect];
+
 /**
+ ** Responsible for the effects
  * Преобразует сохранённые значения в настройки
  * Берём дефолтную структуру и закидывает значения
  * Так мы храним в базе только НЕ дефолтные параметры
  * @param effects настройки НЕ по умолчанию
  * @returns настройки для отрисовки
  */
-function createRangeEffects(effects: IEffects): RangeEffectTypes {
+function createRangeEffects(effects: EffectWithName[]): RangeEffectTypes {
   //* Deep copy
   const _defaultEffects: RangeEffectTypes = JSON.parse(
     JSON.stringify(allDefaultEffects)
   );
 
-  //* Вставить эффекты в модель
-  for (const key in effects) {
-    if (!Object.prototype.hasOwnProperty.call(effects, key)) continue;
-    if (_defaultEffects[key])
-      _defaultEffects[key].options.value = effects[key as EEffects]?.value;
-  }
+  //* Insert effects to the model
+  effects.forEach(([name, effect]) => {
+    if (_defaultEffects[name])
+      _defaultEffects[name].options.value = effect.value;
+  });
 
   return _defaultEffects;
 }
 
 type Props = {
-  effects: IEffects;
-  onEffectChange: (effectType: EEffects, value: Effect) => void;
-  onImageChange: (url: string) => void;
-  layersExists: boolean; //TODO: удалить как-то
-  effectsDeps: Effect[]; //TODO: удалить. Переделать всё в массивы
+  effects: EffectWithName[];
 };
-const LayerEffectsSettings = ({
-  effects,
-  effectsDeps,
-  onEffectChange,
-  onImageChange,
-  layersExists,
-}: Props) => {
+const LayerEffectsSettings = ({ effects }: Props) => {
   const t = useTranslations("Editor");
-  const isParallax = useAppSelector(({ editor }) => editor.isParallax);
+  const isParallax = useAtomValue(isParallaxAtom);
+  const currentLayer = useAtomValue(layerAtom);
+  const setContentPage = useSetAtom(pageImmerAtom);
+  const contentLang = useAtomValue(contentLangAtom);
 
   const [effectsSettings, setEffectsSettings] =
     React.useState<RangeEffectTypes>(createRangeEffects(effects));
+
+  React.useEffect(() => {
+    setEffectsSettings(createRangeEffects(effects));
+  }, [effects]);
 
   function editContentPage(event: React.ChangeEvent<HTMLInputElement>) {
     const name = event.target.name;
     const value = +event.target.value;
     const effectType = getEEffectsByString(name);
-    onEffectChange(effectType, { value });
+    setContentPage((prev) => {
+      prev.layers[currentLayer].effects[effectType] = { value };
+    });
   }
   function addImage(event: React.ChangeEvent<HTMLInputElement>) {
     if (!event.target.files || event.target.files.length === 0) return;
-    const img = URL.createObjectURL(event.target.files[0]);
-    onImageChange(img);
+    const url = URL.createObjectURL(event.target.files[0]);
+    setContentPage((prev) => {
+      const x = prev.layers[currentLayer].content[contentLang];
+      if (!!x) prev.layers[currentLayer].content[contentLang] = { ...x, url };
+    });
   }
 
-  React.useEffect(() => {
-    setEffectsSettings(createRangeEffects(effects));
-  }, [effects, effectsDeps]);
-
-  if (!layersExists || !effects)
+  if (currentLayer < 0 || !effects)
     return (
       <aside className={styles.effectsSettingsContainer}>
         <h1>{t("effectsSettings")}</h1>
@@ -121,7 +122,10 @@ const LayerEffectsSettings = ({
               name="parallax"
               id="parallax"
               list="parallax-datalist"
-              value={effects[EEffects.parallax]?.value ?? 0}
+              value={
+                effects.find(([name]) => name === EEffects.parallax)?.[1]
+                  .value ?? 0
+              }
               onInput={editContentPage}
               className={styles.slider}
               disabled={!isParallax}
@@ -130,7 +134,7 @@ const LayerEffectsSettings = ({
               id="parallax-datalist"
               className={styles.optionsContainer}
             >
-              {[-1, -0.5, 0, 0.5, 1].map((x, i) => (
+              {parallaxDatalist.map((x, i) => (
                 <option value={x} key={i}>
                   {x}
                 </option>
