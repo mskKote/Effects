@@ -1,0 +1,80 @@
+.toggle {
+  position        : relative;
+  display         : block;
+  width           : 80px;
+  height          : 36px;
+  border-radius   : 20px;
+  background-color: #d4d8df;
+  cursor          : pointer;
+}
+
+.toggle:before {
+  content         : "";
+  position        : absolute;
+  top             : 50%;
+  width           : 30px;
+  height          : 30px;
+  border-radius   : 50%;
+  background-color: #fbfafb;
+  transform       : translateY(-50%);
+}
+
+.input {
+  display: none;
+}
+
+.input:checked+.toggle {
+  animation: togreen 0.2s forwards;
+}
+
+.input:not(:checked)+.toggle {
+  animation: togray 0.2s forwards;
+}
+
+.input:checked+.toggle:before {
+  animation: open 0.2s forwards;
+}
+
+.input:not(:checked)+.toggle:before {
+  animation: close 0.2s forwards;
+}
+
+@keyframes open {
+  from {
+    left: 5px;
+  }
+
+  to {
+    left: 45px;
+  }
+}
+
+@keyframes close {
+  from {
+    left: 45px;
+  }
+
+  to {
+    left: 5px;
+  }
+}
+
+@keyframes togreen {
+  from {
+    background-color: #d4d8df;
+  }
+
+  to {
+    background-color: #36be7c;
+  }
+}
+
+@keyframes togray {
+  0% {
+    background-color: #36be7c;
+  }
+
+  100% {
+    background-color: #d4d8df;
+  }
+}

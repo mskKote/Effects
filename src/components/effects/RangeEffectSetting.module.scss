@@ -6,8 +6,32 @@
   border         : 2px dashed transparent;
   gap            : 1rem;
 
-  input {
-    min-width: 100%;
+  .slider {
+    -webkit-appearance: none;
+    appearance        : none;
+    height            : 20px;
+    border-radius     : 5px;
+    background        : var(--active-color, #4CAF50);
+    outline           : none;
+    margin-bottom     : 5px;
+
+    &::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance        : none;
+      width             : 25px;
+      height            : 25px;
+      border-radius     : 50%;
+      background        : white;
+      cursor            : pointer;
+    }
+
+    &::-moz-range-thumb {
+      width        : 25px;
+      height       : 25px;
+      border-radius: 50%;
+      background   : white;
+      cursor       : pointer;
+    }
   }
 
   &:hover {

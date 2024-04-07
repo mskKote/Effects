@@ -12,7 +12,7 @@
   background-image: radial-gradient(var(--active-color) 0.65px, var(--primary-color) 0.65px);
   background-size : 13px 13px;
   z-index         : 2;
-  width           : fit-content;
+  width           : min-content;
 
   .step {
     padding-inline: 1rem;
@@ -59,8 +59,34 @@
     }
   }
 
-  .parallaxContainer input {
-    width: 100%;
+  .parallaxContainer .slider {
+    width             : 100%;
+    -webkit-appearance: none;
+    appearance        : none;
+    height            : 15px;
+    border-radius     : 5px;
+    background        : var(--active-color, #4CAF50);
+    outline           : none;
+    margin-bottom     : 5px;
+
+    &::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance        : none;
+      width             : 20px;
+      height            : 20px;
+      border-radius     : 50%;
+      background        : white;
+      cursor            : pointer;
+      transform         : translateY(-3.5px);
+    }
+
+    &::-moz-range-thumb {
+      width        : 20px;
+      height       : 20px;
+      border-radius: 50%;
+      background   : white;
+      cursor       : pointer;
+    }
   }
 
   @media screen and (max-width: 767px) {

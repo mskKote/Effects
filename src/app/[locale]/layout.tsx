@@ -47,9 +47,7 @@ export default function Layout({
 }) {
   return (
     <html lang={locale}>
-      <body>
-        <main>{children}</main>
-      </body>
+      <body>{children}</body>
     </html>
   );
 }

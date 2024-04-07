@@ -4,9 +4,9 @@ import styles from "@root/styles/Index.module.scss";
 import cn from "classnames";
 import { mockPage } from "@root/src/lib/mock";
 import { notFound } from "next/navigation";
-import Editor from "@components/editor/Editor";
-
 import dynamic from "next/dynamic";
+import Editor from "@components/editor/Editor";
+import StoreProvider from "@root/src/app/StoreProvider";
 
 const Sonner = dynamic(async () => {
   const { Toaster } = await import("sonner");
@@ -19,24 +19,15 @@ export default function BookPageEditor({
   params: { book: string; bookPage: string };
 }) {
   const [contentPage, setContentPage] = React.useState(mockPage);
-  const [isEdit, setIsEdit] = React.useState(true);
 
   if (!contentPage) notFound();
 
   return (
-    <div
-      className={cn(styles.editorContainer, {
-        [styles.editorTime]: isEdit,
-        [styles.showTime]: !isEdit,
-      })}
-    >
+    <div className={cn(styles.editorContainer, styles.editorTime)}>
       <Sonner theme="system" duration={1000} position="top-right" />
-      <button
-        id="toggle-edit"
-        style={{ display: "none" }}
-        onClick={() => setIsEdit((x) => !x)}
-      />
-      <Editor page={contentPage} setContentPage={setContentPage} />
+      <StoreProvider>
+        <Editor page={contentPage} setContentPage={setContentPage} />
+      </StoreProvider>
     </div>
   );
 }

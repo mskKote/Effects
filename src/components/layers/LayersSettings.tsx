@@ -132,22 +132,6 @@ const LayersSettings = ({
       </div>
       <div className={styles.infoContainer}>
         <SentryFeedback />
-        <div className={styles.legalContainer}>
-          <a
-            target="_blank"
-            rel="noreferrer"
-            href="https://docs.google.com/document/d/1ARDFMZ8LzKIGQWZ3Mn3D1KsErW1b5Icxv6HzdkmVpZI/edit?usp=sharing"
-          >
-            {t("legalOffer")}
-          </a>
-          <a
-            target="_blank"
-            rel="noreferrer"
-            href="https://docs.google.com/document/d/1FeVVtyyHC1wWqx8_ve5b3FdyM-ADF8Flufx3D0EQ-9o/edit?usp=sharing"
-          >
-            {t("personalDataAgreement")}
-          </a>
-        </div>
       </div>
     </aside>
   );

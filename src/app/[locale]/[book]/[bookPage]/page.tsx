@@ -19,7 +19,7 @@ export default function BookPage({
 
   console.log(`Книга ${params.book} страница ${params.bookPage}}`);
   return (
-    <div className={cn(styles.editorContainer, styles.showTime)}>
+    <div className={cn(styles.showTime)}>
       <YMetrikaWrapper />
       <Layers
         key="layers"

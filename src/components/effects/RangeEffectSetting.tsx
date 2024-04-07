@@ -2,6 +2,7 @@ import React from "react";
 import styles from "./RangeEffectSetting.module.scss";
 import { ELanguages } from "@interfaces/IContentPage";
 import { useLocale, useTranslations } from "next-intl";
+import cn from "classnames";
 
 export type RangeSettingProps = {
   options: React.DetailedHTMLProps<
@@ -31,6 +32,7 @@ function RangeEffectSetting({
       </label>
       <div>
         <input
+          className={cn(styles.slider, options.className)}
           list={`effect-${options.name}`}
           type="range"
           {...options}

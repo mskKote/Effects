@@ -2,6 +2,7 @@ import React from "react";
 import "@root/styles/globals.scss";
 import type { Preview } from "@storybook/react";
 import { IntlProvider } from "next-intl";
+import StoreProvider from "../src/app/StoreProvider";
 import configuration from "../src/lib/configuration";
 import en from "../messages/en.json";
 import de from "../messages/de.json";
@@ -26,7 +27,9 @@ const withNextIntl = (Story, context) => {
 
   return (
     <IntlProvider locale={locale} messages={messages[locale]}>
-      <Story />
+      <StoreProvider>
+        <Story />
+      </StoreProvider>
     </IntlProvider>
   );
 };

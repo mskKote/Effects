@@ -9,6 +9,7 @@ import styles from "./LayerEffectsSettings.module.scss";
 import allDefaultEffects, { RangeEffectTypes } from "./model";
 import RangeEffectSetting from "./RangeEffectSetting";
 import { useTranslations } from "next-intl";
+import { useAppSelector } from "@lib/store";
 
 //* Отвечает за эффекты
 /**
@@ -49,16 +50,11 @@ const LayerEffectsSettings = ({
   layersExists,
 }: Props) => {
   const t = useTranslations("Editor");
+  const isParallax = useAppSelector(({ editor }) => editor.isParallax);
 
-  //* Отвечает за контент на странице
   const [effectsSettings, setEffectsSettings] =
     React.useState<RangeEffectTypes>(createRangeEffects(effects));
 
-  /**
-   * Функция отвечает за изменение useState, отвечающего за страницу.
-   * Используется, чтобы применить эффекты
-   * @param event Введённое значение. Изменяет 1 эффект
-   */
   function editContentPage(event: React.ChangeEvent<HTMLInputElement>) {
     const name = event.target.name;
     const value = +event.target.value;
@@ -75,7 +71,6 @@ const LayerEffectsSettings = ({
     setEffectsSettings(createRangeEffects(effects));
   }, [effects, effectsDeps]);
 
-  // Слои отсутствуют
   if (!layersExists || !effects)
     return (
       <aside className={styles.effectsSettingsContainer}>
@@ -129,12 +124,14 @@ const LayerEffectsSettings = ({
               list="parallax-datalist"
               value={effects[EEffects.parallax]?.value ?? 0}
               onInput={editContentPage}
+              className={styles.slider}
+              disabled={!isParallax}
             />
             <datalist
               id="parallax-datalist"
               className={styles.optionsContainer}
             >
-              {[-5, -2.5, 0, 2.5, 5].map((x, i) => (
+              {[-1, -0.5, 0, 0.5, 1].map((x, i) => (
                 <option value={x} key={i}>
                   {x}
                 </option>

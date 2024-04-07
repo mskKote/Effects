@@ -17,34 +17,8 @@
   }
 
   .infoContainer {
-    display       : flex;
-    flex-direction: row;
-    align-content : flex-start;
-    grid-gap      : 1.5rem;
     padding-inline: 1.5rem;
     padding-block : 0.5rem 2.5rem;
-  }
-
-  .legalContainer {
-    display       : flex;
-    flex-direction: column;
-    grid-gap      : 0.5rem;
-    text-align    : right;
-    width         : min-content;
-
-    a {
-      color: var(--secondary-color);
-
-      &:hover {
-        text-decoration: 2px underline var(--active-color) solid;
-        color          : var(--active-color);
-      }
-
-      &:active {
-        text-decoration: 2px underline var(--secondary-color) double;
-        color          : var(--secondary-color);
-      }
-    }
   }
 
   .addLayerBtn {
@@ -151,22 +125,6 @@
       .deleteLayer {
         &:active {
           background-color: var(--active-color);
-        }
-      }
-    }
-
-    .legalContainer {
-      a {
-        color: var(--text-color);
-
-        &:hover {
-          text-decoration-color: var(--text-color);
-          color                : var(--text-color);
-        }
-
-        &:active {
-          text-decoration-color: var(--text-color);
-          color                : var(--text-color);
         }
       }
     }

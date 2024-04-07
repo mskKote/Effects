@@ -16,4 +16,4 @@ const LayerStyle = ({ num, effects }: Props) => {
   );
 };
 
-export default LayerStyle;
+export default React.memo(LayerStyle);

@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { useDebouncedState } from "@root/src/lib/useDebouncedState";
+import { useDebouncedState } from "@lib/hooks/useDebouncedState";
 import styles from "./LayersSettings.module.scss";
 import { useTranslations } from "next-intl";
 

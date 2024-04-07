@@ -1,10 +1,10 @@
 "use client";
 import React from "react";
-import { ELanguages } from "@interfaces/IContentPage";
 import Layer from "./Layer";
 import Parallax from "parallax-js";
 import styles from "./Layers.module.scss";
-import { useMotionPermission } from "@root/src/lib/useMotionPermission";
+import { useMotionPermission } from "@lib/hooks/useMotionPermission";
+import { ELanguages } from "@interfaces/IContentPage";
 import MotionPermission from "@components/permission/MotionPermission";
 import ILayer from "@interfaces/ILayer";
 

@@ -4,6 +4,9 @@
     "copy": "Copy 📋",
     "urlPlaceholder": "Here will be URL...",
     "publish": "Publish",
+    "isParallax": "Parallax",
+    "isEditMode": "Show time!",
+
     "effectsSettings": "Effects settings",
     "step": "Step",
     "step1Title": "Add picture",
@@ -24,11 +27,11 @@
     "opacity": "Opacity",
     "needLayers": "Creating a layer",
     "needLayersDesc": "Effects are attached to a specific layer",
+
     "layersSettings": "Layers settings",
     "addLayer": "Add layer",
     "layerPlaceholder": "Layer name...",
-    "legalOffer": "Offer",
-    "personalDataAgreement": "Privacy",
+
     "sentryPlaceholder": "oops, smth doesn't work",
     "sendFeedback": "send feedback",
     "sentrySendSuccess": "Notified!!",

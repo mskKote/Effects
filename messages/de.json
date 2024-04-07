@@ -4,6 +4,8 @@
     "copy": "Kopieren 📋",
     "urlPlaceholder": "Hier wird die URL sein...",
     "publish": "Veröffentlichen",
+    "isParallax": "Parallax",
+    "isEditMode": "Bearbeiten",
 
     "effectsSettings": "Effekteinstellungen",
     "step": "Schritt",
@@ -29,11 +31,9 @@
     "layersSettings": "Ebeneneinstellungen",
     "addLayer": "Ebene hinzufügen",
     "layerPlaceholder": "Ebenenname...",
-    "legalOffer": "Angebot",
-    "personalDataAgreement": "Datenschutz",
+
     "sentryPlaceholder": "Hoppla, etwas funktioniert nicht",
     "sendFeedback": "Feedback senden",
-
     "sentrySendSuccess": "Benachrichtigt!!",
     "sentrySendLoading": "Hochladen...",
     "sentrySendError": "Etwas ist schief gelaufen..."

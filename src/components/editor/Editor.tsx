@@ -3,12 +3,12 @@ import React from "react";
 import LayerEffectsSettings from "@components/effects/LayerEffectsSettings";
 import EditorHeader from "@components/header/EditorHeader";
 import LayersSettings from "@components/layers/LayersSettings";
-import IContentPage, {
-  ELanguages,
-  localeToContentLang,
-} from "@interfaces/IContentPage";
+import IContentPage from "@interfaces/IContentPage";
 import { EEffects, Effect } from "@interfaces/IEffects";
 import Layers from "@components/layers/Layers";
+import { useAppSelector } from "@lib/store";
+import styles from "./Editor.module.scss";
+import cn from "classnames";
 
 type Props = {
   page: IContentPage;
@@ -16,10 +16,9 @@ type Props = {
 };
 function Editor({ page, setContentPage }: Props) {
   const [currentLayer, setCurrentLayer] = React.useState(0);
-  const [isParallax, setIsParallax] = React.useState(
-    page.layers.some((x) => x.effects.parallax?.value !== 0)
+  const { contentLang, isParallax, isEditMode } = useAppSelector(
+    ({ editor }) => editor
   );
-  const [lang, setLang] = React.useState(localeToContentLang(ELanguages.ru));
 
   function effectChangeHandler(effectType: EEffects, value: Effect) {
     setContentPage((prev) => {
@@ -27,34 +26,34 @@ function Editor({ page, setContentPage }: Props) {
       return { ...prev };
     });
   }
-
   function imageChangeHandler(url: string) {
     setContentPage((page) => {
-      const x = page.layers[currentLayer].content[lang];
-      if (!!x) page.layers[currentLayer].content[lang] = { ...x, url };
+      const x = page.layers[currentLayer].content[contentLang];
+      if (!!x) page.layers[currentLayer].content[contentLang] = { ...x, url };
       return { ...page };
     });
   }
-  return (
-    <>
-      <button
-        id="toggle-parallax"
-        style={{ display: "none" }}
-        onClick={() => setIsParallax((x) => !x)}
-      />
 
+  return (
+    <div
+      className={cn(styles.editorTime, {
+        [styles.editorShowTime]: !isEditMode,
+      })}
+    >
       <EditorHeader contentPage={page} />
 
-      <LayerEffectsSettings
-        effectsDeps={Object.values(page.layers[currentLayer]?.effects ?? {})}
-        effects={page.layers[currentLayer]?.effects}
-        onEffectChange={effectChangeHandler}
-        onImageChange={imageChangeHandler}
-        layersExists={currentLayer >= 0}
-      />
+      {isEditMode && (
+        <LayerEffectsSettings
+          effectsDeps={Object.values(page.layers[currentLayer]?.effects ?? {})}
+          effects={page.layers[currentLayer]?.effects}
+          onEffectChange={effectChangeHandler}
+          onImageChange={imageChangeHandler}
+          layersExists={currentLayer >= 0}
+        />
+      )}
 
       <Layers
-        lang={lang}
+        lang={contentLang}
         key="layers"
         layers={page.layers}
         isParallax={isParallax}
@@ -63,14 +62,16 @@ function Editor({ page, setContentPage }: Props) {
           .join()}
       />
 
-      <LayersSettings
-        lang={lang}
-        layers={page.layers}
-        setContentPage={setContentPage}
-        currentLayer={currentLayer}
-        setCurrentLayer={setCurrentLayer}
-      />
-    </>
+      {isEditMode && (
+        <LayersSettings
+          lang={contentLang}
+          layers={page.layers}
+          setContentPage={setContentPage}
+          currentLayer={currentLayer}
+          setCurrentLayer={setCurrentLayer}
+        />
+      )}
+    </div>
   );
 }
 

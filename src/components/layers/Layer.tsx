@@ -5,6 +5,7 @@ import IEffects, { EEffects } from "@interfaces/IEffects";
 import ILayer from "@interfaces/ILayer";
 import styles from "./Layer.module.scss";
 import LayerStyle from "./LayerStyle";
+import { useAppSelector } from "@lib/store";
 
 interface Props {
   layer: ILayer;
@@ -57,10 +58,18 @@ const Layer = ({ num, layer, lang }: Props) => {
   const content = layer.content[lang];
   const parallax = layer.effects[EEffects.parallax]?.value;
   const effects = getFilter(layer.effects);
-  // TODO: при нажатии кнопки возвращать в исходное положение
+  const ref = React.useRef<HTMLDivElement>(null);
+
+  function handleClick() {
+    if (ref.current) ref.current.style.transform = "none";
+  }
+
+  const isParallax = useAppSelector(({ editor }) => editor.isParallax);
+
+  React.useEffect(() => handleClick(), [isParallax]);
 
   return (
-    <div data-depth={parallax} className={styles.layerContainer}>
+    <div ref={ref} data-depth={parallax} className={styles.layerContainer}>
       {content?.url && (
         <>
           <Image
