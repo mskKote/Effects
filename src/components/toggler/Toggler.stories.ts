@@ -11,6 +11,7 @@ const meta = {
   args: {
     checked: true,
     onToggle: () => fn(),
+    id: "1",
   },
   argTypes: {
     checked: {
