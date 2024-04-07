@@ -1,7 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import LayersSettings from "./LayersSettings";
 import { mockPage } from "@root/src/lib/mock";
-import { ELanguages } from "@interfaces/IContentPage";
 import { fn } from "@storybook/test";
 
 const meta = {
@@ -12,17 +11,11 @@ const meta = {
   },
   args: {
     layers: mockPage.layers,
-    lang: ELanguages.ru,
     currentLayer: 0,
     setContentPage: () => fn(),
     setCurrentLayer: () => fn(),
   },
   argTypes: {
-    lang: {
-      defaultValue: ELanguages.ru,
-      options: ELanguages,
-      control: "select",
-    },
     currentLayer: {
       options: [0, 1],
       controls: "radio",
