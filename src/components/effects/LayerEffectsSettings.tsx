@@ -100,7 +100,6 @@ const LayerEffectsSettings = ({
             style={{ display: "none" }}
             accept={"image/*"}
           />
-          <small>{t("step1MVPNote")}</small>
         </fieldset>
         <fieldset className={styles.step}>
           <label htmlFor="parallax">

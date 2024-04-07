@@ -12,7 +12,7 @@ export default function BookPage({
 }: {
   params: { book: string; bookPage: string };
 }) {
-  // TODO: SSR / SSG / ISR
+  // TODO: SSR / SSG / ISR. async server component
   const contentPage = mockPage;
   const locale = useLocale();
   const lang = localeToContentLang(locale);
