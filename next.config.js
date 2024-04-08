@@ -6,6 +6,7 @@ const withNextIntl = createNextIntlPlugin("./src/lib/i18n.ts");
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: false,
+  transpilePackages: ["jotai-devtools"],
 };
 
 module.exports = withSentryConfig(

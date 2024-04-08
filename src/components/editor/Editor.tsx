@@ -12,6 +12,8 @@ import { atom, useAtomValue } from "jotai";
 import { atomWithImmer } from "jotai-immer";
 import { useHydrateAtoms } from "jotai/utils";
 import dynamic from "next/dynamic";
+import { DevTools as JotaiDevTools } from "jotai-devtools";
+import configuration from "@lib/configuration";
 
 const Sonner = dynamic(async () => {
   const { Toaster } = await import("sonner");
@@ -35,12 +37,21 @@ function Editor({ page }: Props) {
   const currentLayer = useAtomValue(layerAtom);
   const contentPage = useAtomValue(pageImmerAtom);
 
+  if (!configuration.production) {
+    isParallaxAtom.debugLabel = "isParallaxAtom";
+    isEditModeAtom.debugLabel = "isEditModeAtom";
+    contentLangAtom.debugLabel = "contentLangAtom";
+    layerAtom.debugLabel = "layerAtom";
+    pageImmerAtom.debugLabel = "pageImmerAtom";
+  }
   return (
     <div
       className={cn(styles.editorTime, {
         [styles.editorShowTime]: !isEditMode,
       })}
     >
+      <JotaiDevTools />
+
       <Sonner theme="system" duration={1000} position="top-right" />
 
       <EditorHeader contentPage={contentPage} />
