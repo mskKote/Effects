@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "@root/styles/Index.module.scss";
+import styles from "@root/src/styles/Index.module.scss";
 import cn from "classnames";
 import { mockPage } from "@root/src/lib/mock";
 import { notFound } from "next/navigation";

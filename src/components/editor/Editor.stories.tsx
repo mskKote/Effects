@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import Editor from "./Editor";
 import { mockPage } from "@root/src/lib/mock";
-import styles from "@root/styles/Index.module.scss";
+import styles from "@root/src/styles/Index.module.scss";
 import classNames from "classnames";
 
 const meta = {

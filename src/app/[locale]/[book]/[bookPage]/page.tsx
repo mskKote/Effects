@@ -1,6 +1,6 @@
 import React from "react";
 import Layers from "@components/layers/Layers";
-import styles from "@root/styles/Index.module.scss";
+import styles from "@root/src/styles/Index.module.scss";
 import cn from "classnames";
 import { mockPage } from "@lib/mock";
 import { localeToContentLang } from "@interfaces/IContentPage";
