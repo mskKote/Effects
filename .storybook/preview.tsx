@@ -1,5 +1,5 @@
 import React from "react";
-import "@root/styles/globals.scss";
+import "../src/styles/globals.scss";
 import type { Preview } from "@storybook/react";
 import { IntlProvider } from "next-intl";
 import configuration from "../src/lib/configuration";
@@ -8,11 +8,7 @@ import de from "../messages/de.json";
 import ru from "../messages/ru.json";
 import { Provider } from "jotai";
 import { useHydrateAtoms } from "jotai/utils";
-import {
-  contentLangAtom,
-  isParallaxAtom,
-  pageImmerAtom,
-} from "../src/components/editor/Editor";
+import { pageImmerAtom } from "../src/components/editor/Editor";
 import { mockPage } from "../src/lib/mock";
 
 const messages = { en, de, ru };

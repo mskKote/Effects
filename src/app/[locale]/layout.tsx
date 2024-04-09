@@ -2,7 +2,7 @@ import React from "react";
 import { Metadata } from "next";
 import { Provider } from "jotai";
 import { getTranslations } from "next-intl/server";
-import "@root/styles/globals.scss";
+import "@root/src/styles/globals.scss";
 
 export async function generateMetadata({
   params: { locale },
