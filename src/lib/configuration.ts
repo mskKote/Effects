@@ -24,6 +24,18 @@ export const pathnames = {
     de: "/editor",
     ru: "/редактор",
   },
+
+  "/registration": {
+    en: "/registration",
+    de: "/anmeldung",
+    ru: "/регистрация",
+  },
+
+  "/login": {
+    en: "/login",
+    de: "/login",
+    ru: "/логин",
+  },
 } satisfies Pathnames<typeof configuration.i18n.locales>;
 
 export type AppPathnames = keyof typeof pathnames;
