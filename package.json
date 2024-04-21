@@ -9,7 +9,13 @@
     "lint": "next lint",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
-    "serve-storybook": "serve storybook-static"
+    "serve-storybook": "serve storybook-static",
+    "firebase:emulators:start": "cd ./functions/ && tsc && cd ../ && firebase emulators:start --import ./firebase-seed",
+    "firebase:emulators:export": "firebase emulators:export ./firebase-seed",
+    "firebase:functions:deploy": "firebase deploy --only functions",
+    "firebase:storage:rules:deploy": "firebase deploy --only storage",
+    "firebase:firestore:rules:deploy": "firebase deploy --only firestore:rules",
+    "killports": "sh scripts/kill-ports.sh"
   },
   "dependencies": {
     "@emotion/react": "^11.11.4",
@@ -17,6 +23,8 @@
     "@sentry/nextjs": "^7.105.0",
     "classnames": "^2.5.1",
     "faunadb": "^4.8.0",
+    "firebase": "^10.11.0",
+    "firebase-admin": "^12.1.0",
     "immer": "^10.0.4",
     "jotai": "^2.7.2",
     "jotai-devtools": "^0.8.0",
