@@ -45,8 +45,11 @@ storybook-static
 .sentryclirc
 .env*.local
 
-# functions
+# Firebase functions
 /functions/lib/**/*.js
 /functions/lib/**/*.js.map
 /functions/typings/
 /functions/node_modules/
+
+# Firebase cache
+.firebase/
