@@ -4,7 +4,7 @@ import Layer from "./Layer";
 import Parallax from "parallax-js";
 import styles from "./Layers.module.scss";
 import { useMotionPermission } from "@lib/hooks/useMotionPermission";
-import { ELanguages } from "@interfaces/IContentPage";
+import { ELanguages } from "@interfaces/IBookPage";
 import MotionPermission from "@components/permission/MotionPermission";
 import ILayer from "@interfaces/ILayer";
 

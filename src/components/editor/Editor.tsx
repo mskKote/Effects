@@ -3,7 +3,7 @@ import React from "react";
 import LayerEffectsSettings from "@components/effects/LayerEffectsSettings";
 import EditorHeader from "@components/header/EditorHeader";
 import LayersSettings, { layerAtom } from "@components/layers/LayersSettings";
-import IContentPage, { ELanguages } from "@interfaces/IContentPage";
+import IBookPage, { ELanguages } from "@interfaces/IBookPage";
 import Layers from "@components/layers/Layers";
 import styles from "./Editor.module.scss";
 import cn from "classnames";
@@ -23,11 +23,11 @@ const Sonner = dynamic(async () => {
 export const isParallaxAtom = atomWithToggle(true);
 export const isEditModeAtom = atomWithToggle(true);
 export const contentLangAtom = atom(ELanguages.ru);
-const emptyPage: IContentPage = { layers: [] };
-export const pageImmerAtom = atomWithImmer<IContentPage>(emptyPage);
+const emptyPage: IBookPage = { layers: [] };
+export const pageImmerAtom = atomWithImmer<IBookPage>(emptyPage);
 
 type Props = {
-  page: IContentPage;
+  page: IBookPage;
 };
 function Editor({ page }: Props) {
   useHydrateAtoms([[pageImmerAtom, page]]);

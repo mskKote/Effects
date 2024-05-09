@@ -7,174 +7,143 @@ import {
   getDoc,
   updateDoc,
   orderBy,
-  Timestamp,
-  runTransaction,
   where,
   addDoc,
-  Firestore,
   Query,
-  DocumentData,
-  DocumentReference,
-  Transaction,
+  deleteDoc,
 } from "firebase/firestore";
-
 import { db } from "@lib/firebase/firebase";
-import { generateFakeRestaurantsAndReviews } from "./fakeRestaurants";
+import IBookPage from "@interfaces/IBookPage";
+import IBook from "@interfaces/IBook";
 
-export async function updateRestaurantImageReference(
-  restaurantId: string,
-  publicImageUrl: string
-) {
-  const restaurantRef = doc(collection(db, "restaurants"), restaurantId);
-  if (restaurantRef) {
-    await updateDoc(restaurantRef, { photo: publicImageUrl });
+const FSCollections = {
+  books: "books",
+  pages: "pages",
+  bookPath: (bookId: string) => `${FSCollections.books}/${bookId}`,
+  pagesPath: (bookId: string) =>
+    `${FSCollections.books}/${bookId}/${FSCollections.pages}`,
+};
+
+/**
+ * TODO: (под rules auth роли админа)
+ * TODO: (свободно или по подписке)
+ * TODO: Читать с индексом по названию или тэгам
+ */
+
+//#region ADD
+
+export async function addBook(book: IBook) {
+  try {
+    await addDoc(collection(db, FSCollections.books), book);
+  } catch (e) {
+    console.error("[addContent] Error adding document: ", e);
   }
 }
 
-const updateWithRating = async (
-  transaction: Transaction,
-  docRef: DocumentReference<DocumentData, DocumentData>,
-  newRatingDocument: DocumentReference<DocumentData, DocumentData>,
-  review: { rating: any }
-) => {
-  const restaurant = await transaction.get(docRef);
-  const data = restaurant.data();
-  const newNumRatings = data?.numRatings ? data.numRatings + 1 : 1;
-  const newSumRating = (data?.sumRating || 0) + Number(review.rating);
-  const newAverage = newSumRating / newNumRatings;
-
-  transaction.update(docRef, {
-    numRatings: newNumRatings,
-    sumRating: newSumRating,
-    avgRating: newAverage,
-  });
-
-  transaction.set(newRatingDocument, {
-    ...review,
-    timestamp: Timestamp.fromDate(new Date()),
-  });
-};
-
-export async function addReviewToRestaurant(
-  db: Firestore,
-  restaurantId: string,
-  review: { rating: any }
-) {
-  if (!restaurantId) {
-    throw new Error("No restaurant ID was provided.");
+export async function addPageToBook(bookId: string, page: IBookPage) {
+  if (!bookId) {
+    throw new Error("[addPageToBook] No bookId was provided.");
   }
-  if (!review) {
-    throw new Error("A valid review has not been provided.");
+  if (!page) {
+    throw new Error("[addPageToBook] A valid page has not been provided.");
   }
 
   try {
-    const docRef = doc(collection(db, "restaurants"), restaurantId);
-    const newRatingDocument = doc(
-      collection(db, `restaurants/${restaurantId}/ratings`)
-    );
-
-    await runTransaction(db, (transaction) =>
-      updateWithRating(transaction, docRef, newRatingDocument, review)
-    );
-  } catch (error) {
-    console.error(
-      "There was an error adding the rating to the restaurant.",
-      error
-    );
-    throw error;
+    await addDoc(collection(db, FSCollections.pagesPath(bookId)), page);
+  } catch (e) {
+    console.error("[addPageToBook] Error adding document: ", e);
   }
 }
 
-type Filters = Partial<{
-  category: string;
-  city: string;
-  price: string;
-  sort: string;
-}>;
+//#endregion
 
-function applyQueryFilters(q: Query, { category, city, price, sort }: Filters) {
-  if (category) q = query(q, where("category", "==", category));
-  if (city) q = query(q, where("city", "==", city));
-  if (price) q = query(q, where("price", "==", price.length));
-  if (sort === "Rating" || !sort) {
-    q = query(q, orderBy("avgRating", "desc"));
-  } else if (sort === "Review") {
-    q = query(q, orderBy("numRatings", "desc"));
-  }
-  return q;
+//#region EDIT
+
+/**
+ * Update meta about the book
+ * @param bookId
+ * @param book
+ */
+export async function updateBook(bookId: string, book: Partial<IBook>) {
+  const bookRef = doc(collection(db, FSCollections.bookPath(bookId)), bookId);
+  if (bookRef) await updateDoc(bookRef, book);
 }
 
-export async function getRestaurants(filters: Filters = {}) {
-  let q = query(collection(db, "restaurants"));
-
-  q = applyQueryFilters(q, filters);
-  const results = await getDocs(q);
-  return results.docs.map((doc) => {
-    return {
-      id: doc.id,
-      ...doc.data(),
-      // Only plain objects can be passed to Client Components from Server Components
-      timestamp: doc.data().timestamp.toDate(),
-    };
-  });
-}
-
-export function getRestaurantsSnapshot(
-  cb: (results: any) => void,
-  filters = {}
+/**
+ * Update the page
+ * @param bookId
+ * @param pageId
+ * @param page
+ */
+export async function updateBookPage(
+  bookId: string,
+  pageId: string,
+  page: Partial<IBookPage>
 ) {
-  if (typeof cb !== "function") {
-    console.log("Error: The callback parameter is not a function");
-    return;
-  }
-
-  let q = query(collection(db, "restaurants"));
-  q = applyQueryFilters(q, filters);
-
-  const unsubscribe = onSnapshot(q, (querySnapshot) => {
-    const results = querySnapshot.docs.map((doc) => {
-      return {
-        id: doc.id,
-        ...doc.data(),
-        // Only plain objects can be passed to Client Components from Server Components
-        timestamp: doc.data().timestamp.toDate(),
-      };
-    });
-
-    cb(results);
-  });
-
-  return unsubscribe;
+  const pageRef = doc(collection(db, FSCollections.pagesPath(bookId)), pageId);
+  if (pageRef) await updateDoc(pageRef, page);
 }
 
-export async function getRestaurantById(restaurantId: string) {
-  if (!restaurantId) {
-    console.log("Error: Invalid ID received: ", restaurantId);
+//#endregion
+
+//#region DELETE
+export async function deleteBook(bookId: string) {
+  const bookRef = doc(collection(db, FSCollections.bookPath(bookId)), bookId);
+  if (bookRef) await deleteDoc(bookRef);
+}
+
+export async function deleteBookPage(bookId: string, pageId: string) {
+  const pageRef = doc(collection(db, FSCollections.pagesPath(bookId)), pageId);
+  if (pageRef) await deleteDoc(pageRef);
+}
+//#endregion
+
+//#region GET & SEARCH
+
+export async function getBookById(bookId: string) {
+  if (!bookId) {
+    console.error("[getBookById] Invalid ID received: ", bookId);
     return;
   }
-  const docRef = doc(db, "restaurants", restaurantId);
+  const docRef = doc(db, FSCollections.books, bookId);
   const docSnap = await getDoc(docRef);
+  // const q = query(
+  //   collection(db, FSCollections.pagesPath(bookId)),
+  //   orderBy("timestamp", "desc")
+  // );
+  // const results = await getDocs(q);
+  // https://cloud.google.com/firestore/docs/samples/firestore-data-get-sub-collections
   return {
     ...docSnap.data(),
     timestamp: docSnap.data()?.timestamp.toDate(),
   };
 }
 
-export function getRestaurantSnapshotById(restaurantId: string, cb: Function) {
-  return;
+type Filters = Partial<{
+  name: string;
+  tags: string[];
+  genres: string[];
+  categories: string[];
+  language: string;
+}>;
+
+function applyQueryFilters(
+  q: Query,
+  { name, tags, genres, categories, language }: Filters
+) {
+  if (name) q = query(q, where("name", "in", name));
+  if (tags) q = query(q, where("tags", "array-contains", tags));
+  if (genres) q = query(q, where("genres", "array-contains", genres));
+  if (categories)
+    q = query(q, where("categories", "array-contains", categories));
+  if (language) q = query(q, where("categories", "array-contains", language));
+  return q;
 }
 
-export async function getReviewsByRestaurantId(restaurantId: string) {
-  if (!restaurantId) {
-    console.log("Error: Invalid restaurantId received: ", restaurantId);
-    return;
-  }
+export async function getBooks(filters: Filters = {}) {
+  let q = query(collection(db, FSCollections.books));
 
-  const q = query(
-    collection(db, "restaurants", restaurantId, "ratings"),
-    orderBy("timestamp", "desc")
-  );
-
+  q = applyQueryFilters(q, filters);
   const results = await getDocs(q);
   return results.docs.map((doc) => {
     return {
@@ -186,51 +155,4 @@ export async function getReviewsByRestaurantId(restaurantId: string) {
   });
 }
 
-export function getReviewsSnapshotByRestaurantId(
-  restaurantId: string,
-  cb: Function
-) {
-  if (!restaurantId) {
-    console.log("Error: Invalid restaurantId received: ", restaurantId);
-    return;
-  }
-
-  const q = query(
-    collection(db, "restaurants", restaurantId, "ratings"),
-    orderBy("timestamp", "desc")
-  );
-  const unsubscribe = onSnapshot(q, (querySnapshot) => {
-    const results = querySnapshot.docs.map((doc) => {
-      return {
-        id: doc.id,
-        ...doc.data(),
-        // Only plain objects can be passed to Client Components from Server Components
-        timestamp: doc.data().timestamp.toDate(),
-      };
-    });
-    cb(results);
-  });
-  return unsubscribe;
-}
-
-export async function addFakeRestaurantsAndReviews() {
-  const data = await generateFakeRestaurantsAndReviews();
-  for (const { restaurantData, ratingsData } of data) {
-    try {
-      const docRef = await addDoc(
-        collection(db, "restaurants"),
-        restaurantData
-      );
-
-      for (const ratingData of ratingsData) {
-        await addDoc(
-          collection(db, "restaurants", docRef.id, "ratings"),
-          ratingData
-        );
-      }
-    } catch (e) {
-      console.log("There was an error adding the document");
-      console.error("Error adding document: ", e);
-    }
-  }
-}
+//#endregion

@@ -11,6 +11,18 @@ const configuration = {
     locales,
     defaultLocale,
   },
+  emulator: {
+    useEmulator: process.env.NEXT_PUBLIC_EMULATOR === "true",
+    firestoreEmulatorPort: Number(
+      process.env.NEXT_PUBLIC_FIRESTORE_EMULATOR_PORT ?? 8080
+    ),
+    firebaseAuthPort: Number(
+      process.env.NEXT_PUBLIC_FIREBASE_AUTH_EMULATOR_PORT ?? 9099
+    ),
+    firebaseStoragePort: Number(
+      process.env.NEXT_PUBLIC_FIREBASE_STORAGE_EMULATOR_PORT ?? 9199
+    ),
+  },
   firebase: {
     apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
     authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,

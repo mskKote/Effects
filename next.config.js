@@ -1,12 +1,22 @@
 const { withSentryConfig } = require("@sentry/nextjs");
 const createNextIntlPlugin = require("next-intl/plugin");
-
+const os = require("os");
 const withNextIntl = createNextIntlPlugin("./src/lib/i18n.ts");
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: false,
   transpilePackages: ["jotai-devtools"],
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "*",
+        port: "",
+        pathname: "**",
+      },
+    ],
+  },
 };
 
 module.exports = withSentryConfig(

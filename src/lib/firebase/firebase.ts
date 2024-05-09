@@ -1,14 +1,37 @@
 import configuration from "@lib/configuration";
 import { initializeApp, getApps } from "firebase/app";
-import { getAuth, signInWithCustomToken } from "firebase/auth";
-import { getFirestore } from "firebase/firestore";
-import { getStorage } from "firebase/storage";
+import {
+  getAuth,
+  signInWithCustomToken,
+  connectAuthEmulator,
+} from "firebase/auth";
+import { getFirestore, connectFirestoreEmulator } from "firebase/firestore";
+import { getStorage, connectStorageEmulator } from "firebase/storage";
 
 export const firebaseApp =
   getApps().length === 0 ? initializeApp(configuration.firebase) : getApps()[0];
 export const auth = getAuth(firebaseApp);
-export const db = getFirestore(firebaseApp);
 export const storage = getStorage(firebaseApp);
+export const db = getFirestore(firebaseApp);
+
+if (configuration.emulator.useEmulator) {
+  connectFirestoreEmulator(
+    db,
+    "localhost",
+    configuration.emulator.firestoreEmulatorPort
+  );
+
+  connectAuthEmulator(
+    auth,
+    `http://localhost:${configuration.emulator.firebaseAuthPort}`
+  );
+
+  connectStorageEmulator(
+    storage,
+    "localhost",
+    configuration.emulator.firebaseStoragePort
+  );
+}
 
 export async function getAuthenticatedAppForUser(
   session: string | null | undefined = null
@@ -60,7 +83,6 @@ export async function getAuthenticatedAppForUser(
 
   // authenticate with custom token
   if (auth.currentUser?.uid !== decodedIdToken.uid) {
-    // TODO(jamesdaniels) get custom claims
     const customToken = await adminAuth
       .createCustomToken(decodedIdToken.uid)
       .catch((e) => console.error(e.message));

@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./RangeEffectSetting.module.scss";
-import { ELanguages } from "@interfaces/IContentPage";
+import { ELanguages } from "@interfaces/IBookPage";
 import { useLocale, useTranslations } from "next-intl";
 import cn from "classnames";
 

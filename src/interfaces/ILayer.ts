@@ -1,4 +1,4 @@
-import { ELanguages } from "./IContentPage";
+import { ELanguages } from "./IBookPage";
 import IEffects from "./IEffects";
 
 /**
