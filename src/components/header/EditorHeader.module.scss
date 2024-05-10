@@ -15,9 +15,18 @@
   height          : 7.5vh;
 
   .profileContainer {
-    position    : relative;
-    height      : 100%;
-    aspect-ratio: 1/1;
+    position      : relative;
+    height        : 100%;
+    background    : transparent;
+    border        : none;
+    display       : flex;
+    flex-direction: row;
+    gap           : 1rem;
+
+    .profilePhoto {
+      border-radius: 100%;
+      aspect-ratio : 1/1;
+    }
   }
 
   .publishedUrlContainer {
@@ -167,6 +176,10 @@
     max-height   : 6.5vh;
     max-width    : 100vw;
     gap          : 1rem;
+
+    .profileContainer .profileName {
+      display: none;
+    }
 
     .publishedUrlContainer {
       width: 100%;

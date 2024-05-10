@@ -1,6 +1,6 @@
 import Image from "next/legacy/image";
 import React from "react";
-import { ELanguages } from "@interfaces/IContentPage";
+import { ELanguages } from "@interfaces/IBookPage";
 import IEffects, { EEffects } from "@interfaces/IEffects";
 import ILayer from "@interfaces/ILayer";
 import styles from "./Layer.module.scss";

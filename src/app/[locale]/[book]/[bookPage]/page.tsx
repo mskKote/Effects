@@ -3,7 +3,7 @@ import Layers from "@components/layers/Layers";
 import styles from "@root/src/styles/Index.module.scss";
 import cn from "classnames";
 import { mockPage } from "@lib/mock";
-import { localeToContentLang } from "@interfaces/IContentPage";
+import { localeToContentLang } from "@interfaces/IBookPage";
 import { useLocale } from "next-intl";
 import YMetrikaWrapper from "../../YMetrikaWrapper";
 import { notFound } from "next/navigation";

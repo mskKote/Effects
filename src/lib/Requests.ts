@@ -1,7 +1,7 @@
-import IContentPage from "@interfaces/IContentPage";
+import IBookPage from "@interfaces/IBookPage";
 
 class Requests {
-  async publishPage(contentPage: IContentPage): Promise<string> {
+  async publishPage(contentPage: IBookPage): Promise<string> {
     const requestOptions = {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -15,7 +15,7 @@ class Requests {
     return result["@ref"]?.id ?? "Ошибка! Не получилось опубликовать";
   }
 
-  async getPage(pageId: string): Promise<IContentPage | null> {
+  async getPage(pageId: string): Promise<IBookPage | null> {
     const requestOptions = {
       method: "GET",
       redirect: "follow" as RequestRedirect,

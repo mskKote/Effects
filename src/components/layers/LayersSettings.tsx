@@ -6,7 +6,7 @@ import {
   Droppable,
   DropResult,
 } from "react-beautiful-dnd";
-import IContentPage from "@interfaces/IContentPage";
+import IBookPage from "@interfaces/IBookPage";
 import ILayer from "@interfaces/ILayer";
 import styles from "./LayersSettings.module.scss";
 import LayerCard from "./LayerCard";

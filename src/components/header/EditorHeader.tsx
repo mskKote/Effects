@@ -2,16 +2,20 @@
 import React from "react";
 import Image from "next/legacy/image";
 import Requests from "@root/src/lib/Requests";
-import IContentPage from "@interfaces/IContentPage";
+import IBookPage from "@interfaces/IBookPage";
 import styles from "./EditorHeader.module.scss";
 import metrics from "@root/src/lib/metrics";
 import { useTranslations } from "next-intl";
 import cn from "classnames";
 import { isEditModeAtom, isParallaxAtom } from "@components/editor/Editor";
 import { useAtom } from "jotai";
+import { signInWithGoogle, signOut } from "@lib/firebase/auth";
+import { useUser } from "@lib/firebase/useUser";
+
+const defaultPhotoUrl = "/user-icon.png";
 
 type Props = {
-  contentPage: IContentPage;
+  contentPage: IBookPage;
 };
 
 const EditorHeader = ({ contentPage }: Props) => {
@@ -21,6 +25,8 @@ const EditorHeader = ({ contentPage }: Props) => {
   const [copyText, setCopyText] = React.useState(defaultCopyText);
   const [isParallax, toggleParallax] = useAtom(isParallaxAtom);
   const [isEditMode, toggleEditMode] = useAtom(isEditModeAtom);
+  const user = useUser();
+  console.log("[EditorHeader] user", user);
 
   async function publish() {
     metrics.publish();
@@ -40,6 +46,9 @@ const EditorHeader = ({ contentPage }: Props) => {
   function editModeToggleHandler() {
     toggleEditMode();
   }
+
+  const handleSignIn = () => signInWithGoogle();
+  const handleSignOut = () => signOut();
 
   return (
     <header className={styles.editorHeader}>
@@ -90,9 +99,20 @@ const EditorHeader = ({ contentPage }: Props) => {
       </button>
 
       {/* Profile */}
-      <div className={styles.profileContainer}>
-        <Image src="/user-icon.png" layout="fill" alt="profile" />
-      </div>
+      <button
+        className={styles.profileContainer}
+        onClick={!user ? handleSignIn : handleSignOut}
+      >
+        <Image
+          className={styles.profilePhoto}
+          src={user?.photoURL ?? defaultPhotoUrl}
+          alt="profile"
+          layout="fixed"
+          width={42}
+          height={42}
+        />
+        <p className={styles.profileName}>{user?.email}</p>
+      </button>
     </header>
   );
 };

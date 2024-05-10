@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import Layers from "./Layers";
 import { mockPage } from "@root/src/lib/mock";
-import { ELanguages } from "@interfaces/IContentPage";
+import { ELanguages } from "@interfaces/IBookPage";
 
 const meta = {
   title: "Editor/Layers",
@@ -20,7 +20,7 @@ const meta = {
   argTypes: {
     lang: {
       defaultValue: ELanguages.ru,
-      options: ELanguages,
+      options: Object.values(ELanguages),
       control: "select",
     },
     isParallax: {

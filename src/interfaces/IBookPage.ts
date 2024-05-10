@@ -18,11 +18,10 @@ export function localeToContentLang(locale: string): ELanguages {
 /**
  * Контент на странице
  */
-export default interface IContentPage {
+export default interface IBookPage {
   layers: ILayer[];
   languages?: ELanguages[];
-  author?: string;
-  genre?: string[];
-  tags?: string[];
-  categories?: string[];
 }
+
+// TODO: убрать языки из слоёв
+// TODO: Сделать взаимодействие с языком на уровне произведения

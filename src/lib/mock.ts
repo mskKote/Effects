@@ -1,7 +1,7 @@
-import IContentPage, { ELanguages } from "@interfaces/IContentPage";
+import IBookPage, { ELanguages } from "@interfaces/IBookPage";
 import { EEffects } from "@interfaces/IEffects";
 
-export const mockPage: IContentPage = {
+export const mockPage: IBookPage = {
   layers: [
     {
       position: 0,
