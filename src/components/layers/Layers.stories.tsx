@@ -1,7 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import Layers from "./Layers";
 import { mockPage } from "@root/src/lib/mock";
-import { ELanguages } from "@interfaces/IBookPage";
 
 const meta = {
   title: "Editor/Layers",
@@ -11,18 +10,12 @@ const meta = {
   },
   args: {
     layers: mockPage.layers,
-    lang: ELanguages.ru,
     parallaxes: mockPage.layers
       .map((x) => x.effects.parallax?.value ?? 0)
       .join(),
     isParallax: true,
   },
   argTypes: {
-    lang: {
-      defaultValue: ELanguages.ru,
-      options: Object.values(ELanguages),
-      control: "select",
-    },
     isParallax: {
       defaultValue: true,
       type: "boolean",

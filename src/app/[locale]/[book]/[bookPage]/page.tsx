@@ -3,8 +3,6 @@ import Layers from "@components/layers/Layers";
 import styles from "@root/src/styles/Index.module.scss";
 import cn from "classnames";
 import { mockPage } from "@lib/mock";
-import { localeToContentLang } from "@interfaces/IBookPage";
-import { useLocale } from "next-intl";
 import YMetrikaWrapper from "../../YMetrikaWrapper";
 import { notFound } from "next/navigation";
 
@@ -21,16 +19,12 @@ export default async function BookPage({
   const contentPage = await request(params.book, params.bookPage);
   if (!contentPage) notFound();
 
-  const locale = useLocale();
-  const lang = localeToContentLang(locale);
-
   console.log(`Книга ${params.book} страница ${params.bookPage}}`);
   return (
     <div className={cn(styles.showTime)}>
       <YMetrikaWrapper />
       <Layers
         key="layers"
-        lang={lang}
         layers={contentPage.layers}
         isParallax={true}
         parallaxes={contentPage.layers

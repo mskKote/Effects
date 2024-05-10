@@ -1,3 +1,4 @@
+import { ELanguages } from "./ELanguages";
 import IBookPage from "./IBookPage";
 
 export default interface IBook {
@@ -8,4 +9,5 @@ export default interface IBook {
   language: string;
   pages: IBookPage[];
   bookCoverURL: string;
+  translations?: { [key in ELanguages]: string };
 }

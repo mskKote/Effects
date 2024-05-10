@@ -1,7 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import Layer from "./Layer";
 import { mockPage } from "@root/src/lib/mock";
-import { ELanguages } from "@interfaces/IBookPage";
 
 const meta = {
   title: "Editor/Layer",
@@ -11,16 +10,9 @@ const meta = {
   },
   args: {
     layer: mockPage.layers[1],
-    lang: ELanguages.ru,
     num: 1,
   },
-  argTypes: {
-    lang: {
-      defaultValue: ELanguages.ru,
-      options: Object.values(ELanguages),
-      control: "select",
-    },
-  },
+  argTypes: {},
 } satisfies Meta<typeof Layer>;
 
 export default meta;
