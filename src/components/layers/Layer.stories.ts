@@ -17,7 +17,7 @@ const meta = {
   argTypes: {
     lang: {
       defaultValue: ELanguages.ru,
-      options: ELanguages,
+      options: Object.values(ELanguages),
       control: "select",
     },
   },

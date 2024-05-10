@@ -8,7 +8,7 @@
     "start": "next start",
     "lint": "next lint",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build",
+    "build-storybook": "SB_BUILD=true storybook build",
     "serve-storybook": "serve storybook-static",
     "firebase:emulators:start": "cd ./functions/ && tsc && cd ../ && firebase emulators:start --import ./firebase-seed",
     "firebase:emulators:export": "firebase emulators:export ./firebase-seed",

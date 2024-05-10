@@ -11,6 +11,7 @@ const configuration = {
     locales,
     defaultLocale,
   },
+  isStorybookBuild: process.env.SB_BUILD === "true",
   emulator: {
     useEmulator: process.env.NEXT_PUBLIC_EMULATOR === "true",
     firestoreEmulatorPort: Number(
