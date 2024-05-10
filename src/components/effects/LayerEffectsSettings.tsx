@@ -6,11 +6,7 @@ import allDefaultEffects, { RangeEffectTypes, parallaxDatalist } from "./model";
 import RangeEffectSetting from "./RangeEffectSetting";
 import { useTranslations } from "next-intl";
 import { useAtomValue, useSetAtom } from "jotai";
-import {
-  contentLangAtom,
-  isParallaxAtom,
-  pageImmerAtom,
-} from "@components/editor/Editor";
+import { isParallaxAtom, pageImmerAtom } from "@components/editor/Editor";
 import { layerAtom } from "@components/layers/LayersSettings";
 
 type EffectWithName = [string, Effect];
@@ -46,7 +42,6 @@ const LayerEffectsSettings = ({ effects }: Props) => {
   const isParallax = useAtomValue(isParallaxAtom);
   const currentLayer = useAtomValue(layerAtom);
   const setContentPage = useSetAtom(pageImmerAtom);
-  const contentLang = useAtomValue(contentLangAtom);
 
   const [effectsSettings, setEffectsSettings] =
     React.useState<RangeEffectTypes>(createRangeEffects(effects));
@@ -67,8 +62,8 @@ const LayerEffectsSettings = ({ effects }: Props) => {
     if (!event.target.files || event.target.files.length === 0) return;
     const url = URL.createObjectURL(event.target.files[0]);
     setContentPage((prev) => {
-      const x = prev.layers[currentLayer].content[contentLang];
-      if (!!x) prev.layers[currentLayer].content[contentLang] = { ...x, url };
+      const x = prev.layers[currentLayer].content;
+      if (!!x) prev.layers[currentLayer].content = { ...x, url };
     });
   }
 

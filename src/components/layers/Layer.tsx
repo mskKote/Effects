@@ -1,6 +1,5 @@
 import Image from "next/legacy/image";
 import React from "react";
-import { ELanguages } from "@interfaces/IBookPage";
 import IEffects, { EEffects } from "@interfaces/IEffects";
 import ILayer from "@interfaces/ILayer";
 import styles from "./Layer.module.scss";
@@ -10,7 +9,6 @@ import { isParallaxAtom } from "@components/editor/Editor";
 
 interface Props {
   layer: ILayer;
-  lang: ELanguages;
   num: number;
 }
 
@@ -55,8 +53,8 @@ function getFilter(effects: IEffects): string {
   return filters.join(" ");
 }
 
-const Layer = ({ num, layer, lang }: Props) => {
-  const content = layer.content[lang];
+const Layer = ({ num, layer }: Props) => {
+  const content = layer.content;
   const parallax = layer.effects[EEffects.parallax]?.value;
   const effects = getFilter(layer.effects);
   const ref = React.useRef<HTMLDivElement>(null);

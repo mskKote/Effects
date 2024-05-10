@@ -1,4 +1,3 @@
-import { ELanguages } from "./IBookPage";
 import IEffects from "./IEffects";
 
 /**
@@ -6,6 +5,6 @@ import IEffects from "./IEffects";
  */
 export default interface ILayer {
   position: number;
-  content: { [languages in ELanguages]?: { name: string; url: string } };
+  content: { name: string; url: string };
   effects: IEffects;
 }

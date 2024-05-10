@@ -6,20 +6,17 @@ import {
   Droppable,
   DropResult,
 } from "react-beautiful-dnd";
-import IBookPage from "@interfaces/IBookPage";
-import ILayer from "@interfaces/ILayer";
 import styles from "./LayersSettings.module.scss";
 import LayerCard from "./LayerCard";
 import SentryFeedback from "@components/sentry/SentryFeedback";
 import { useTranslations } from "next-intl";
-import { atom, useAtom, useAtomValue, useSetAtom } from "jotai";
-import { contentLangAtom, pageImmerAtom } from "@components/editor/Editor";
+import { atom, useAtom } from "jotai";
+import { pageImmerAtom } from "@components/editor/Editor";
 
 export const layerAtom = atom(0);
 
 const LayersSettings = () => {
   const t = useTranslations("Editor");
-  const lang = useAtomValue(contentLangAtom);
   const [currentLayer, setCurrentLayer] = useAtom(layerAtom);
   const [contentPage, setContentPage] = useAtom(pageImmerAtom);
   const { layers } = contentPage;
@@ -58,8 +55,8 @@ const LayersSettings = () => {
   }
   function changeLayerNameHandler(name: string, pos: number) {
     setContentPage((prev) => {
-      const x = prev.layers[pos].content[lang];
-      if (x) prev.layers[pos].content[lang] = { name, url: x.url };
+      const x = prev.layers[pos].content;
+      if (x) prev.layers[pos].content = { name, url: x.url };
     });
   }
   function addLayer() {
@@ -67,7 +64,7 @@ const LayersSettings = () => {
       const last = prev.layers.findLast((x) => x.position)?.position;
       prev.layers.push({
         position: last ? last + 1 : 0,
-        content: { [lang]: { name: "", url: "/mock/Scott-p1.png" } },
+        content: { name: "", url: "/mock/Scott-p1.png" },
         effects: { parallax: { value: 0 } },
       });
     });
@@ -101,7 +98,7 @@ const LayersSettings = () => {
                           {...provided.dragHandleProps}
                         >
                           <LayerCard
-                            name={content[lang]?.name ?? ""}
+                            name={content.name ?? ""}
                             onDeleteLayer={() => deleteLayer(i)}
                             onNameChange={(name) =>
                               changeLayerNameHandler(name, i)

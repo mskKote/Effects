@@ -4,17 +4,15 @@ import Layer from "./Layer";
 import Parallax from "parallax-js";
 import styles from "./Layers.module.scss";
 import { useMotionPermission } from "@lib/hooks/useMotionPermission";
-import { ELanguages } from "@interfaces/IBookPage";
 import MotionPermission from "@components/permission/MotionPermission";
 import ILayer from "@interfaces/ILayer";
 
 type Props = {
   layers: ILayer[];
-  lang: ELanguages;
   parallaxes: string;
   isParallax: boolean;
 };
-const Layers = ({ layers, lang, parallaxes, isParallax = true }: Props) => {
+const Layers = ({ layers, parallaxes, isParallax = true }: Props) => {
   const [parallaxScene, setParallaxScene] = React.useState<Parallax>();
   const parallaxRef = React.useRef<HTMLElement>(null);
   const { permission, requestPermission } = useMotionPermission();
@@ -57,7 +55,7 @@ const Layers = ({ layers, lang, parallaxes, isParallax = true }: Props) => {
         {[...layers]
           .sort((a, b) => a.position - b.position)
           .map((layer, i) => (
-            <Layer key={i} num={i} layer={layer} lang={lang} />
+            <Layer key={i} num={i} layer={layer} />
           ))}
       </main>
     </div>
