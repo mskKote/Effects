@@ -37,6 +37,9 @@ export async function generateMetadata({
       images: img,
       url: new URL("https://effects.vercel.app/"),
     },
+    verification: {
+      google: "ESsLs9SC3UTPFCeFmLcLnyTUDV77zgLvHzcOUSwyInc",
+    },
   };
 }
 
